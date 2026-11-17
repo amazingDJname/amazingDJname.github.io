@@ -9,6 +9,11 @@
 <meta property="og:description" content="Chords in 12-TET spelling to every just-intonation reading, with HEJI notation, cents, Hz, tuning routes and playback.">
 <meta property="og:type" content="website">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<!-- "Add to Home Screen" on an iPad opens the page full screen, without Safari's bars (performer display served by server.js) -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="JI-ify">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
 /* Base rules the page was developed against: they came with the viewer it was first published in. */
 :root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}
@@ -22,22 +27,23 @@
 :root {
   --bg: #edf2e2; --surface: #f7faf0; --surface-2: #e5eed4; --ink: #1b2417; --muted: #566651; --line: #cdd9bd;
   --accent: #3a7a29; --accent-ink: #ffffff; --accent-soft: #d9e9cc;
-  --flat: 37, 99, 235; --sharp: 196, 118, 8; --warn: #85571a; --warn-soft: #f4eccb;
+  --flat: 37, 99, 235; --sharp: 196, 118, 8; --warn: #85571a; --warn-soft: #f4eccb; --ok: #2f6e2a; --ok-soft: #d6ead0;
   --font: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif; --mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   --radius: 6px;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0f160f; --surface: #161f16; --surface-2: #1f2b1e; --ink: #e3eed4; --muted: #9db191; --line: #2d3c2b;
   --accent: #9fd45f; --accent-ink: #0c180a; --accent-soft: #253a1e;
-  --flat: 112, 170, 255; --sharp: 244, 190, 66; --warn: #efc56e; --warn-soft: #3a3115; color-scheme: dark;
+  --flat: 112, 170, 255; --sharp: 244, 190, 66; --warn: #efc56e; --warn-soft: #3a3115; --ok: #9fd48a; --ok-soft: #1f3a22; color-scheme: dark;
 } }
 :root[data-theme="dark"] {
   --bg: #0f160f; --surface: #161f16; --surface-2: #1f2b1e; --ink: #e3eed4; --muted: #9db191; --line: #2d3c2b;
   --accent: #9fd45f; --accent-ink: #0c180a; --accent-soft: #253a1e;
-  --flat: 112, 170, 255; --sharp: 244, 190, 66; --warn: #efc56e; --warn-soft: #3a3115; color-scheme: dark;
+  --flat: 112, 170, 255; --sharp: 244, 190, 66; --warn: #efc56e; --warn-soft: #3a3115; --ok: #9fd48a; --ok-soft: #1f3a22; color-scheme: dark;
 }
 @font-face { font-family: JIifyNotation; src: url(data:font/woff2;base64,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) format('woff2'); font-display: block; }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }   /* the artifact wrapper adds this; opened from disk or in jweb the page needs it itself, or hidden panels with display:grid/flex would show */
 body { background: var(--bg); color: var(--ink); font-family: var(--font); font-size: 14px; line-height: 1.45;
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 18px 40px; }
 h1, h2, h3, h4 { margin: 0; text-wrap: balance; font-weight: 600; }
@@ -53,17 +59,6 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
 .checks3 { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 section.help { max-width: 1240px; margin: 22px auto 0; }
-.prog { max-width: 1240px; margin: 0 auto 16px; }
-.prog-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 8px; }
-.progtable td, .progtable th { vertical-align: middle; }
-.progtable select, .progtable input { background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 3px 6px; color: var(--ink); font-size: 12px; max-width: 220px; }
-.progtable input.ratio { width: 70px; font-family: var(--mono); }
-.progtable .held { color: var(--muted); }
-.progtable .broken { color: var(--warn); }
-.progtable td.notes { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: 12px; white-space: normal; min-width: 180px; }
-.progtable .chordname { cursor: pointer; }
-.progtable .chordname:hover { color: var(--accent); }
-.progtable tr.focus td { background: var(--surface-2); }
 .lvl { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; border-radius: 999px; padding: 1px 8px; }
 .lvl.easy { color: var(--ok); background: var(--ok-soft); }
 .lvl.fine { color: var(--muted); background: var(--surface-2); }
@@ -71,7 +66,7 @@ section.help { max-width: 1240px; margin: 22px auto 0; }
 .pcards { grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); }
 .pcard:first-child { border-color: var(--accent); }
 .viewtoggle { margin-left: auto; }
-.verdict { margin: 0 0 10px; padding: 8px 10px; border-radius: var(--radius); background: var(--surface-2); font-size: 13px; line-height: 1.6; }
+.verdict { padding: 8px 10px; border-radius: var(--radius); background: var(--surface-2); font-size: 13px; line-height: 1.6; }
 #perf { max-width: 1400px; margin: 0 auto; padding: 10px 0 30px; }
 .perf-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; margin-bottom: 10px; }
 #perfChord { font-size: 34px; font-weight: 600; letter-spacing: -0.01em; }
@@ -85,18 +80,63 @@ section.help { max-width: 1240px; margin: 22px auto 0; }
 .perftable td.heji { font-size: 30px; }
 .perftable td.c { font-size: 30px; font-family: var(--mono); font-variant-numeric: tabular-nums; }
 .perftable td.hz { font-family: var(--mono); color: var(--muted); font-size: 22px; }
+/* Performer display over the network (server.js): connection banner; the display dims while it may be out of date. */
+.perf-conn { position: sticky; top: 0; z-index: 30; margin: 0 0 10px; padding: 10px 14px; border-radius: var(--radius); border: 2px solid var(--warn); background: var(--warn-soft); color: var(--warn); font-size: 20px; font-weight: 600; text-align: center; }
+#perf.stale > *:not(.perf-conn) { opacity: .35; }
+.perf-rest { min-width: 0; }
+/* One player's view (?player=N): their note large, readable from a music stand; the chord and the staff smaller
+   beside it (landscape) or under it (portrait). Sizes follow the shorter side of the screen. Nothing scrolls sideways
+   except the staff strip inside its own box. */
+#perf.player { max-width: none; padding: 0 0 12px; }
+#perf.player .perf-head { margin-bottom: 8px; gap: 4px 14px; }
+#perf.player #perfChord { font-size: 22px; }
+#perf.player #perfReading { font-size: 15px; }
+#perf.player .perf-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; align-items: start; }
+@media (orientation: landscape) and (min-width: 700px) { #perf.player .perf-body { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); } }
+.perf-me { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 16px 16px; }
+.me-who { font-size: clamp(18px, 3.2vmin, 30px); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.me-main { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 22px; }
+.me-staff { flex: 0 0 auto; padding: 4px 10px; }
+.me-staff svg { display: block; width: auto; height: clamp(190px, 40vmin, 360px); }
+.me-text { flex: 1 1 220px; min-width: 0; }
+.me-name { font-size: clamp(60px, 14vmin, 136px); font-weight: 600; line-height: 1.02; letter-spacing: -0.01em; white-space: nowrap; }
+.me-heji { font-family: var(--mono); font-size: clamp(28px, 6vmin, 58px); line-height: 1.2; white-space: nowrap; }
+.me-ratio { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: clamp(44px, 10vmin, 100px); font-weight: 500; line-height: 1.15; white-space: nowrap; }
+.me-ratio.me-tet { font-size: clamp(30px, 6.5vmin, 64px); }
+.me-cents { display: inline-block; font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: clamp(38px, 8.5vmin, 84px); line-height: 1.15; border-radius: 10px; padding: 0 .18em; margin-left: -.18em; white-space: nowrap; }
+.me-hz { font-family: var(--mono); font-variant-numeric: tabular-nums; font-size: clamp(22px, 4.6vmin, 44px); color: var(--muted); white-space: nowrap; }
+.me-none { font-size: clamp(24px, 5vmin, 44px); color: var(--muted); }
+#perf.player .perftable { font-size: 18px; margin-top: 8px; }
+#perf.player .perftable td, #perf.player .perftable th { padding: 5px 10px; }
+#perf.player .perftable td.inst { font-size: 15px; }
+#perf.player .perftable td.heji, #perf.player .perftable td.c { font-size: 19px; }
+#perf.player .perftable td.hz { font-size: 15px; }
+#perf.player .perftable tr.mine td { font-weight: 600; box-shadow: inset 0 2px 0 var(--accent), inset 0 -2px 0 var(--accent); }
+#perfSvg .note.mine .nh { fill: var(--accent); }
 .live .vol select { font-size: 12px; }
-.drift { display: inline-block; min-width: 56px; text-align: right; padding: 0 6px; border-radius: 999px; font-family: var(--mono); font-variant-numeric: tabular-nums; }
 .vol { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); margin: 0; }
-.vol input { width: 90px; accent-color: var(--accent); }
+.vol input[type="range"] { width: 90px; accent-color: var(--accent); }
+.vol input[type="checkbox"] { accent-color: var(--accent); margin: 0; }
+.vol select { background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); color: var(--ink); font-size: 12px; padding: 2px 4px; }
 header.top { max-width: 1240px; margin: 0 auto 16px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; }
 header.top .tag { color: var(--muted); }
-.score { max-width: 1240px; margin: 0 auto 16px; position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; box-shadow: 0 6px 18px -12px rgba(0,0,0,.35);
-  background: #ffffff; color: #111111; border-color: #cbd6bf; color-scheme: light;
-  --surface: #ffffff; --surface-2: #eef3e5; --ink: #111111; --muted: #4a5747; --line: #cbd6bf; --accent: #3a7a29; --accent-ink: #ffffff;
-  --flat: 37, 99, 235; --sharp: 190, 112, 0; --warn: #85571a; --warn-soft: #f4eccb; }
-@media (max-width: 920px) { .score { position: static; box-shadow: none; } }
-.score-head { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; margin-bottom: 6px; }
+.score { max-width: 1240px; margin: 0 auto 16px; }
+/* Paper only under the staff: the staff is engraved in black on white in every theme; the rest of the box follows the palette. */
+.paper { background: #ffffff; color: #111111; border: 1px solid #cbd6bf; border-radius: var(--radius); padding: 6px 8px; color-scheme: light;
+  --ink: #111111; --muted: #4a5747; --accent: #3a7a29; --accent-soft: #e3eed8; --warn: #85571a; --flat: 37, 99, 235; --sharp: 190, 112, 0; }
+.inspector { margin-top: 8px; }
+.instable { width: auto; font-size: 12.5px; }
+.instable th, .instable td { padding: 2px 12px 2px 0; }
+td.open { font-family: var(--mono); font-variant-numeric: tabular-nums; color: var(--muted); white-space: nowrap; }
+.insrow { cursor: pointer; }
+.insrow:hover td, .insrow.sounding td { color: var(--accent); }
+.score-head { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; margin-bottom: 6px; }
+.score-head .hint { margin: 0; flex: 1 1 260px; }
+.score-tools { margin: 0; }
+.focusrow { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; margin-top: 8px; }
+.linkctl select { max-width: 240px; }
+.linkctl input.ratio { width: 70px; font-family: var(--mono); background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 3px 6px; color: var(--ink); }
+.verdict { margin: 10px 0 0; }
 .chips { display: flex; flex-wrap: wrap; gap: 4px; }
 .chip { border: 1px solid var(--line); border-radius: 999px; padding: 2px 10px; font-size: 12px; cursor: pointer; background: var(--surface-2); color: var(--ink); line-height: 1.4; }
 .chip:hover { border-color: var(--accent); }
@@ -179,6 +219,22 @@ details.help summary { cursor: pointer; font-weight: 600; }
 .toast.show { opacity: 1; }
 @media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
 .srcopy { position: absolute; left: -9999px; top: 0; }
+/* Palette button (bottom right) and its menu: presets, or your own background / text / accent. */
+.palette { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 20; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.palette-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; padding: 0; display: grid; place-items: center; box-shadow: 0 4px 14px -6px rgba(0,0,0,.5); }
+.palette-btn:hover, .palette-btn[aria-expanded="true"] { border-color: var(--accent); color: var(--accent); }
+.palette-btn svg { width: 22px; height: 22px; display: block; }
+.palette-menu { background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; width: min(300px, calc(100vw - 32px)); box-shadow: 0 10px 30px -12px rgba(0,0,0,.5); }
+.palette-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }
+.palette-themes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px; }
+.swatch { display: flex; flex-direction: column; align-items: center; gap: 4px; border: 1px solid var(--line); border-radius: var(--radius); padding: 5px 4px; cursor: pointer; background: var(--surface-2); color: var(--ink); font-size: 11px; line-height: 1.2; }
+.swatch:hover { border-color: var(--accent); }
+.swatch.on { outline: 2px solid var(--accent); outline-offset: -1px; border-color: var(--accent); }
+.swatch i { display: grid; place-items: center; width: 100%; height: 24px; border-radius: 4px; border: 1px solid rgba(0,0,0,.18); font-style: normal; font-weight: 600; font-size: 12px; }
+.palette-custom { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.palette-custom label { display: flex; flex-direction: column; gap: 3px; font-size: 11px; color: var(--muted); margin: 0; }
+.palette-custom input[type="color"] { width: 100%; height: 30px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface-2); padding: 2px; cursor: pointer; }
+.palette-hint { margin-top: 8px; }
 </style>
 <style>
 /* Added for the site: the link home and the colophon. Uses the page's own variables. */
@@ -193,10 +249,16 @@ details.help summary { cursor: pointer; font-weight: 600; }
 </head>
 <body>
 <div id="perf" hidden>
+  <div class="perf-conn" id="perfConn" role="status" hidden>Disconnected, tuning may be out of date. Reconnecting…</div>
   <div class="perf-head"><span id="perfChord"></span><span id="perfReading"></span></div>
-  <div class="scroll" id="perfSvg"></div>
-  <table class="perftable" id="perfTable"></table>
-  <p class="hint" id="perfNote">Waiting for a selection in the main window.</p>
+  <div class="perf-body">
+    <div class="perf-me" id="perfMe" hidden></div>
+    <div class="perf-rest">
+      <div class="scroll paper" id="perfSvg"></div>
+      <div class="scroll"><table class="perftable" id="perfTable"></table></div>
+      <p class="hint" id="perfNote">Waiting for a selection in the main window.</p>
+    </div>
+  </div>
 </div>
 
 <nav class="site-nav" aria-label="Site"><a href="../">HAN</a></nav>
@@ -210,8 +272,8 @@ details.help summary { cursor: pointer; font-weight: 600; }
   <section class="panel">
     <h2>Chords</h2>
     <label for="chords">One chord per line, bottom to top, C4 = middle C. A label after <code>|</code> is kept.</label>
-    <textarea id="chords" spellcheck="false">C3 G3 E4 Bb4 | C7
-E3 G3 Bb3 D4 | Em7(b5)</textarea>
+    <textarea id="chords" spellcheck="false">B2 D#3 A3 D4 F4 | B7(#9,b5)
+F2 Bb2 D3 Ab3 Db4 G4 | Bb13(#9)/F</textarea>
     <div class="actions">
       <button class="btn primary" id="run">Analyze</button>
       <button class="btn" id="copyCsv" title="Every row of every reading of every chord, for Max or a spreadsheet">Copy CSV</button>
@@ -223,7 +285,7 @@ E3 G3 Bb3 D4 | Em7(b5)</textarea>
       <div class="actions" style="margin-top:12px">
         <button class="btn small" id="midiConnect" title="Listen to a MIDI keyboard (works in Chrome on your own machine or inside Max's jweb, not in the claude.ai viewer)">MIDI in</button>
         <select id="midiPort" hidden aria-label="MIDI input"></select>
-        <label class="vol" for="livePick">live pick <select id="livePick"><option value="purest" selected>purest</option><option value="fused">most fused</option><option value="readable">easiest to read</option><option value="fam:overtone">overtone</option><option value="fam:p7">7-limit</option><option value="fam:p5">5-limit</option><option value="fam:p237">2·3·7</option></select></label>
+        <label class="vol" for="livePick">live pick <select id="livePick"><option value="purest" selected>purest</option><option value="fused">most fused</option><option value="readable">easiest to read</option><option value="fam:overtone">overtone</option><option value="fam:p7">7-limit</option><option value="fam:p5">5-limit</option><option value="fam:p237">2·3·7</option><option value="open">open strings</option></select></label>
         <button class="btn small" id="liveCapture" title="Append the chord you are holding to the list (the sustain pedal does the same)">Capture</button>
         <a class="btn small" href="#perf" target="_blank" rel="noopener" title="Opens a second window showing only the selected chord, large, for an external monitor">Performer window ↗</a>
         <button class="btn small" id="copyLog" title="Every selection with a time stamp, as CSV">Copy session log</button>
@@ -250,38 +312,34 @@ E3 G3 Bb3 D4 | Em7(b5)</textarea>
 
 <section class="panel score" id="scorePanel" hidden>
   <div class="score-head">
-    <div class="chips" id="scoreChords"></div>
-    <div class="chips" id="scoreTunings"></div>
+    <h2>Score</h2>
+    <p class="hint" id="progSummary"></p>
+    <div class="actions score-tools" id="progTools" hidden>
+      <button class="btn small" id="pgSuggest" title="Search the readings of every chord for the path with the fewest common-tone breaks">Suggest readings (hold common tones)</button>
+      <button class="btn small" id="pgSuggestDrift" title="Same, but also penalise the roots' drift from 12-TET">Suggest (hold, avoid drift)</button>
+      <button class="btn small" id="pgCopy" title="The whole progression as text: every chord, link, drift and note">Copy progression</button>
+    </div>
   </div>
   <p class="score-title hint" id="scoreTitle"></p>
-  <div class="scroll" id="scoreSvg"></div>
+  <div class="scroll paper" id="scoreSvg"></div>
+  <div class="focusrow">
+    <div class="chips" id="scoreTunings"></div>
+    <label class="vol linkctl" id="linkCtl" hidden>link from previous <select id="scLink" aria-label="How this chord links to the previous one"></select> <input class="ratio" id="scRatio" placeholder="3/2" aria-label="root motion ratio" hidden></label>
+  </div>
+  <div class="inspector" id="scoreInspector"></div>
   <div class="actions score-actions">
-    <button class="btn small" id="scPlay" title="The selected tuning, 2.6 s">▶ Play</button>
+    <button class="btn small" id="scPlay" title="The selected tuning, 2.6 s (space bar)">▶ Play</button>
     <button class="btn small" id="scAB" title="2 s of 12-TET, then the selected tuning">12-TET → JI</button>
     <button class="btn small" id="scArp" title="Each note from the bottom, then all together">Arpeggio</button>
     <button class="btn small" id="scHold" title="Sustain the chord until you release it">Hold</button>
+    <button class="btn small" id="pgPlay" hidden title="Each chord at its linked pitch, in order">▶ Play progression</button>
+    <button class="btn small" id="pgStartEnd" hidden title="The first chord as it begins, then as it would sound after the whole progression's drift">Start vs end</button>
     <label class="vol" for="scVol" title="Playback level; the chord's level is already scaled by the number of voices so it cannot clip">vol <input id="scVol" type="range" min="0" max="100" value="80"></label>
-    <span class="hint">Click a notehead or its label to hear that pitch alone.</span>
+    <label class="vol" for="scSpell" title="What is written is what plays. Absolute: the chords are linked (held common tones, root motions), chord 1's root is the one 1/1, and every comma a link adds shows as signs. Relative: each chord stands on its own with its root at the piano's pitch, spelled from that root; the 1/1 line under the column states it.">spell from <select id="scSpell"><option value="prog">absolute: linked, chord 1's root = 1/1</option><option value="local">relative: each chord on its own, as typed</option><option value="auto">relative: each chord on its own, fewest signs</option></select></label>
+    <span class="hint">Click a chord to focus it (or ← →); space plays it; click a notehead or a row above to hear that pitch alone.</span>
     <button class="btn small" id="scFold" title="Hide or show the staff (the controls stay)" style="margin-left:auto">▴ staff</button>
   </div>
-</section>
-
-<section class="panel prog" id="progPanel" hidden>
-  <div class="prog-head">
-    <h2>Progression</h2>
-    <p class="hint" id="progSummary"></p>
-  </div>
   <p class="verdict" id="progVerdict" hidden></p>
-  <div class="scroll"><table class="progtable" id="progTable"></table></div>
-  <div class="actions">
-    <button class="btn small" id="pgSuggest" title="Search the readings of every chord for the path with the fewest common-tone breaks">Suggest readings (hold common tones)</button>
-    <button class="btn small" id="pgSuggestDrift" title="Same, but also penalise the roots' drift from 12-TET">Suggest (hold, avoid drift)</button>
-    <button class="btn small" id="pgPlay" title="Each chord at its linked pitch, in order">▶ Play progression</button>
-    <button class="btn small" id="pgStartEnd" title="The first chord as it begins, then as it would sound after the whole progression's drift">Start vs end</button>
-    <button class="btn small" id="pgCopy">Copy progression</button>
-    <label class="vol" for="pgApply"><input type="checkbox" id="pgApply" checked> score plays and labels the linked pitch</label>
-  </div>
-  <p class="hint">Linking holds a common tone at the same frequency; with none, the root moves by the simplest just ratio near the tempered motion, spelled as you spelled the roots. Cards below stay local (root at 12-TET); the score and this table show the linked pitch. A chord left at 12-TET is fixed and resets the drift.</p>
 </section>
 
 <main class="results" id="results"></main>
@@ -290,11 +348,11 @@ E3 G3 Bb3 D4 | Em7(b5)</textarea>
   <details class="help">
     <summary>How to read the results</summary>
     <h3>Ways a chord can be "in tune", and the marks</h3>
-    <p><b>most fused</b>: all notes are low harmonics of one fundamental, so the chord sounds as one spectrum; measured by the largest harmonic number. <b>simplest dyads</b>: every pair of notes forms a simple, tunable interval, whether or not they share a fundamental (the "complexity" figure, lower is simpler). <b>easiest route</b>: the hardest interval anyone has to tune along the tuning route is the easiest among the readings. <b>least retuning</b>: smallest total movement from 12-TET. <b>fewest signs</b>: fewest HEJI comma signs to engrave. The overtone family is ranked by fusion; every other family by complexity. A mark is relative to the chord's own readings.</p>
+    <p><b>most fused</b>: all notes are low harmonics of one fundamental, so the chord sounds as one spectrum; measured by the largest harmonic number. <b>simplest dyads</b>: every pair of notes forms a simple, tunable interval, whether or not they share a fundamental (the "complexity" figure, lower is simpler). <b>easiest route</b>: the hardest interval anyone has to tune along the tuning route is the easiest among the readings. <b>least retuning</b>: smallest total movement from 12-TET. <b>fewest signs</b>: fewest HEJI comma signs to engrave. <b>open strings</b>: the most notes that stand in a simple ratio (odd part up to 15, within 3¢) to an open string of their player, violin G3 D4 A4 E5, viola C3 G3 D4 A4, cello C2 G2 D3 A3, tuned in pure fifths from the page's A4; ties go to the simpler ratios. The per-note column <i>open string</i> names the string and the ratio (5/4 × A4), so the note can be tuned as a double stop or by resonance. The overtone family is ranked by fusion; every other family by complexity. A mark is relative to the chord's own readings.</p>
     <h3>Shortlist view</h3>
     <p>The recommended reading is the purest one (lowest dyad complexity); the alternatives are the most fused acceptable reading and the best of another family. Each card's difficulty score, used to order ties and to rank when nothing qualifies: 1.5 × the most comma signs on any one note + 0.5 × signs per note + 1.3 × the hardest interval anyone must tune (Tenney height of the interval as sounded, 7/4 = 4.95, 16/9 = 7.17, 19/16 = 12.1; a note within 6¢ of 12-TET counts as 3, since it is simply played as on the piano) + 2 per respelled note + the largest move from the piano in cents ÷ 20 + 2 if a prime above 7 is used (+3 above 13) + 3 × the reading's complexity above the chord's best, as a fraction. The chips are a notation-and-tuning load estimate for the players to judge, never a filter: <b>easy</b> = at most one sign per note, hardest interval ≤ 6.3, nothing moves more than 35¢, your spelling kept, 7-limit; <b>fine</b> = two signs somewhere, or an interval up to 9, or up to 45¢, or 11/13; <b>hard</b> beyond that.</p>
     <h3>Live MIDI, performer window, Max</h3>
-    <p>MIDI in listens to a keyboard (Chrome on your own machine, or inside Max's jweb); the chord you hold is read and tuned at once by the live-pick rule, and the sustain pedal (CC 64) captures it to the list. The performer window shows only the selected chord, large, and follows the main window through this browser's storage; inside Max it can be driven directly with a <code>show</code> message. When the page runs inside <code>jweb</code>, every selection is sent out as <code>selection &lt;json&gt;</code> and <code>hz …</code>, and the page accepts <code>chords</code>, <code>midi</code>, <code>capture</code>, <code>select</code>, <code>focus</code> and <code>show</code> messages; see max/README-max.md in the repository.</p>
+    <p>MIDI in listens to a keyboard (Chrome on your own machine, or inside Max's jweb); the chord you hold is read and tuned at once by the live-pick rule, and the sustain pedal (CC 64) captures it to the list. The performer window shows only the selected chord, large, and follows the main window through this browser's storage; inside Max it can be driven directly with a <code>show</code> message. For iPads, run <code>node server.js</code> in the repository: it serves this page and the performer display on the local network and prints one address per player (<code>/perf?player=1</code> … <code>4</code>, 1 = the lowest note); see the README. When the page runs inside <code>jweb</code>, every selection is sent out as <code>selection &lt;json&gt;</code> and <code>hz …</code>, and the page accepts <code>chords</code>, <code>midi</code>, <code>capture</code>, <code>select</code>, <code>focus</code> and <code>show</code> messages; see max/README-max.md in the repository.</p>
     <h3>Complexity</h3>
     <p>For each interval, the exponents of its primes above 2 times log2 of the prime, with primes above 7 weighted more (×1.6 for 11 and 13, up to ×2.3 for 31). Summed over all pairs, counting pairs with the root twice and with the bass one and a half times. Tuning routes and the "hardest to tune" figures use the same height counting the 2s as well, so an interval's actual width matters.</p>
     <h3>Root</h3>
@@ -302,14 +360,28 @@ E3 G3 Bb3 D4 | Em7(b5)</textarea>
     <h3>Cents and Hz</h3>
     <p>Deviations from 12-TET with the chosen note held at its tempered pitch. To anchor elsewhere, add one constant to every value.</p>
     <h3>Progression (two or more chords)</h3>
-    <p>Chords are linked in the order typed. A common tone (same written note, or the same pitch class an octave away) is held at the same frequency; when several are shared, the one whose hold breaks the others least is chosen, and the breaks are reported with the comma they amount to. With no common tone the root moves by the simplest just ratio within tolerance of the tempered motion, spelled as you spelled the roots (C→F♯ gives 10/7, C→G♭ gives 7/5). Each root's position against 12-TET is tracked as an exact ratio, so the net drift of a progression that returns to its first root comes out as a named comma (the I–vi–ii–V–I pump in 5-limit returns 80/81, a syntonic comma flat). A chord left at 12-TET is fixed; a reset link re-anchors the next root at its tempered pitch. <b>Suggest</b> searches the readings of every chord (beam width 40) for the path minimising Σ|breaks| + 8·(each reading's complexity above its chord's best, as a fraction); the drift-avoiding variant adds 0.5¢ of cost per cent of root drift at every chord.</p>
+    <p>Chords are linked in the order typed; with two or more chords the score becomes the progression, and the focused chord's link is set right under the staff. A common tone (same written note, or the same pitch class an octave away) is held at the same frequency; when several are shared, the one whose hold breaks the others least is chosen, and the breaks are reported with the comma they amount to. With no common tone the root moves by the simplest just ratio within tolerance of the tempered motion, spelled as you spelled the roots (C→F♯ gives 10/7, C→G♭ gives 7/5). Each root's position against 12-TET is tracked as an exact ratio, so the net drift of a progression that returns to its first root comes out as a named comma (the I–vi–ii–V–I pump in 5-limit returns 80/81, a syntonic comma flat). A chord left at 12-TET is fixed; a reset link re-anchors the next root at its tempered pitch. <b>Suggest</b> searches the readings of every chord (beam width 40) for the path minimising Σ|breaks| + 8·(each reading's complexity above its chord's best, as a fraction); the drift-avoiding variant adds 0.5¢ of cost per cent of root drift at every chord.</p>
     <h3>Playback</h3>
     <p>An additive tone (24 harmonics, 1/n amplitudes with a gentle high-frequency roll-off, no vibrato). The level is scaled by the number of voices (n<sup>−0.75</sup>) with a mild tilt that lifts high notes and tames low ones, and a limiter at −3 dBFS guards the output, so a full chord does not clip. Single notes are therefore a little louder than the chord, per voice.</p>
     <h3>HEJI</h3>
     <p>Letter = Pythagorean pitch; each sign is one comma, up or down, for one prime. Derived from the comma definitions, so confirm glyphs against the Plainsound legend before engraving.</p>
+    <p>Signs are measured from a 1/1. In the linked view that is the segment's first root, so signs the whole chord shares say where this chord's root fell (a root a 7·23 ratio away puts ↓7 ↑23 on every note). A chord that follows a 12-TET chord, or a reset, is its own 1/1: a tempered neighbour offers no ratio to measure from, so a link change there moves the chord (cents, Hz) without changing its signs; the column's caption states the reference it is measured from (1/1 A2 = 109.0 Hz). <b>Spell from</b> under the staff chooses what plays as well as what is written. <i>Absolute</i>: the chords are linked, chord 1's root is the one 1/1, drift is carried from chord to chord and every comma a link adds shows as signs. <i>Relative</i>: each chord stands on its own with its root at the piano's pitch, exactly as its card sounds, spelled from that root (<i>as typed</i>) or from whichever chord note reads cheapest (<i>fewest signs</i>: signs, then re-lettered notes); links, drift and the verdict do not apply, and a common tone that differs between two neighbouring chords shows its slip on the tie. Cents and Hz do not change, only the declared reference, which the title then states (spelled as typed, B♭2 = 118.33 Hz as 1/1).</p>
     <table class="legend" id="legend"></table>
   </details>
 </section>
+<div class="palette" id="palette">
+  <div class="palette-menu" id="paletteMenu" hidden role="dialog" aria-label="Colours">
+    <div class="palette-head"><b>Colours</b><button class="btn small" id="paletteReset" title="Follow the system light/dark setting again">Reset</button></div>
+    <div class="palette-themes" id="paletteThemes"></div>
+    <div class="palette-custom">
+      <label>background <input type="color" id="paletteBg" aria-label="Background colour"></label>
+      <label>text <input type="color" id="paletteInk" aria-label="Text colour"></label>
+      <label>accent <input type="color" id="paletteAccent" aria-label="Accent colour"></label>
+    </div>
+    <p class="hint palette-hint">Remembered in this browser. The staff stays on white paper.</p>
+  </div>
+  <button class="palette-btn" id="paletteBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="paletteMenu" title="Colours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.4-3.4 2 2 0 0 1 1.4-3.4H18a3 3 0 0 0 3-3A9 9 0 0 0 12 3z"/><circle cx="7.5" cy="12" r="1.2" fill="currentColor"/><circle cx="10" cy="7.5" r="1.2" fill="currentColor"/><circle cx="15" cy="7.5" r="1.2" fill="currentColor"/><circle cx="9" cy="16.5" r="1.2" fill="currentColor"/></svg></button>
+</div>
 <footer class="colophon">
   <p>JI-ify, version 14.</p>
   <p>The accidentals belong to the Helmholtz-Ellis JI Pitch Notation, devised by Marc Sabat and Wolfgang von Schweinitz. Music glyphs come from a subset of the Bravura font by Steinberg; the text is set in IBM Plex. Both fonts are used under the SIL Open Font License. <a href="../licenses/">Credits and licenses</a></p>
@@ -830,8 +902,10 @@ E3 G3 Bb3 D4 | Em7(b5)</textarea>
 
 </script>
 <script>
-/* Score view: one chord on a grand staff, drawn as SVG with Bravura (SMuFL) glyphs, including the
-   Extended Helmholtz-Ellis accidentals. Whole noteheads, no rhythm: the chord as a sonority. */
+/* Score view: chords on a grand staff, drawn as SVG with Bravura (SMuFL) glyphs, including the Extended
+   Helmholtz-Ellis accidentals. Whole noteheads, no rhythm: each chord as a sonority.
+   renderSystem(columns) draws a progression, one column per chord, with captions under the columns and ties
+   between held common tones; render(spec) draws one chord with its labels stacked to the right (performer display). */
 const Score = (function () {
   'use strict';
   const M = {"gClef":{"cp":57424,"adv":2.684,"bbox":[0.0,-2.632,2.684,4.392]},"fClef":{"cp":57442,"adv":2.736,"bbox":[-0.02,-2.54,2.736,1.048]},"noteheadWhole":{"cp":57506,"adv":1.688,"bbox":[0.0,-0.5,1.688,0.5]},"noteheadBlack":{"cp":57508,"adv":1.18,"bbox":[0.0,-0.5,1.18,0.5]},"noteheadHalf":{"cp":57507,"adv":1.18,"bbox":[0.0,-0.5,1.18,0.5]},"brace":{"cp":57344,"adv":0.28,"bbox":[0.0,-0.003,0.277,4.002]},"accidentalDoubleFlat":{"cp":57956,"adv":1.652,"bbox":[0.0,-0.7,1.644,1.748]},"accidentalFlat":{"cp":57952,"adv":0.904,"bbox":[0.0,-0.7,0.904,1.756]},"accidentalNatural":{"cp":57953,"adv":0.672,"bbox":[0.0,-1.34,0.672,1.364]},"accidentalSharp":{"cp":57954,"adv":0.996,"bbox":[0.0,-1.392,0.996,1.4]},"accidentalDoubleSharp":{"cp":57955,"adv":1.0,"bbox":[0.0,-0.5,0.988,0.508]},"accidentalDoubleFlatOneArrowDown":{"cp":58048,"adv":1.676,"bbox":[0.0,-1.408,1.668,1.748]},"accidentalFlatOneArrowDown":{"cp":58049,"adv":0.912,"bbox":[-0.284,-1.408,0.904,1.748]},"accidentalNaturalOneArrowDown":{"cp":58050,"adv":0.676,"bbox":[0.0,-1.68,0.952,1.372]},"accidentalSharpOneArrowDown":{"cp":58051,"adv":1.0,"bbox":[0.0,-2.056,1.072,1.4]},"accidentalDoubleSharpOneArrowDown":{"cp":58052,"adv":0.988,"bbox":[-0.004,-1.288,0.984,0.508]},"accidentalDoubleFlatOneArrowUp":{"cp":58053,"adv":1.664,"bbox":[-0.28,-0.732,1.668,2.136]},"accidentalFlatOneArrowUp":{"cp":58054,"adv":0.904,"bbox":[-0.284,-0.728,0.904,2.14]},"accidentalNaturalOneArrowUp":{"cp":58055,"adv":0.676,"bbox":[-0.28,-1.328,0.676,1.704]},"accidentalSharpOneArrowUp":{"cp":58056,"adv":1.0,"bbox":[-0.08,-1.392,0.996,2.036]},"accidentalDoubleSharpOneArrowUp":{"cp":58057,"adv":0.992,"bbox":[-0.004,-0.496,0.984,1.324]},"accidentalDoubleFlatTwoArrowsDown":{"cp":58058,"adv":1.676,"bbox":[0.0,-1.848,1.668,1.748]},"accidentalFlatTwoArrowsDown":{"cp":58059,"adv":0.912,"bbox":[-0.28,-1.852,0.904,1.748]},"accidentalNaturalTwoArrowsDown":{"cp":58060,"adv":0.676,"bbox":[0.0,-2.128,0.956,1.372]},"accidentalSharpTwoArrowsDown":{"cp":58061,"adv":1.0,"bbox":[0.0,-2.5,1.076,1.4]},"accidentalDoubleSharpTwoArrowsDown":{"cp":58062,"adv":0.988,"bbox":[-0.004,-1.732,0.984,0.508]},"accidentalDoubleFlatTwoArrowsUp":{"cp":58063,"adv":1.664,"bbox":[-0.284,-0.732,1.668,2.576]},"accidentalFlatTwoArrowsUp":{"cp":58064,"adv":0.904,"bbox":[-0.284,-0.728,0.904,2.576]},"accidentalNaturalTwoArrowsUp":{"cp":58065,"adv":0.676,"bbox":[-0.284,-1.328,0.676,2.148]},"accidentalSharpTwoArrowsUp":{"cp":58066,"adv":1.0,"bbox":[-0.084,-1.392,0.996,2.476]},"accidentalDoubleSharpTwoArrowsUp":{"cp":58067,"adv":0.992,"bbox":[-0.004,-0.496,0.984,1.764]},"accidentalDoubleFlatThreeArrowsDown":{"cp":58068,"adv":1.676,"bbox":[0.0,-2.292,1.668,1.748]},"accidentalFlatThreeArrowsDown":{"cp":58069,"adv":0.912,"bbox":[-0.28,-2.292,0.904,1.748]},"accidentalNaturalThreeArrowsDown":{"cp":58070,"adv":0.676,"bbox":[0.0,-2.568,0.956,1.372]},"accidentalSharpThreeArrowsDown":{"cp":58071,"adv":1.0,"bbox":[0.0,-2.944,1.076,1.4]},"accidentalDoubleSharpThreeArrowsDown":{"cp":58072,"adv":0.988,"bbox":[-0.004,-2.172,0.984,0.512]},"accidentalDoubleFlatThreeArrowsUp":{"cp":58073,"adv":1.664,"bbox":[-0.284,-0.732,1.668,3.016]},"accidentalFlatThreeArrowsUp":{"cp":58074,"adv":0.904,"bbox":[-0.284,-0.728,0.904,3.024]},"accidentalNaturalThreeArrowsUp":{"cp":58075,"adv":0.676,"bbox":[-0.284,-1.328,0.676,2.584]},"accidentalSharpThreeArrowsUp":{"cp":58076,"adv":1.0,"bbox":[-0.084,-1.392,0.996,2.916]},"accidentalDoubleSharpThreeArrowsUp":{"cp":58077,"adv":0.988,"bbox":[-0.004,-0.5,0.984,2.208]},"accidentalLowerOneSeptimalComma":{"cp":58078,"adv":0.688,"bbox":[0.0,-0.38,0.684,1.736]},"accidentalRaiseOneSeptimalComma":{"cp":58079,"adv":0.688,"bbox":[0.004,-1.684,0.688,0.432]},"accidentalLowerTwoSeptimalCommas":{"cp":58080,"adv":0.688,"bbox":[0.0,-1.172,0.684,1.604]},"accidentalRaiseTwoSeptimalCommas":{"cp":58081,"adv":0.688,"bbox":[0.0,-1.584,0.684,1.192]},"accidentalLowerOneUndecimalQuartertone":{"cp":58082,"adv":0.908,"bbox":[0.0,-0.728,0.904,1.748]},"accidentalRaiseOneUndecimalQuartertone":{"cp":58083,"adv":1.084,"bbox":[0.0,-1.308,1.08,1.368]},"accidentalLowerOneTridecimalQuartertone":{"cp":58084,"adv":0.86,"bbox":[0.0,-0.692,0.86,1.74]},"accidentalRaiseOneTridecimalQuartertone":{"cp":58085,"adv":1.08,"bbox":[-0.004,-1.3,1.076,1.524]},"accidentalCombiningLower17Schisma":{"cp":58086,"adv":0.796,"bbox":[0.0,-0.704,0.792,0.68]},"accidentalCombiningRaise17Schisma":{"cp":58087,"adv":0.796,"bbox":[0.0,-0.704,0.792,0.68]},"accidentalCombiningLower19Schisma":{"cp":58088,"adv":0.796,"bbox":[0.0,-0.388,0.792,0.368]},"accidentalCombiningRaise19Schisma":{"cp":58089,"adv":0.796,"bbox":[0.0,-0.388,0.792,0.368]},"accidentalCombiningLower23Limit29LimitComma":{"cp":58090,"adv":0.98,"bbox":[0.0,-1.18,0.988,0.5]},"accidentalCombiningRaise23Limit29LimitComma":{"cp":58091,"adv":0.98,"bbox":[0.0,-0.5,0.988,1.18]},"accidentalCombiningLower31Schisma":{"cp":58092,"adv":1.168,"bbox":[0.0,-1.664,0.832,0.74]},"accidentalCombiningRaise31Schisma":{"cp":58093,"adv":1.18,"bbox":[0.004,-1.308,0.84,1.31]},"accidentalCombiningLower29LimitComma":{"cp":61008,"adv":1.424,"bbox":[0.0,-1.36,1.016,0.312]},"accidentalCombiningRaise29LimitComma":{"cp":61009,"adv":1.424,"bbox":[0.0,-0.304,1.016,1.368]},"accidentalCombiningLower53LimitComma":{"cp":58103,"adv":0.792,"bbox":[0.0,-0.984,0.792,0.988]},"accidentalCombiningRaise53LimitComma":{"cp":58104,"adv":0.792,"bbox":[0.0,-0.996,0.792,0.996]}};
@@ -843,6 +917,7 @@ const Score = (function () {
   const adv = name => M[name].adv * S;
   const esc = s => String(s).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
   const stepOf = (letter, octave) => LETTER_IDX[letter] + 7 * octave;
+  const f1 = x => x.toFixed(1);
 
   // Glyph names for one note's accidental, left to right: higher-prime signs first, then the
   // Pythagorean accidental carrying the syntonic-comma arrows. A plain natural is omitted unless `forceNatural`.
@@ -868,22 +943,23 @@ const Score = (function () {
     return { names, text: null };
   }
 
-  // spec.notes: [{letter, acc, octave, arrows?, label?: {ratio, name, cents, hz}, respelled?}], spec.mode: 'et' | 'tuned'
-  function render(spec) {
+  // Staff lines, as steps (letter + 7·octave): treble E4 G4 B4 D5 F5 = 30…38, bass G2 B2 D3 F3 A3 = 18…26.
+  // yT and yB are the top lines (F5 and A3); one step is half a space, downwards.
+  const yT = 60, yB = yT + 13 * S;
+  const C4 = stepOf('C', 4), TOP_T = stepOf('F', 5), TOP_B = stepOf('A', 3);
+  const yFor = step => step >= C4 ? yT + (TOP_T - step) * S / 2 : yB + (TOP_B - step) * S / 2;
+
+  // One chord's vertical layout, independent of where it sits: positions, second-shifts, accidental glyphs and
+  // their columns. spec.notes: [{letter, acc, octave, arrows?, label?: {ratio, name, cents, hz}, respelled?}].
+  function layoutChord(spec) {
     const notes = spec.notes.map((n, i) => Object.assign({}, n, { idx: i, step: stepOf(n.letter, n.octave) }));
     notes.sort((a, b) => a.step - b.step);
-    const yT = 60, yB = yT + 13 * S;
-    const C4 = stepOf('C', 4);
-    // Treble lines are E4 G4 B4 D5 F5 (steps 30..38), top line F5 at yT; bass lines G2 B2 D3 F3 A3 (18..26), top line A3 at yB.
-    const yFor = n => n.step >= C4 ? yT + (38 - n.step) * S / 2 : yB + (26 - n.step) * S / 2;
-    notes.forEach(n => { n.y = yFor(n); n.treble = n.step >= C4; });
-
+    notes.forEach(n => { n.y = yFor(n.step); n.treble = n.step >= C4; });
     // cautionary naturals: same letter altered elsewhere in the chord
     notes.forEach(n => { n.forceNatural = n.acc === 0 && notes.some(o => o !== n && o.letter === n.letter && o.acc !== 0); });
     // seconds: displace the upper note to the right
     notes.forEach(n => { n.shift = 0; });
     for (let i = 1; i < notes.length; i++) notes[i].shift = (notes[i].step - notes[i - 1].step <= 1 && !notes[i - 1].shift && notes[i].treble === notes[i - 1].treble) ? 1 : 0;
-
     // accidentals and their columns (processed top to bottom)
     notes.forEach(n => {
       const a = accidentalGlyphs(n.acc, spec.mode === 'tuned' ? n.arrows : null, n.forceNatural);
@@ -899,61 +975,130 @@ const Score = (function () {
       cols[c].items.push({ step: n.step }); cols[c].width = Math.max(cols[c].width, n.accWidth); n.col = c;
     });
     const accTotal = cols.reduce((w, c) => w + c.width + 0.25 * S, 0);
-
-    const xBrace = 8, xBar = 30, xClef = 36;
-    const xA0 = xClef + Math.max(adv('gClef'), adv('fClef')) + 1.2 * S;
-    const xN = xA0 + accTotal + (accTotal ? 0.4 * S : 0);
     const headW = adv('noteheadWhole');
     const anyShift = notes.some(n => n.shift);
-    const xL = xN + headW + (anyShift ? 1.6 * S : 0) + 1.6 * S;
-    const colRight = c => { let x = xN - 0.3 * S; for (let i = 0; i < c; i++) x -= cols[i].width + 0.25 * S; return x; };
+    const noteSpan = headW + (anyShift ? 1.6 * S : 0);
+    return { notes, cols, accTotal, headW, anyShift, noteSpan, width: accTotal + (accTotal ? 0.4 * S : 0) + noteSpan };
+  }
 
+  // columns: [{spec, captions?: [text, …]}]   opts: {labels: 'stack' | 'ratio' | 'none', focus: column index or -1,
+  // segmented: each chord on its own stretch of staff with a gap between (performer display), ties: [{a: {col, i},
+  // b: {col, i}, held, text, title}]}  (i = index into that column's spec.notes)
+  function renderSystem(columns, opts) {
+    opts = opts || {};
+    const stack = opts.labels === 'stack', ratios = opts.labels === 'ratio', segmented = !!opts.segmented;
+    const ratioW = c => ratios ? Math.max(0, ...c.spec.notes.map(n => (n.label && n.label.ratio ? String(n.label.ratio).length : 0))) * 6.8 + 0.8 * S : 0;
     const parts = [];
-    const line = (x1, y1, x2, y2, w, op) => parts.push(`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="currentColor" stroke-width="${w}"${op ? ` opacity="${op}"` : ''}/>`);
-    const glyph = (name, x, y, extra, cls) => parts.push(`<text class="smufl${cls ? ' ' + cls : ''}" x="${x.toFixed(1)}" y="${y.toFixed(1)}"${extra || ''}>${g(name)}</text>`);
+    const line = (x1, y1, x2, y2, w, op, cls) => parts.push(`<line${cls ? ` class="${cls}"` : ''} x1="${f1(x1)}" y1="${f1(y1)}" x2="${f1(x2)}" y2="${f1(y2)}" stroke="currentColor" stroke-width="${w}"${op ? ` opacity="${op}"` : ''}/>`);
+    const glyph = (name, x, y, extra, cls) => parts.push(`<text class="smufl${cls ? ' ' + cls : ''}" x="${f1(x)}" y="${f1(y)}"${extra || ''}>${g(name)}</text>`);
 
-    // staves
-    for (let i = 0; i < 5; i++) { line(xBar, yT + i * S, xL - 0.8 * S, yT + i * S, 1, 0.9); line(xBar, yB + i * S, xL - 0.8 * S, yB + i * S, 1, 0.9); }
+    // horizontal plan: clefs, then one column per chord (wider when its captions need it)
+    const xBrace = 8, xBar = 30, xClef = 36;
+    const padL = stack ? 0 : S, padR = 1.6 * S;
+    let x = xClef + Math.max(adv('gClef'), adv('fClef')) + 1.2 * S;
+    columns.forEach((c, ci) => {
+      c.ci = ci; c.lay = layoutChord(c.spec);
+      c.ratioW = ratioW(c);
+      const noteW = padL + c.lay.width + c.ratioW + padR + (segmented ? 1.2 * S : 0);
+      const capW = stack ? 0 : Math.max(0, ...(c.captions || []).map(t => t.length)) * 5.3 + 10;
+      c.w = Math.max(noteW, capW, 5 * S);
+      c.x0 = x; c.xN = x + padL + (c.w - noteW) / 2 + c.lay.accTotal + (c.lay.accTotal ? 0.4 * S : 0);
+      c.x1 = x + c.w; x = c.x1;
+    });
+    const last = columns[columns.length - 1];
+    const xL = last.xN + last.lay.noteSpan + 1.6 * S;           // where the label stack starts (single-chord mode)
+    const xEnd = stack ? xL - 0.8 * S : last.x1;
+    const colRight = (c, k) => { let xx = c.xN - 0.3 * S; for (let i = 0; i < k; i++) xx -= c.lay.cols[i].width + 0.25 * S; return xx; };
+
+    // focus tint and click targets (under everything else)
+    const yTop = yT - 2.5 * S, yBot = yB + 4 * S + 2.5 * S;
+    if (columns.length > 1 && opts.focus >= 0 && columns[opts.focus]) { const c = columns[opts.focus]; parts.push(`<rect class="focuscol" x="${f1(c.x0)}" y="${f1(yTop)}" width="${f1(c.w)}" height="${f1(yBot - yTop)}" rx="4"/>`); }
+    if (!stack) columns.forEach(c => parts.push(`<rect class="colhit" data-ci="${c.ci}" x="${f1(c.x0)}" y="${f1(yTop)}" width="${f1(c.w)}" height="${f1(yBot - yTop)}" fill="transparent"/>`));
+
+    // staves (continuous, or one stretch per chord with a gap), brace, clefs, barlines
+    const stretches = segmented ? columns.map((c, k) => [k === 0 ? xBar : c.x0, c.x1 - 1.2 * S]) : [[xBar, xEnd]];
+    stretches.forEach(([xa, xb]) => { for (let i = 0; i < 5; i++) { line(xa, yT + i * S, xb, yT + i * S, 1, 0.9); line(xa, yB + i * S, xb, yB + i * S, 1, 0.9); } });
     line(xBar, yT, xBar, yB + 4 * S, 1.2);
     const H = yB + 4 * S - yT;
-    parts.push(`<text class="smufl" x="${xBrace}" y="${(yB + 4 * S).toFixed(1)}" style="font-size:${H}px" transform="translate(${xBrace} 0) scale(0.6 1) translate(${-xBrace} 0)">${g('brace')}</text>`);
+    parts.push(`<text class="smufl" x="${xBrace}" y="${f1(yB + 4 * S)}" font-size="${H}" transform="translate(${xBrace} 0) scale(0.6 1) translate(${-xBrace} 0)">${g('brace')}</text>`);
     glyph('gClef', xClef, yT + 3 * S); glyph('fClef', xClef, yB + S);
+    if (!stack && !segmented && columns.length > 1) columns.slice(0, -1).forEach(c => line(c.x1, yT, c.x1, yB + 4 * S, 1, 0.5, 'bar'));
 
-    // ledger lines
-    const ledgerYs = new Map();
-    notes.forEach(n => {
-      const ys = [];
-      if (n.treble) { if (n.step > 38) for (let k = 40; k <= n.step; k += 2) ys.push(yT + (38 - k) * S / 2); if (n.step < 30) for (let k = 28; k >= n.step; k -= 2) ys.push(yT + (38 - k) * S / 2); }
-      else { if (n.step > 26) for (let k = 28; k <= n.step; k += 2) ys.push(yB + (26 - k) * S / 2); if (n.step < 18) for (let k = 16; k >= n.step; k -= 2) ys.push(yB + (26 - k) * S / 2); }
-      ys.forEach(y => { const key = y.toFixed(1); const ext = ledgerYs.get(key) || { shift: 0 }; ext.shift = Math.max(ext.shift, n.shift); ledgerYs.set(key, ext); });
+    // each column: ledger lines, accidentals, noteheads (each notehead in a group with an explicit hit target:
+    // SMuFL glyph boxes are much taller than the notehead they draw, so the glyphs themselves take no pointer events)
+    let yMin = yTop, yMax = yBot;
+    columns.forEach(c => {
+      const { notes, headW } = c.lay; const xN = c.xN;
+      const ledgerYs = new Map();
+      notes.forEach(n => {
+        const ys = [];
+        // ledger lines on every line position (even steps from the top line) beyond the staff, up to the note:
+        // A5 gets one above the treble staff, C4 one below it; E2 one below the bass staff. D4 and F2 hang without one.
+        const top = n.treble ? TOP_T : TOP_B, y0 = n.treble ? yT : yB, bottom = top - 8;
+        if (n.step > top) for (let k = top + 2; k <= n.step; k += 2) ys.push(y0 + (top - k) * S / 2);
+        if (n.step < bottom) for (let k = bottom - 2; k >= n.step; k -= 2) ys.push(y0 + (top - k) * S / 2);
+        ys.forEach(y => { const key = y.toFixed(1); const ext = ledgerYs.get(key) || { shift: 0 }; ext.shift = Math.max(ext.shift, n.shift); ledgerYs.set(key, ext); });
+      });
+      ledgerYs.forEach((ext, key) => { const y = parseFloat(key); line(xN - 0.4 * S, y, xN + headW + ext.shift * 1.6 * S + 0.4 * S, y, 1.3); });
+      notes.forEach(n => {
+        if (!n.accWidth) return;
+        let ax = colRight(c, n.col) - n.accWidth;
+        const cls = n.respelled ? ' fill="var(--warn)"' : '';
+        n.glyphs.forEach(nm => { glyph(nm, ax, n.y, cls); ax += adv(nm) + 0.12 * S; });
+        if (n.accText) parts.push(`<text x="${f1(ax)}" y="${f1(n.y + 4)}" font-size="12"${cls}>${esc(n.accText)}</text>`);
+      });
+      notes.forEach(n => {
+        const xx = xN + n.shift * 1.6 * S; n.xHead = xx;
+        parts.push(`<g class="note" data-i="${n.idx}" data-ci="${c.ci}"><title>${esc(n.label ? `${n.label.name} · ${n.label.ratio}` : `${n.letter}${n.octave}`)}: click to hear it alone</title>`);
+        glyph('noteheadWhole', xx, n.y, ` data-i="${n.idx}" data-ci="${c.ci}"`, 'nh');
+        parts.push(`<circle class="hit" cx="${f1(xx + headW / 2)}" cy="${f1(n.y)}" r="${f1(0.85 * S)}" fill="transparent"/></g>`);
+        yMin = Math.min(yMin, n.y - 3 * S); yMax = Math.max(yMax, n.y + 3 * S);
+      });
+      // ratio beside each notehead (performer display): stacked so they never overlap, leader line when displaced
+      if (ratios) {
+        const xR = xN + c.lay.noteSpan + 0.6 * S;
+        const sorted = [...notes].sort((a, b) => a.y - b.y); let prev = -Infinity;
+        sorted.forEach(n => { n.ly = Math.max(n.y, prev + 12); prev = n.ly; });
+        const over = sorted.length ? sorted[sorted.length - 1].ly - sorted[sorted.length - 1].y : 0;
+        if (over > 0) sorted.forEach(n => { n.ly -= over / 2; });
+        sorted.forEach(n => {
+          const r = n.label && n.label.ratio ? String(n.label.ratio) : ''; if (!r) return;
+          if (Math.abs(n.ly - n.y) > 3) line(n.xHead + headW + 1, n.y, xR - 2, n.ly, 0.7, 0.35);
+          parts.push(`<text class="rat" x="${f1(xR)}" y="${f1(n.ly + 4)}">${esc(r)}</text>`);
+          yMin = Math.min(yMin, n.ly - 8); yMax = Math.max(yMax, n.ly + 8);
+        });
+      }
     });
-    ledgerYs.forEach((ext, key) => { const y = parseFloat(key); line(xN - 0.4 * S, y, xN + headW + ext.shift * 1.6 * S + 0.4 * S, y, 1.3); });
 
-    // accidentals, then noteheads (each notehead in a group with an explicit hit target: SMuFL glyph
-    // boxes are much taller than the notehead they draw, so the glyphs themselves take no pointer events)
-    notes.forEach(n => {
-      if (!n.accWidth) return;
-      let ax = colRight(n.col) - n.accWidth;
-      const cls = n.respelled ? ' fill="var(--warn)"' : '';
-      n.glyphs.forEach(nm => { glyph(nm, ax, n.y, cls); ax += adv(nm) + 0.12 * S; });
-      if (n.accText) parts.push(`<text x="${ax.toFixed(1)}" y="${(n.y + 4).toFixed(1)}" font-size="12"${cls}>${esc(n.accText)}</text>`);
-    });
-    notes.forEach(n => {
-      const x = xN + n.shift * 1.6 * S;
-      parts.push(`<g class="note" data-i="${n.idx}"><title>${esc(n.label ? `${n.label.name} · ${n.label.ratio}` : `${n.letter}${n.octave}`)}: click to hear it alone</title>`);
-      glyph('noteheadWhole', x, n.y, ` data-i="${n.idx}"`, 'nh');
-      parts.push(`<circle class="hit" cx="${(x + headW / 2).toFixed(1)}" cy="${n.y.toFixed(1)}" r="${(0.85 * S).toFixed(1)}" fill="transparent"/></g>`);
+    // ties between held common tones (dashed), broken ones in the warning colour with the slip in cents
+    (opts.ties || []).forEach(t => {
+      const a = columns[t.a.col], b = columns[t.b.col]; if (!a || !b) return;
+      const na = a.lay.notes.find(n => n.idx === t.a.i), nb = b.lay.notes.find(n => n.idx === t.b.i); if (!na || !nb) return;
+      const x1 = na.xHead + a.lay.headW + 2, x2 = nb.xHead - 2, dx = (x2 - x1) * 0.3, sag = 1.2 * S;
+      parts.push(`<path class="tie${t.held ? '' : ' broken'}" d="M${f1(x1)} ${f1(na.y)} C${f1(x1 + dx)} ${f1(na.y + sag)}, ${f1(x2 - dx)} ${f1(nb.y + sag)}, ${f1(x2)} ${f1(nb.y)}"><title>${esc(t.title || '')}</title></path>`);
+      if (t.text) parts.push(`<text class="tietext" x="${f1((x1 + x2) / 2)}" y="${f1((na.y + nb.y) / 2 + sag + 0.9 * S)}" text-anchor="middle">${esc(t.text)}</text>`);
     });
 
-    // labels (tuned mode)
-    let maxX = xL;
-    if (spec.mode === 'tuned') {
+    // captions under the columns
+    if (!stack) {
+      const lowest = Math.max(yB + 4 * S, ...columns.map(c => Math.max(...c.lay.notes.map(n => n.y))));
+      const capY0 = lowest + 2.6 * S;
+      columns.forEach(c => (c.captions || []).forEach((t, k) => {
+        parts.push(`<text class="cap${k === 0 ? ' b' : ''}" x="${f1((c.x0 + c.x1) / 2)}" y="${f1(capY0 + k * 1.35 * S)}" text-anchor="middle">${esc(t)}</text>`);
+        yMax = Math.max(yMax, capY0 + k * 1.35 * S + S);
+      }));
+    }
+
+    // label stack to the right (single-chord mode, tuned)
+    let maxX = xEnd + 6;
+    if (stack && last.spec.mode === 'tuned') {
+      const { notes, headW } = last.lay; const xN = last.xN;
       const sorted = [...notes].sort((a, b) => a.y - b.y);
       let prev = -Infinity;
       sorted.forEach(n => { n.ly = Math.max(n.y, prev + 13); prev = n.ly; });
-      // if the stack ran past the bottom, pull it up
+      // a dense stack runs below its lowest note; centre it on the chord instead (leader lines show which is which)
       const overflow = sorted.length ? sorted[sorted.length - 1].ly - sorted[sorted.length - 1].y : 0;
-      if (overflow > 0) sorted.forEach(n => { n.ly -= Math.min(overflow / 2, n.ly - n.y) * 0; });
+      if (overflow > 0) sorted.forEach(n => { n.ly -= overflow / 2; });
       const colX = [0, 64, 160, 222];
       sorted.forEach(n => {
         const lb = n.label || {};
@@ -961,24 +1106,25 @@ const Score = (function () {
         const cents = typeof lb.cents === 'number' ? lb.cents : null;
         const cColor = cents === null || Math.abs(cents) < 2.5 ? 'currentColor' : `rgb(var(${cents < 0 ? '--flat' : '--sharp'}))`;
         const cStr = cents === null ? '' : (Math.abs(cents) < 0.05 ? '0' : (cents < 0 ? '−' : '+') + Math.abs(cents).toFixed(cents % 1 === 0 ? 0 : 1)) + '¢';
-        parts.push(`<g class="lblrow" data-i="${n.idx}"><title>${esc(lb.name || '')}: click to hear it alone</title><rect class="hit" x="${(xL - 6).toFixed(1)}" y="${(n.ly - 6.5).toFixed(1)}" width="${(colX[3] + 74).toFixed(1)}" height="13" fill="transparent"/>` +
-          `<text class="lbl" x="${xL.toFixed(1)}" y="${(n.ly + 4).toFixed(1)}">` +
-          `<tspan x="${(xL + colX[0]).toFixed(1)}" font-weight="500">${esc(lb.ratio || '')}</tspan>` +
-          `<tspan x="${(xL + colX[1]).toFixed(1)}"${n.respelled ? ' fill="var(--warn)"' : ''}>${esc(lb.name || '')}</tspan>` +
-          `<tspan x="${(xL + colX[2]).toFixed(1)}" fill="${cColor}">${esc(cStr)}</tspan>` +
-          `<tspan x="${(xL + colX[3]).toFixed(1)}" opacity="0.75">${esc(lb.hz != null ? lb.hz.toFixed(2) + ' Hz' : '')}</tspan></text></g>`);
+        parts.push(`<g class="lblrow" data-i="${n.idx}"><title>${esc(lb.name || '')}: click to hear it alone</title><rect class="hit" x="${f1(xL - 6)}" y="${f1(n.ly - 6.5)}" width="${f1(colX[3] + 74)}" height="13" fill="transparent"/>` +
+          `<text class="lbl" x="${f1(xL)}" y="${f1(n.ly + 4)}">` +
+          `<tspan x="${f1(xL + colX[0])}" font-weight="500">${esc(lb.ratio || '')}</tspan>` +
+          `<tspan x="${f1(xL + colX[1])}"${n.respelled ? ' fill="var(--warn)"' : ''}>${esc(lb.name || '')}</tspan>` +
+          `<tspan x="${f1(xL + colX[2])}" fill="${cColor}">${esc(cStr)}</tspan>` +
+          `<tspan x="${f1(xL + colX[3])}" opacity="0.75">${esc(lb.hz != null ? lb.hz.toFixed(2) + ' Hz' : '')}</tspan></text></g>`);
         maxX = Math.max(maxX, xL + colX[3] + 70);
+        yMin = Math.min(yMin, n.ly - 10); yMax = Math.max(yMax, n.ly + 10);
       });
     }
 
-    // extents
-    let yMin = yT - 2.5 * S, yMax = yB + 4 * S + 2.5 * S;
-    notes.forEach(n => { yMin = Math.min(yMin, n.y - 3 * S, (n.ly || n.y) - 10); yMax = Math.max(yMax, n.y + 3 * S, (n.ly || n.y) + 10); });
     const W = Math.ceil(maxX + 12), Hh = Math.ceil(yMax - yMin);
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${Hh}" viewBox="0 ${yMin.toFixed(1)} ${W} ${Hh}" role="img" aria-label="${esc(spec.aria || 'score')}" style="display:block">` +
-      `<style>.smufl{font-family:JIifyNotation;font-size:${FS}px;fill:currentColor;pointer-events:none}.lbl{font-family:var(--mono);font-size:11px;fill:currentColor;font-variant-numeric:tabular-nums}.hit{pointer-events:all;cursor:pointer}.lbl{pointer-events:none}.note:hover .nh,.note.sounding .nh,.lblrow:hover .lbl,.lblrow.sounding .lbl,.lblrow:hover .lbl tspan,.lblrow.sounding .lbl tspan{fill:var(--accent)}</style>` + parts.join('') + '</svg>';
+    const aria = opts.aria || (columns.length === 1 ? (last.spec.aria || 'score') : `${columns.length} chords`);
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${Hh}" viewBox="0 ${f1(yMin)} ${W} ${Hh}" role="img" aria-label="${esc(aria)}" style="display:block">` +
+      `<style>.rat{font-family:var(--mono);font-size:11px;fill:currentColor;font-variant-numeric:tabular-nums;pointer-events:none}.smufl{font-family:JIifyNotation;font-size:${FS}px;fill:currentColor;pointer-events:none}.lbl{font-family:var(--mono);font-size:11px;fill:currentColor;font-variant-numeric:tabular-nums;pointer-events:none}.hit{pointer-events:all;cursor:pointer}.colhit{pointer-events:all;cursor:pointer}.focuscol{fill:var(--accent-soft);opacity:.75}.cap{font-family:var(--font);font-size:10px;fill:var(--muted);pointer-events:none}.cap.b{fill:currentColor;font-weight:500}.tie{fill:none;stroke:currentColor;stroke-width:1.1;stroke-dasharray:3 3;opacity:.55}.tie.broken{stroke:var(--warn);opacity:.95}.tietext{font-family:var(--mono);font-size:9.5px;fill:var(--warn);pointer-events:none}.note:hover .nh,.note.sounding .nh,.lblrow:hover .lbl,.lblrow.sounding .lbl,.lblrow:hover .lbl tspan,.lblrow.sounding .lbl tspan{fill:var(--accent)}</style>` + parts.join('') + '</svg>';
   }
-  return { render, accidentalGlyphs, S };
+  // One chord with its labels stacked to the right (performer display, single-chord uses).
+  function render(spec) { return renderSystem([{ spec }], { labels: 'stack', focus: -1 }); }
+  return { render, renderSystem, accidentalGlyphs, S };
 })();
 
 </script>
@@ -1040,17 +1186,20 @@ const Progression = (function () {
   // steps[i] = {chord, reading (null = 12-TET), rootMidi, baseCents, baseVec}
   function build(chords, readings, rootMidis, links, opts) {
     const steps = []; const a4 = opts.a4 || 440;
-    const refMidi = rootMidis[0]; const refHz = E.midiHz(refMidi, a4);
+    // A reading presented over the bass (an overtone fit whose fundamental is unrelated to the chosen root) has
+    // its 1/1 on the bass, so the bass is that step's root for linking, drift and spelling.
+    const effRoot = i => { const r = readings[i], c = chords[i]; return (r && r.rootNote === 'bass') ? { midi: c.notes[0].midi, chain: c.notes[0].chain, pc: c.notes[0].pc } : { midi: rootMidis[i], chain: opts.rootChains ? opts.rootChains[i] : 0, pc: opts.rootPcs ? opts.rootPcs[i] : '' }; };
+    const refMidi = effRoot(0).midi; const refHz = E.midiHz(refMidi, a4);
     const noteVec = (reading, k) => reading ? reading.notes[k].vec : null;
     const noteCentsLocal = (reading, chord, k, rootMidi) => reading ? E.centsOf(reading.notes[k].vec) : 100 * (chord.notes[k].midi - rootMidi);
     for (let i = 0; i < chords.length; i++) {
-      const chord = chords[i], reading = readings[i], rootMidi = rootMidis[i];
+      const chord = chords[i], reading = readings[i]; const er = effRoot(i); const rootMidi = er.midi, rootChain = er.chain;
       const etOffset = 100 * (rootMidi - refMidi);
-      const step = { chord, reading, rootMidi, etOffset, link: null };
+      const step = { chord, reading, rootMidi, rootChain, etOffset, link: null };
       // A segment is a run of chords joined by exact ratios; its first chord's root is the 1/1 that the
       // others are spelled from. A tempered (fixed) chord carries no ratios, so the chord after it starts a
       // new segment, as does a reset link.
-      const ownSegment = () => ({ start: i, chain: opts.rootChains ? opts.rootChains[i] : 0, rootMidi, pc: opts.rootPcs ? opts.rootPcs[i] : '' });
+      const ownSegment = () => ({ start: i, chain: rootChain, rootMidi, pc: er.pc });
       if (i === 0 || !reading) {
         step.baseCents = etOffset; step.baseVec = reading ? zero() : null; step.seg = reading ? ownSegment() : null;
         if (i > 0) step.link = { type: reading ? 'reset' : 'tet', text: reading ? 'reset to 12-TET' : '12-TET chord (fixed)', commons: [] };
@@ -1068,7 +1217,7 @@ const Progression = (function () {
           if (prev.baseVec && prev.reading) baseVec = vsub(vadd(vadd(prev.baseVec, noteVec(prev.reading, ct.i)), octaves(ct.octaveShift)), noteVec(reading, ct.j));
           options.push({ type: 'common', ct, baseCents, baseVec });
         });
-        const rootChainDiff = (opts.rootChains ? opts.rootChains[i] - opts.rootChains[i - 1] : 0);
+        const rootChainDiff = rootChain - prev.rootChain;
         const motionTarget = etOffset - prev.etOffset;
         const cands = rootMotionCandidates(motionTarget, rootChainDiff, Object.assign({ tolerance: 50 }, opts));
         const bestMotion = cands[0];
@@ -1148,7 +1297,8 @@ const Progression = (function () {
   const E = JIEngine;
   const $ = s => document.querySelector(s);
   const FAM_ORDER = ['overtone', 'p7', 'p5', 'p237', 'p3', 'p13'];
-  const state = { roots: {}, chords: [], analyses: [], focusIdx: 0, sel: {}, links: {}, prog: null, view: 'playable', driftAck: null };
+  const state = { roots: {}, chords: [], analyses: [], focusIdx: 0, sel: {}, links: {}, prog: null, view: 'playable', driftAck: null, spellRef: 'prog' };
+  const SPELL_REFS = ['prog', 'local', 'auto'];   // where the HEJI 1/1 sits: the progression's reference, this chord's root as typed, or whatever leaves the fewest signs
   const STORE = 'jiify.v1';
 
   // ---------- settings ----------
@@ -1178,21 +1328,24 @@ const Progression = (function () {
   }
   function clamp(x, a, b) { return Math.min(b, Math.max(a, x)); }
   function save() {
-    try { localStorage.setItem(STORE, JSON.stringify({ text: $('#chords').value, s: settings(), roots: state.roots, sel: state.sel, focusIdx: state.focusIdx, links: state.links, view: state.view })); } catch (e) { /* storage unavailable */ }
+    try { localStorage.setItem(STORE, JSON.stringify({ text: $('#chords').value, s: settings(), roots: state.roots, sel: state.sel, focusIdx: state.focusIdx, links: state.links, view: state.view, spellRef: state.spellRef, lastTexts: state.lastTexts || null, lastPairs: state.lastPairs || null })); } catch (e) { /* storage unavailable */ }
   }
   function load() {
     try {
       const d = JSON.parse(localStorage.getItem(STORE) || 'null'); if (!d) return;
       if (d.text) $('#chords').value = d.text;
-      if (d.s) {
-        $('#a4').value = d.s.a4; $('#anchor').value = d.s.anchor; $('#tol').value = d.s.tolerance; $('#per').value = d.s.readingsPerFamily; $('#spelling').value = d.s.spelling; $('#maxprime').value = d.s.overtoneMaxPrime; if (d.s.overtoneMaxHarmonic) $('#maxharm').value = d.s.overtoneMaxHarmonic; if (typeof d.s.volume === 'number') $('#scVol').value = d.s.volume;
-        FAM_ORDER.forEach(id => { $('#fam_' + id).checked = d.s.families.includes(id); });
+      if (d.s) { // a field missing from an older save keeps the page default
+        const set = (sel, val) => { if (val != null) $(sel).value = val; };
+        set('#a4', d.s.a4); set('#anchor', d.s.anchor); set('#tol', d.s.tolerance); set('#per', d.s.readingsPerFamily); set('#spelling', d.s.spelling); set('#maxprime', d.s.overtoneMaxPrime); set('#maxharm', d.s.overtoneMaxHarmonic); if (typeof d.s.volume === 'number') set('#scVol', d.s.volume);
+        if (Array.isArray(d.s.families)) FAM_ORDER.forEach(id => { $('#fam_' + id).checked = d.s.families.includes(id); });
       }
       if (d.roots) state.roots = d.roots;
       if (d.sel) state.sel = d.sel;
       if (typeof d.focusIdx === 'number') state.focusIdx = d.focusIdx;
       if (d.links) state.links = d.links;
+      if (Array.isArray(d.lastTexts)) state.lastTexts = d.lastTexts; if (Array.isArray(d.lastPairs)) state.lastPairs = d.lastPairs;
       if (d.view === 'all' || d.view === 'playable') state.view = d.view;
+      if (SPELL_REFS.includes(d.spellRef)) state.spellRef = d.spellRef;
     } catch (e) { /* ignore */ }
   }
 
@@ -1323,14 +1476,53 @@ const Progression = (function () {
     lines.forEach((line, idx) => {
       const parsed = E.parseChord(line);
       if (parsed.error) { errs.push(`Line ${idx + 1}: ${parsed.error}`); return; }
+      state.chords.push(parsed);
+    });
+    // per-position choices (root, reading, link) follow the new list before anything is analyzed
+    const texts = state.chords.map(c => c.text), pairs = state.chords.map((c, i) => i ? state.chords[i - 1].text + ' → ' + c.text : null);
+    state.sel = remapPositional(state.sel, texts, state.lastTexts);
+    state.roots = remapPositional(state.roots, texts, state.lastTexts);
+    state.links = remapPositional(state.links, pairs, state.lastPairs);
+    state.lastTexts = texts; state.lastPairs = pairs;
+    state.chords.forEach((parsed, i) => {
       const roots = E.suggestRoots(parsed.notes, opts);
-      const chosen = state.roots[parsed.text] || roots[0].token;
+      const chosen = state.roots[rootKey(i)] || roots[0].token;
       let analysis = E.analyzeChord(parsed.notes, chosen, opts);
-      if (analysis.error) { delete state.roots[parsed.text]; analysis = E.analyzeChord(parsed.notes, roots[0].token, opts); }
-      state.chords.push(parsed); state.analyses.push(analysis); state.rootsByChord.push(roots);
+      if (analysis.error) { delete state.roots[rootKey(i)]; analysis = E.analyzeChord(parsed.notes, roots[0].token, opts); }
+      state.analyses.push(analysis); state.rootsByChord.push(roots);
     });
     $('#errors').innerHTML = errs.map(e => `<div class="err">${esc(e)}</div>`).join('');
     refresh();
+  }
+  // ---------- reading selection, per position ----------
+  // A choice belongs to a position in the list (key "i|chord text"), so the same chord at two places can be tuned
+  // two ways. When the list changes, a position keeps its choice if its chord is unchanged; otherwise it inherits
+  // the nearest earlier choice made for the same chord text (so an inserted line above does not lose anything,
+  // and a repeated chord starts out tuned like its earlier appearance). Old saves keyed by text alone still load.
+  const selKey = i => `${i}|${state.chords[i].text}`;
+  const selOf = i => state.sel[selKey(i)] || 'et';
+  const setSel = (i, id) => { state.sel[selKey(i)] = id; };
+  // Roots and links use the same scheme: rootKey(i) = "i|chord text", linkKey(i) = "i|prev text → chord text".
+  const rootKey = i => `${i}|${state.chords[i].text}`;
+  // texts[i]: the text identifying position i (null = no entry possible there); prevTexts: the same for the previous
+  // run. A position keeps its own entry. A position that is new or shifted (its text was not there last time) may
+  // inherit the nearest entry for the same text; an existing position without an entry stays without one, so a
+  // choice made at one occurrence of a repeated chord never spreads to its siblings. Legacy text-only entries
+  // (older saves, no position) apply wherever the text occurs.
+  function remapPositional(map, texts, prevTexts) {
+    const entries = Object.entries(map || {}).map(([k, v]) => { const m = /^(\d+)\|([\s\S]*)$/.exec(k); return m ? { idx: +m[1], text: m[2], v } : { idx: null, text: k, v }; });
+    const next = {};
+    texts.forEach((text, i) => {
+      if (text == null) return;
+      const same = entries.filter(e => e.text === text);
+      let pick = same.find(e => e.idx === i);
+      if (!pick) {
+        const isNew = !prevTexts || prevTexts[i] !== text;
+        pick = same.filter(e => e.idx == null || isNew).sort((p, q) => Math.abs((p.idx == null ? i : p.idx) - i) - Math.abs((q.idx == null ? i : q.idx) - i))[0];
+      }
+      if (pick) next[`${i}|${text}`] = pick.v;
+    });
+    return next;
   }
   // The results show one chord: the one the score is focused on.
   function renderResults(ci) {
@@ -1342,11 +1534,11 @@ const Progression = (function () {
   // ---------- score playback ----------
   let scoreHz = [], scoreEtHz = [], held = null, lightTimers = [];
   function light(indices, dur) {
-    const els = indices.map(i => [...document.querySelectorAll(`#scoreSvg [data-i="${i}"]`)]).flat();
+    const els = indices.map(i => [...document.querySelectorAll(`#scoreSvg [data-ci="${scoreFocusCol}"][data-i="${i}"], #scoreInspector [data-i="${i}"]`)]).flat();
     els.forEach(el => el.classList.add('sounding'));
     if (dur != null) lightTimers.push(setTimeout(() => els.forEach(el => el.classList.remove('sounding')), dur * 1000));
   }
-  function unlightAll() { lightTimers.forEach(clearTimeout); lightTimers = []; document.querySelectorAll('#scoreSvg .sounding').forEach(el => el.classList.remove('sounding')); }
+  function unlightAll() { lightTimers.forEach(clearTimeout); lightTimers = []; document.querySelectorAll('#scoreSvg .sounding, #scoreInspector .sounding').forEach(el => el.classList.remove('sounding')); }
   function release() { if (held) { held.stop(); held = null; } $('#scHold').classList.remove('on'); $('#scHold').textContent = 'Hold'; unlightAll(); }
   function scorePlay() { release(); const ac = audio(); playHz(scoreHz, ac.currentTime + 0.05, 2.6); light(scoreHz.map((_, i) => i), 2.6); }
   function scoreAB() {
@@ -1371,37 +1563,43 @@ const Progression = (function () {
 
 
   // ---------- progression ----------
-  function linkKey(i) { return state.chords[i - 1].text + ' → ' + state.chords[i].text; }
-  function selectedReadings() { return state.chords.map((c, i) => { const id = state.sel[c.text] || 'et'; return id === 'et' ? null : readingById(state.analyses[i], id); }); }
+  function linkKey(i) { return `${i}|${state.chords[i - 1].text} → ${state.chords[i].text}`; }
+  function selectedReadings() { return state.chords.map((c, i) => { const id = selOf(i); return id === 'et' ? null : readingById(state.analyses[i], id); }); }
   function progOpts() { return { a4: state.opts.a4, tolerance: state.opts.tolerance, rootChains: state.analyses.map(x => x.root.chain), rootPcs: state.analyses.map(x => x.root.pc) }; }
   function computeProgression() {
     if (state.chords.length < 2) { state.prog = null; return; }
     const links = state.chords.map((c, i) => i ? (state.links[linkKey(i)] || null) : null);
     state.prog = Progression.build(state.chords, selectedReadings(), state.analyses.map(x => x.rootMidi), links, progOpts());
   }
-  function linkedApplies() { return !!(state.prog && $('#pgApply').checked); }
-  function fmtDrift(c) { return `<span class="drift" style="${cellStyle(c)}">${fmtC1(c)}</span>`; }
+  // The spelling mode decides the sound as well as the signs: absolute = the linked chain (chord 1's root is the
+  // 1/1, drift carried from chord to chord); relative = each chord anchored to the piano on its own, as its card
+  // sounds. What is written is what plays, in either mode.
+  function linkedApplies() { return !!(state.prog && state.spellRef === 'prog'); }
+  let lastCols = [];   // the chord specs of the last render, for progression playback in either mode
+  // The progression's summary and verdict live in the score panel's header and foot; the per-chord link control sits
+  // under the staff for the focused chord (renderLinkControl). Everything else the old table showed is on the staff.
   function renderProgression() {
-    const panel = $('#progPanel');
-    if (!state.prog) { panel.hidden = true; return; }
-    panel.hidden = false;
-    const P = state.prog; const n = P.steps.length;
+    const P = state.prog; const multi = !!P; const linked = linkedApplies();
+    ['#progTools', '#pgStartEnd'].forEach(sel => { $(sel).hidden = !linked; }); $('#pgPlay').hidden = !multi;
+    const vd = $('#progVerdict');
+    if (!P) { $('#progSummary').textContent = ''; vd.hidden = true; return; }
+    if (!linked) { $('#progSummary').textContent = `${P.steps.length} chords, each anchored to the piano on its own (relative spelling). Choose the absolute spelling to link them.`; vd.hidden = true; return; }
+    const n = P.steps.length;
     const broken = P.steps.reduce((s, st) => s + (st.link ? st.link.commons.filter(b => !b.held).length : 0), 0);
     const resets = P.steps.filter(st => st.link && st.link.type === 'reset').length; const fixed = P.steps.filter(st => !st.reading).length;
     let sum;
-    const first = P.steps[0], last = P.steps[n - 1];
     if (P.net.exact && P.net.samePc) {
       const cm = P.net.comma; const name = cm ? (cm.name === 'unison' ? 'no drift at all' : `${cm.name} ${cm.up ? 'up' : 'down'}`) : 'an unnamed interval';
-      sum = `After ${n} chords the root ${state.analyses[0].root.pc} returns ${Math.abs(P.net.cents) < 0.05 ? 'exactly where it began' : `${fmtC1(P.net.cents)}¢ from where it began: ${P.net.ratio}, ${name}`}.`;
+      sum = `${n} chords · the root ${state.analyses[0].root.pc} returns ${Math.abs(P.net.cents) < 0.05 ? 'exactly where it began' : `${fmtC1(P.net.cents)}¢ from where it began: ${P.net.ratio}, ${name}`}.`;
     } else if (P.net.exact) {
-      sum = `The last root stands ${P.net.rootRatio} (${P.net.rootCents.toFixed(1)}¢) above the first: ${fmtC1(P.net.cents)}¢ from its tempered position.`;
-    } else sum = `Net drift ${fmtC1(P.net.cents)}¢ at the last root (not an exact ratio, since a chord is fixed at 12-TET or a link is reset).`;
+      sum = `${n} chords · the last root stands ${P.net.rootRatio} (${P.net.rootCents.toFixed(1)}¢) above the first: ${fmtC1(P.net.cents)}¢ from its tempered position.`;
+    } else sum = `${n} chords · net drift ${fmtC1(P.net.cents)}¢ at the last root (not an exact ratio: a chord is fixed at 12-TET or a link is reset).`;
     sum += broken ? ` ${broken} common tone${broken > 1 ? 's' : ''} break${broken > 1 ? '' : 's'} by a comma.` : ' No common tone breaks.';
     if (resets) sum += ` ${resets} reset${resets > 1 ? 's' : ''}.`;
     if (fixed) sum += ` ${fixed} chord${fixed > 1 ? 's' : ''} fixed at 12-TET.`;
     $('#progSummary').textContent = sum;
     // plain-language drift verdict with one-click fixes
-    const vd = $('#progVerdict'); const key = P.steps.map(s => (s.reading ? s.reading.id : 'et') + '|' + (s.link ? s.link.text : '')).join(';');
+    const key = P.steps.map(s => (s.reading ? s.reading.id : 'et') + '|' + (s.link ? s.link.text : '')).join(';');
     const exactChain = P.steps.every(s => s.reading);
     if (Math.abs(P.net.cents) >= 5 && state.driftAck !== key) {
       const dir = P.net.cents < 0 ? 'flat' : 'sharp';
@@ -1415,37 +1613,24 @@ const Progression = (function () {
       $('#dvNoDrift').addEventListener('click', () => progSuggest(true));
     } else if (Math.abs(P.net.cents) >= 5) { vd.hidden = false; vd.innerHTML = `Drift of ${fmtC1(P.net.cents)}¢ accepted; the arrows carry it. <button class="btn small" id="dvUndo">Reconsider</button>`; $('#dvUndo').addEventListener('click', () => { state.driftAck = null; renderProgression(); }); }
     else { vd.hidden = false; vd.textContent = Math.abs(P.net.cents) < 0.05 ? 'No drift: the progression returns exactly to pitch.' : `Drift of ${fmtC1(P.net.cents)}¢ at the last root is negligible.`; }
-    let h = '<thead><tr><th>#</th><th>chord</th><th>reading</th><th>link from previous</th><th>what the link does</th><th class="num">root vs 12-TET</th><th>notes, linked ¢ from 12-TET</th></tr></thead><tbody>';
-    P.steps.forEach((st, i) => {
-      const chord = st.chord; const a = state.analyses[i]; const sel = state.sel[chord.text] || 'et';
-      const isFocus = i === state.focusIdx;
-      h += `<tr class="${isFocus ? 'focus' : ''}"><td class="num">${i + 1}</td><td><span class="chordname" data-ci="${i}" title="Show this chord">${esc(chord.label || chord.text)}</span></td>`;
-      h += `<td><select class="pgsel" data-ci="${i}"><option value="et"${sel === 'et' ? ' selected' : ''}>12-TET (fixed)</option>`;
-      eachReading(a, r => { h += `<option value="${esc(r.id)}"${sel === r.id ? ' selected' : ''}>${esc(r.id)}</option>`; });
-      h += '</select></td>';
-      if (i === 0) h += '<td class="fam">anchor: root at 12-TET</td><td class="fam">—</td>';
-      else if (!st.reading) h += '<td class="fam">fixed at 12-TET</td><td class="fam">—</td>';
-      else {
-        const want = state.links[linkKey(i)] || { type: 'auto' };
-        const o = st.link.options;
-        h += `<td><select class="pglink" data-ci="${i}"><option value="auto"${want.type === 'auto' ? ' selected' : ''}>auto</option>`;
-        o.commons.forEach(ct => { const v = `common|${ct.name}|${ct.name2}`; h += `<option value="${esc(v)}"${want.type === 'common' && want.name === ct.name && want.name2 === ct.name2 ? ' selected' : ''}>hold ${esc(ct.name)}${ct.name2 !== ct.name ? ' → ' + esc(ct.name2) : ''}</option>`; });
-        if (o.motion) h += `<option value="ratio|${esc(o.motion.ratio)}"${want.type === 'ratio' && want.ratio === o.motion.ratio ? ' selected' : ''}>root moves ${esc(o.motion.ratio)}</option>`;
-        h += `<option value="ratio|"${want.type === 'ratio' && (!o.motion || want.ratio !== o.motion.ratio) ? ' selected' : ''}>root moves by a ratio…</option><option value="reset"${want.type === 'reset' ? ' selected' : ''}>reset to 12-TET</option></select>`;
-        if (want.type === 'ratio' && (!o.motion || want.ratio !== o.motion.ratio)) h += ` <input class="ratio pgratio" data-ci="${i}" value="${esc(want.ratio || '')}" placeholder="3/2" aria-label="root motion ratio">`;
-        h += '</td>';
-        const br = st.link.commons.map(b => b.held ? `<span class="held">${esc(b.name)} held</span>` : `<span class="broken">${esc(b.name)} ${fmtC1(b.cents)}¢${b.comma ? ' (' + esc(b.comma.name) + ')' : (b.ratio ? ' (' + b.ratio + ')' : '')}</span>`).join(', ');
-        h += `<td>${esc(st.link.text)}${st.link.auto ? '' : ' (chosen)'}${br ? '<br>' + br : ''}</td>`;
-      }
-      h += `<td class="num">${fmtDrift(st.drift)}</td>`;
-      h += `<td class="notes">${st.notes.map(nt => `${esc(nt.name)} <span style="${cellStyle(nt.cents)}">${fmtC(nt.cents)}</span>`).join(' · ')}</td></tr>`;
-    });
-    h += '</tbody>';
-    $('#progTable').innerHTML = h;
+  }
+  // Link control for the focused chord: auto, hold one of the common tones, the root motion, a typed ratio, or reset.
+  function renderLinkControl(ci) {
+    const wrap = $('#linkCtl'), sel = $('#scLink'), inp = $('#scRatio');
+    const st = linkedApplies() ? state.prog.steps[ci] : null;   // links only exist in the absolute (linked) spelling
+    if (!st || ci === 0 || !st.reading || !st.link || !st.link.options) { wrap.hidden = true; return; }
+    wrap.hidden = false;
+    const want = state.links[linkKey(ci)] || { type: 'auto' }; const o = st.link.options;
+    let h = `<option value="auto"${want.type === 'auto' ? ' selected' : ''}>auto</option>`;
+    o.commons.forEach(ct => { const v = `common|${ct.name}|${ct.name2}`; h += `<option value="${esc(v)}"${want.type === 'common' && want.name === ct.name && want.name2 === ct.name2 ? ' selected' : ''}>hold ${esc(ct.name)}${ct.name2 !== ct.name ? ' → ' + esc(ct.name2) : ''}</option>`; });
+    if (o.motion) h += `<option value="ratio|${esc(o.motion.ratio)}"${want.type === 'ratio' && want.ratio === o.motion.ratio ? ' selected' : ''}>root moves ${esc(o.motion.ratio)}</option>`;
+    const custom = want.type === 'ratio' && (!o.motion || want.ratio !== o.motion.ratio);
+    h += `<option value="ratio|"${custom ? ' selected' : ''}>root moves by a ratio…</option><option value="reset"${want.type === 'reset' ? ' selected' : ''}>reset to 12-TET</option>`;
+    sel.innerHTML = h; sel.title = st.link.text; inp.hidden = !custom; if (custom) inp.value = want.ratio || '';
   }
   function progPlay() {
-    if (!state.prog) return; release(); const ac = audio(); const t = ac.currentTime + 0.05; const step = 1.9;
-    state.prog.steps.forEach((st, i) => playHz(st.notes.map(nt => nt.hz), t + i * step, 1.7));
+    if (lastCols.length < 2) return; release(); const ac = audio(); const t = ac.currentTime + 0.05; const step = 1.9;
+    lastCols.forEach((c, i) => playHz(c.hzs, t + i * step, 1.7));   // what the staff shows, linked or not
   }
   function progStartEnd() {
     if (!state.prog) return; release(); const ac = audio(); const t = ac.currentTime + 0.05;
@@ -1458,7 +1643,7 @@ const Progression = (function () {
     if (cands.some(c => !c.length)) { toast('A chord has no readings to choose from'); return; }
     const links = state.chords.map((c, i) => i ? (state.links[linkKey(i)] || null) : null);
     const best = Progression.suggest(state.chords, cands, state.analyses.map(x => x.rootMidi), links, progOpts(), avoidDrift);
-    best.picks.forEach((p, i) => { state.sel[state.chords[i].text] = cands[i][p].id; });
+    best.picks.forEach((p, i) => { setSel(i, cands[i][p].id); });
     save(); refresh(); toast(avoidDrift ? 'Readings chosen to hold common tones and limit drift' : 'Readings chosen to hold common tones');
   }
   // Let one held note slip: at some link, replace the common-tone hold by the simplest Pythagorean root motion.
@@ -1495,75 +1680,191 @@ const Progression = (function () {
   }
   function refresh() { computeProgression(); renderScore(); renderProgression(); }
 
+  // ---------- spelling reference ----------
+  // HEJI names are measured from a 1/1. Signs that every note of a chord shares come from where that 1/1 sits, not
+  // from the chord: a root that fell a 7·23 ratio from the progression's reference puts ↓7 ↑23 on all its notes.
+  // Moving the 1/1 to a pitch that carries those signs (this chord's root, or a chord note) removes them from every
+  // note at once. The new 1/1 is named by its own letter under the old one, so letters stay; cents and Hz are not
+  // touched: only the declared reference changes, as at the head of a HEJI score.
+  // The chord's own spelling (what its card shows: root as typed, letters as typed) is the other candidate: a linked
+  // chain can re-letter a chord (a held F reached as 23/8 of B is E♯, and the chord built on it follows), and for
+  // reading, the typed letters at the linked pitch are usually what is wanted.
+  const vsub = (p, q) => p.map((x, i) => x - q[i]);
+  const signCount = hs => hs.reduce((s, h) => s + h.arrows.reduce((t, ar) => t + Math.abs(ar.count), 0), 0);
+  const sameNames = (p, q) => p.heji.every((h, i) => h.letter === q.heji[i].letter && h.acc === q.heji[i].acc && h.octave === q.heji[i].octave);
+  // Reading cost of a spelling: one per comma sign, three per note whose letter is not the typed one, one more per
+  // extra sharp or flat beyond a single accidental (𝄪, ♯♯♯). The chord's own spelling gets a point of grace, so a
+  // chord note only takes over as 1/1 when it saves two or more.
+  const readCost = (heji, typedChains) => signCount(heji) + heji.reduce((c, h, i) => c + (h.chain !== typedChains[i] ? 3 : 0) + Math.max(0, Math.abs(h.acc) - 1), 0);
+  function spellFrom(vecs, ref, hzs, mode, local, typedChains) {
+    const zero = vecs[0].map(() => 0);
+    const spellWith = (t, moved) => {
+      const ht = E.hejiSpell(t, ref.chain, ref.midi);                     // the new 1/1, named under the old reference
+      const midi = E.parseNote(ht.name).midi;
+      const rel = vecs.map(v => vsub(v, t));
+      const heji = rel.map(v => E.hejiSpell(v, ht.chain, midi));
+      return { moved, kind: 'note', t, name: ht.name, heji, ratios: rel.map(E.ratioStr), signs: signCount(heji), hz: hzs[0] / Math.pow(2, E.centsOf(rel[0]) / 1200) };
+    };
+    const base = spellWith(zero, false);
+    let pick = base;
+    if (mode === 'local') pick = local;
+    else if (mode === 'auto') {
+      const cands = [base, local]; vecs.forEach(v => cands.push(spellWith(v, true)));
+      cands.forEach(c => { c.cost = readCost(c.heji, typedChains) - (c === local ? 1 : 0); });
+      pick = cands.reduce((b, c) => c.cost < b.cost ? c : b);          // ties keep the earlier: reference, then the chord's own spelling, then the lowest note
+    }
+    if (pick !== base && pick.signs === base.signs && sameNames(pick, base)) pick = base;   // nothing gained: say nothing
+    pick.baseSigns = base.signs; return pick;
+  }
+
   // ---------- score view ----------
   function readingById(a, id) { let found = null; eachReading(a, r => { if (r.id === id) found = r; }); return found; }
   function selectReading(ci, id, scroll) {
-    state.focusIdx = ci; state.sel[state.chords[ci].text] = id; save(); refresh();
+    state.focusIdx = ci; setSel(ci, id); save(); refresh();
     if (scroll && window.innerWidth < 920) $('#scorePanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
+  // Everything the score needs for one chord: its spelled notes (spec), title, playback Hz, and the spelling used.
+  function chordSpec(ci) {
+    const chord = state.chords[ci], a = state.analyses[ci];
+    const selId = selOf(ci);
+    const reading = selId === 'et' ? null : readingById(a, selId);
+    if (selId !== 'et' && !reading) setSel(ci, 'et');
+    const etHzs = chord.notes.map(n => E.midiHz(n.midi, settings().a4));
+    const head = `[${chord.text}${chord.label ? ' (' + chord.label + ')' : ''} — ${reading ? reading.id : '12-TET'}]`;
+    if (!reading) return { chord, a, reading: null, spec: { mode: 'et', notes: chord.notes.map(n => ({ letter: n.letter, acc: n.acc, octave: n.octave })), aria: `${chord.text} in 12-TET` }, title: head, hzs: etHzs, etHzs, shift: 0 };
+    const linked = linkedApplies() ? state.prog.steps[ci] : null;
+    const shift = linked ? linked.drift : 0; const k = Math.pow(2, shift / 1200);
+    // Linked: spell and measure every note from the progression's reference, the segment's first root as 1/1,
+    // so a comma of drift shows as an arrow on the accidental, as it would in a HEJI score. "Spell from" can then
+    // move that 1/1 to this chord's root, or to the chord note that leaves the fewest signs; the sound is unchanged.
+    const seg = linked ? linked.seg : null; const exact = !!(seg && linked.notes.every(nt => nt.absVec));
+    const overBass = reading.rootNote === 'bass';   // such a reading's own 1/1 is the bass (see progression.js)
+    const vecs = exact ? linked.notes.map(nt => nt.absVec) : reading.notes.map(n => n.vec);
+    const ref = exact ? { chain: seg.chain, midi: seg.rootMidi } : overBass ? { chain: chord.notes[0].chain, midi: chord.notes[0].midi } : { chain: a.root.chain, midi: a.rootMidi };
+    const hzs = reading.notes.map(n => n.hz * k);
+    const local = { moved: true, kind: 'typed', t: exact ? linked.baseVec : vecs[0].map(() => 0), name: overBass ? chord.notes[0].name : `${a.root.pc}${Math.floor(a.rootMidi / 12) - 1}`, heji: reading.notes.map(n => n.heji), ratios: reading.notes.map(n => n.ratio), signs: signCount(reading.notes.map(n => n.heji)), hz: hzs[0] / Math.pow(2, E.centsOf(reading.notes[0].vec) / 1200) };
+    const sp = spellFrom(vecs, ref, hzs, state.spellRef, local, chord.notes.map(n => n.chain));
+    const notes = reading.notes.map((n, i) => { const h = sp.heji[i]; return { letter: h.letter, acc: h.acc, octave: h.octave, arrows: h.arrows, respelled: h.chain !== chord.notes[i].chain, label: { ratio: sp.ratios[i], name: h.labelPc, cents: n.cents + shift, hz: hzs[i] } }; });
+    const spec = { mode: 'tuned', aria: `${chord.text} as ${reading.id}`, notes };
+    const basis = reading.fundamental ? `harmonics ${reading.fundamental.pc} ${reading.fundamental.series}` : (reading.maxHarmonic <= 9999 ? `series ${reading.harmonics.join(':')}` : 'polychord');
+    let title = `${head} root ${a.root.pc}, ${basis}`;
+    if (linked) title += ` · linked: ${fmtC1(shift)}¢`;
+    if (sp.moved) title += ` · spelled ${sp.kind === 'typed' ? 'as typed, ' : 'from '}${sp.name} = ${sp.hz.toFixed(2)} Hz as 1/1: ${sp.signs} sign${sp.signs === 1 ? '' : 's'}${sp.signs === sp.baseSigns ? '' : ` instead of ${sp.baseSigns}`}`;
+    else if (linked && exact) {
+      const refName = `${seg.pc}${Math.floor(seg.rootMidi / 12) - 1}`;
+      if (seg.start === ci && ci === 0) title += ` · reference ${refName} = 1/1`;
+      else if (seg.start === ci) title += `; this chord is its own 1/1 (it follows a tempered chord or a reset), so its spelling is local and only the ¢ and Hz carry the offset`;
+      else title += `, spelled from ${refName} (chord ${seg.start + 1}) as 1/1`;
+    }
+    // the pitch this column's staff is measured from, when that is not an earlier column's reference: shown under
+    // the column, since the staff alone cannot say where a locally spelled chord sits
+    // with the ratio of that pitch to the progression's reference when it is not a plain octave of it: that ratio
+    // is the transposition the staff cannot show in a relative spelling (a link change moves it, not the signs)
+    const refName = exact ? `${seg.pc}${Math.floor(seg.rootMidi / 12) - 1}` : null;
+    const ratioOf = t => (t && refName && t.some((x, i) => i > 0 && x)) ? `${E.ratioStr(t)} of ${refName}` : null;
+    const refNote = sp.moved ? { name: sp.name, hz: sp.hz, of: ratioOf(sp.t) } : (!exact || seg.start === ci) ? { name: local.name, hz: local.hz, of: null } : null;
+    return { chord, a, reading, spec, title, hzs, etHzs, shift, sp, refNote };
+  }
+  // The link in a few words, for the caption under a column.
+  function shortLink(link) {
+    if (!link) return '';
+    if (link.type === 'tet') return 'fixed';
+    if (link.type === 'reset') return 'reset';
+    return link.text.replace(/^root moves /, 'root ').replace(/ \([^)]*¢\)/, '').replace(/^hold /, 'hold ');
+  }
+  // ---------- open strings ----------
+  // A note that stands in a simple ratio to one of the player's open strings can be tuned against it directly (as a
+  // double stop or by resonance). Open strings in pure fifths from the page's A4: violin G3 D4 A4 E5, viola C3 G3 D4
+  // A4, cello C2 G2 D3 A3. A note is checked against its assigned player's strings (unassigned: all four), for a
+  // ratio within 3¢ whose odd part is at most 15 (3/2, 4/3, 5/4, 6/5, 5/3, 8/5, 7/4, 7/6, 7/5, 9/8, 15/8 …): what
+  // can be tuned by beats or resonance against the string.
+  const OPEN_STRINGS = { 'Violin I': ['G3', 'D4', 'A4', 'E5'], 'Violin II': ['G3', 'D4', 'A4', 'E5'], 'Viola': ['C3', 'G3', 'D4', 'A4'], 'Cello': ['C2', 'G2', 'D3', 'A3'] };
+  // pure fifths from A4, as factors of a4
+  const OPEN_FACTOR = { A4: 1, E5: 3 / 2, D4: 2 / 3, G3: 4 / 9, C3: 8 / 27, A3: 1 / 2, D3: 1 / 3, G2: 2 / 9, C2: 4 / 27 };
+  const openHz = (name, a4) => a4 * OPEN_FACTOR[name];
+  function openStringHint(hz, player, a4) {
+    const insts = OPEN_STRINGS[player] ? [player] : Object.keys(OPEN_STRINGS);
+    let best = null;
+    insts.forEach(inst => OPEN_STRINGS[inst].forEach(sName => {
+      const c = 1200 * Math.log2(hz / openHz(sName, a4));
+      const cs = E.candidates(c, { tolerance: 3, maxHeight: Math.log2(15) + 1e-9, primes: [3, 5, 7] });
+      if (!cs.length) return;
+      const k = cs[0]; const h = E.oddHeight(k.vec);
+      if (!best || h < best.height - 1e-9 || (Math.abs(h - best.height) < 1e-9 && Math.abs(k.dev) < Math.abs(best.dev))) best = { height: h, dev: k.dev, ratio: E.ratioStr(k.vec), string: sName, inst, text: `${E.ratioStr(k.vec)} × ${sName}` };
+    }));
+    return best;
+  }
+  // per-note hints for a reading (card: root anchored at 12-TET) and a summary: how many notes have one, and how simple
+  function openStringsOf(hzs, a4) {
+    const players = perfAssign(hzs.length);
+    const hints = hzs.map((hz, i) => openStringHint(hz, players[i], a4));
+    const count = hints.filter(Boolean).length, sum = hints.reduce((s, h) => s + (h ? h.height : 0), 0);
+    return { hints, count, sum, key: count * 100 - sum };   // higher is better: more notes, simpler ratios
+  }
+  const openCell = h => h ? `<td class="open" title="${esc(h.ratio)} of the open ${esc(h.string)} (${esc(h.inst)}), ${h.dev >= 0 ? '+' : ''}${h.dev.toFixed(1)}¢">${esc(h.text)}</td>` : '<td class="open"></td>';
+
+  // The inspector strip: the focused chord's notes, top down, with ratio, HEJI, cents, Hz and open-string hint; click a row to hear it.
+  function renderInspector(c) {
+    const box = $('#scoreInspector'); if (!c) { box.innerHTML = ''; return; }
+    const os = openStringsOf(c.hzs, settings().a4);
+    let h = '<table class="instable"><thead><tr><th>note</th><th>ratio</th><th>HEJI</th><th class="num">¢</th><th class="num">Hz</th><th title="a simple ratio to one of the player\'s open strings, within 3¢">open string</th></tr></thead><tbody>';
+    for (let i = c.spec.notes.length - 1; i >= 0; i--) {
+      const n = c.spec.notes[i], lb = n.label, cents = lb ? lb.cents : 0;
+      h += `<tr class="insrow" data-i="${i}" title="Click to hear this pitch alone"><td>${esc(c.chord.notes[i].name)}</td><td class="ratio">${esc(lb ? lb.ratio : '—')}</td><td class="heji${n.respelled ? ' resp' : ''}">${esc(lb ? lb.name : c.chord.notes[i].pc)}${n.respelled ? ' *' : ''}</td><td class="num"><span class="pill" style="${cellStyle(cents)}">${fmtC1(cents)}</span></td><td class="num">${c.hzs[i].toFixed(2)}</td>${openCell(os.hints[i])}</tr>`;
+    }
+    box.innerHTML = h + '</tbody></table>';
+  }
+  let scoreFocusCol = 0, liveShowing = false;
   function renderScore() {
     const panel = $('#scorePanel');
     if (!state.chords.length) { panel.hidden = true; renderResults(-1); return; }
-    panel.hidden = false;
+    panel.hidden = false; liveShowing = false;
     let ci = state.focusIdx; if (!(ci >= 0 && ci < state.chords.length)) { ci = 0; state.focusIdx = 0; }
     renderResults(ci);
-    const chord = state.chords[ci], a = state.analyses[ci];
-    const selId = state.sel[chord.text] || 'et';
-    const reading = selId === 'et' ? null : readingById(a, selId);
-    if (selId !== 'et' && !reading) state.sel[chord.text] = 'et';
-    // chips: chords (when several), then tunings of the focused chord
-    const cc = $('#scoreChords'); cc.innerHTML = '';
-    if (state.chords.length > 1) {
-      cc.insertAdjacentHTML('beforeend', '<span class="lab">chord</span>');
-      state.chords.forEach((c, i) => { const b = document.createElement('button'); b.className = 'chip' + (i === ci ? ' on' : ''); b.textContent = `${i + 1}. ${c.label || c.text}`; b.title = c.text; b.addEventListener('click', () => { state.focusIdx = i; save(); refresh(); }); cc.appendChild(b); });
-    }
+    const cols = state.chords.map((_, i) => chordSpec(i)); const cur = cols[ci]; lastCols = cols;
+    const { chord, a, reading } = cur;
+    // the focused chord's controls: tuning chips and (from chord 2 on) its link to the previous chord
     const tc = $('#scoreTunings'); tc.innerHTML = '<span class="lab">tuning</span>';
     const mk = (id, label) => { const b = document.createElement('button'); b.className = 'chip' + ((reading ? reading.id : 'et') === id ? ' on' : ''); b.textContent = label; b.addEventListener('click', () => selectReading(ci, id, false)); tc.appendChild(b); };
     mk('et', '12-TET'); eachReading(a, r => mk(r.id, r.id));
-    // title + staff
-    let spec, title;
-    const head = `[${chord.text}${chord.label ? ' (' + chord.label + ')' : ''} — ${reading ? reading.id : '12-TET'}]`;
-    if (!reading) {
-      spec = { mode: 'et', notes: chord.notes.map(n => ({ letter: n.letter, acc: n.acc, octave: n.octave })), aria: `${chord.text} in 12-TET` };
-      title = head;
-    } else {
-      const linked = linkedApplies() ? state.prog.steps[ci] : null;
-      const shift = linked ? linked.drift : 0; const k = Math.pow(2, shift / 1200);
-      // Linked: spell and measure every note from the progression's reference, the first chord's root as 1/1,
-      // so a comma of drift shows as an arrow on the accidental, as it would in a HEJI score.
-      const seg = linked ? linked.seg : null; const exact = !!(seg && linked.notes.every(nt => nt.absVec));
-      const notes = reading.notes.map((n, i) => {
-        if (exact) {
-          const av = linked.notes[i].absVec; const h = E.hejiSpell(av, seg.chain, seg.rootMidi);
-          return { letter: h.letter, acc: h.acc, octave: h.octave, arrows: h.arrows, respelled: h.chain !== chord.notes[i].chain, label: { ratio: E.ratioStr(av), name: h.labelPc, cents: n.cents + shift, hz: n.hz * k } };
-        }
-        return { letter: n.heji.letter, acc: n.heji.acc, octave: n.heji.octave, arrows: n.heji.arrows, respelled: n.respelled, label: { ratio: n.ratio, name: n.heji.labelPc, cents: n.cents + shift, hz: n.hz * k } };
-      });
-      spec = { mode: 'tuned', aria: `${chord.text} as ${reading.id}`, notes };
-      const basis = reading.fundamental ? `harmonics ${reading.fundamental.pc} ${reading.fundamental.series}` : (reading.maxHarmonic <= 9999 ? `series ${reading.harmonics.join(':')}` : 'polychord');
-      title = `${head} root ${a.root.pc}, ${basis}`;
-      if (linked && exact) {
-        const refName = `${seg.pc}${Math.floor(seg.rootMidi / 12) - 1}`;
-        if (seg.start === ci && ci === 0) title += ` · reference ${refName} = 1/1`;
-        else if (seg.start === ci) title += ` · linked: ${fmtC1(shift)}¢; this chord is its own 1/1 (it follows a tempered chord or a reset), so its spelling is local and only the ¢ and Hz carry the offset`;
-        else title += ` · linked: ${fmtC1(shift)}¢, spelled from ${refName} (chord ${seg.start + 1}) as 1/1`;
-      } else if (linked) title += ` · linked: ${fmtC1(shift)}¢`;
-    }
-    $('#scoreTitle').textContent = title;
+    renderLinkControl(ci);
+    $('#scoreTitle').textContent = cur.title;
     release();
-    const a4 = settings().a4;
-    scoreEtHz = chord.notes.map(n => E.midiHz(n.midi, a4));
-    const kk = (reading && linkedApplies()) ? Math.pow(2, state.prog.steps[ci].drift / 1200) : 1;
-    scoreHz = reading ? reading.notes.map(n => n.hz * kk) : scoreEtHz.slice();
+    scoreEtHz = cur.etHzs; scoreHz = cur.hzs; scoreFocusCol = ci;
     $('#scAB').disabled = !reading; $('#scAB').title = reading ? '2 s of 12-TET, then the selected tuning' : 'Select a tuning to compare it with 12-TET';
-    $('#scoreSvg').innerHTML = Score.render(spec);
-    publishSelection(chord, reading, spec, title, scoreHz);
+    // the system: every chord as a column, captions with reading / drift / link, ties between held common tones
+    const P = linkedApplies() ? state.prog : null;   // relative spelling: no links in the sound, so none in the captions
+    const columns = cols.map((c, i) => {
+      const caps = [`${i + 1}${c.chord.label ? '. ' + c.chord.label : ''}`, c.reading ? c.reading.id : '12-TET'];
+      if (P) { const st = P.steps[i]; const lk = i === 0 ? 'anchor' : shortLink(st.link); caps.push(`${c.reading ? fmtC1(st.drift) + '¢' : 'fixed'}${lk && lk !== 'fixed' ? ' · ' + lk : ''}`); }
+      if (c.refNote) caps.push(`1/1 ${c.refNote.name} = ${c.refNote.hz.toFixed(1)} Hz${c.refNote.of ? ' · ' + c.refNote.of : ''}`);
+      return { spec: c.spec, captions: caps };
+    });
+    // ties between common tones, from what actually sounds: held when the two chords give the same frequency
+    // (up to the written octave), else the slip in cents (named as a comma when the linked model knows it)
+    const ties = [];
+    for (let i = 1; i < cols.length; i++) {
+      const A = state.chords[i - 1], B = state.chords[i]; const st = state.prog ? state.prog.steps[i] : null;
+      A.notes.forEach((na, ai) => B.notes.forEach((nb, bi) => {
+        if (na.letter !== nb.letter || na.acc !== nb.acc) return;
+        const d = 1200 * Math.log2(cols[i].hzs[bi] / cols[i - 1].hzs[ai]) - 1200 * (nb.octave - na.octave);
+        const held = Math.abs(d) < 0.5;
+        const known = st && st.link && st.link.commons ? st.link.commons.find(b => b.name === na.name && b.name2 === nb.name) : null;
+        const comma = P && known && known.comma && Math.abs(known.cents - d) < 0.05 ? ` (${known.comma.name})` : '';
+        ties.push({ a: { col: i - 1, i: ai }, b: { col: i, i: bi }, held, text: held ? '' : fmtC1(d) + '¢', title: held ? `${na.name} held` : `${na.name} → ${nb.name} slips ${fmtC1(d)}¢${comma}` });
+      }));
+    }
+    $('#scoreSvg').innerHTML = Score.renderSystem(columns, { labels: 'none', focus: ci, ties, aria: `${state.chords.length} chords` });
+    renderInspector(cur);
+    publishSelection(chord, reading, cur.spec, cur.title, scoreHz, { columns, ties, focus: ci, ref: cur.refNote ? `1/1 ${cur.refNote.name} = ${cur.refNote.hz.toFixed(1)} Hz${cur.refNote.of ? ' · ' + cur.refNote.of : ''}` : '' });
   }
 
   // ---------- selection broadcast: performer window (storage), Max (jweb), session log ----------
   // Inside Max's [jweb] the page sees window.max (outlet / bindInlet). It may be injected a moment after our
   // scripts run, so the bridge is looked up lazily and inlets are bound with a few retries.
   function maxBridge() { return (typeof window !== 'undefined' && window.max && typeof window.max.outlet === 'function') ? window.max : null; }
+  // JSON arriving from Max as one symbol (jweb keeps strings whole, verified in Max 9), or percent-encoded by a patch that prefers that
+  function fromMaxJson(parts) { const s = parts.map(String).join(' ').trim(); return s.charAt(0) === '{' ? s : decodeURIComponent(s.replace(/\s+/g, '')); }
   function bindMax(bindings) {
     let tries = 0;
     const attempt = () => {
@@ -1574,14 +1875,61 @@ const Progression = (function () {
     };
     return attempt();
   }
+  // ---------- relay (server.js): the same selection to displays on other devices (iPads) ----------
+  // Optional and silent: with no relay running the POST just fails. Served over http the relay is the page's own
+  // origin; opened from disk or inside Max's jweb (file://) it is looked for on this machine, port 8080. An https
+  // page (the published artifact) has no relay and does not try. One request at a time, the newest selection
+  // wins; nothing here is awaited by the page. A failed POST is retried a few times (the relay may be starting),
+  // and for as long as it takes once the relay has been seen. The current selection is re-sent every 10 s so a
+  // restarted relay has it again for a display that joins late (the relay does not push an unchanged selection).
+  const RELAY = location.protocol === 'http:' ? location.origin : location.protocol === 'https:' ? null : 'http://localhost:8080';
+  const relay = { body: null, last: null, busy: false, okOnce: false, wait: 0, timer: null, retryMs: 2000, tries: 0 };
+  let lastPayload = null;
+  function relayPost(payload) {
+    if (!RELAY || typeof fetch !== 'function') return;
+    try { relay.body = relay.last = JSON.stringify(payload); } catch (e) { return; }
+    relay.tries = 0; relay.wait = 0; relayFlush();
+  }
+  function relayFlush() {
+    if (relay.busy || relay.body == null || Date.now() < relay.wait) return;
+    const body = relay.body; relay.body = null; relay.busy = true;
+    let ctl = null, t = null;
+    try { ctl = new AbortController(); t = setTimeout(() => ctl.abort(), 3000); } catch (e) { ctl = null; }
+    let req;
+    // text/plain keeps the POST a "simple" cross-origin request: no preflight round trip from a file:// page
+    try { req = fetch(RELAY + '/live', { method: 'POST', body, headers: { 'Content-Type': 'text/plain' }, cache: 'no-store', signal: ctl ? ctl.signal : undefined }); } catch (e) { req = Promise.reject(e); }
+    req.then(r => { if (!r.ok) throw new Error('relay ' + r.status); relay.okOnce = true; relay.retryMs = 2000; relay.tries = 0; })
+      .catch(() => {
+        if (relay.body == null) relay.body = body;          // still the newest: keep it for the retry
+        relay.wait = Date.now() + relay.retryMs; relay.tries++;
+        if (relay.okOnce || location.protocol === 'http:' || relay.tries < 5) { clearTimeout(relay.timer); relay.timer = setTimeout(relayFlush, relay.retryMs + 20); relay.retryMs = Math.min(15000, relay.retryMs * 2); }
+      })
+      .then(() => { clearTimeout(t); relay.busy = false; if (relay.body != null) relayFlush(); });
+  }
+  function relayKeepAlive() { if (relay.okOnce && !relay.busy && relay.body == null && relay.last != null) { relay.body = relay.last; relayFlush(); } }
+  // an instrument select changed in the performer window of this browser: tell the other displays at once
+  function assignChanged() {
+    if (!lastPayload) return;
+    const a = perfAssign(lastPayload.notes.length);
+    lastPayload.assign = a; lastPayload.notes.forEach((n, i) => { n.player = a[i] || '—'; });
+    try { localStorage.setItem('jiify.live', JSON.stringify(lastPayload)); } catch (e) { /* ignore */ }
+    relayPost(lastPayload);
+  }
+
   let lastLogKey = null;
-  function publishSelection(chord, reading, spec, title, hzs) {
+  // prog: {columns, ties, focus, ref} — the whole progression as the score drew it, so the performer display can
+  // show the current chord among its neighbours; absent for a live chord (then it is a single column).
+  function publishSelection(chord, reading, spec, title, hzs, prog) {
     const players = perfAssign(spec.notes.length);
     const payload = {
       ts: Date.now(), chord: chord.inferred ? chord.spelled : chord.text, label: chord.label || '', reading: reading ? reading.id : '12-TET', title,
       notes: spec.notes.map((n, i) => ({ name: chord.notes[i].name, letter: n.letter, acc: n.acc, octave: n.octave, arrows: n.arrows || [], heji: n.label ? n.label.name : chord.notes[i].pc, ratio: n.label ? n.label.ratio : '', cents: n.label ? n.label.cents : 0, hz: hzs[i], player: players[i] || '—' })),
+      index: prog ? prog.focus : 0, count: prog ? prog.columns.length : 1, ref: prog ? prog.ref : '',
+      assign: players,   // instrument per note, bottom-up, as set on this machine (displays on other devices have no access to this browser's storage)
+      progression: prog ? { focus: prog.focus, ties: prog.ties, columns: prog.columns.map(c => ({ spec: { mode: c.spec.mode, notes: c.spec.notes }, captions: c.captions })) } : null,
     };
     try { localStorage.setItem('jiify.live', JSON.stringify(payload)); } catch (e) { /* ignore */ }
+    lastPayload = payload; relayPost(payload);
     const mb = maxBridge();
     if (mb) {
       try {
@@ -1643,11 +1991,7 @@ const Progression = (function () {
     const analysis = E.analyzeChord(parsed.notes, roots[0].token, opts);
     const all = []; eachReading(analysis, r => all.push(r));
     if (!all.length) return;
-    const pick = $('#livePick').value; let chosen;
-    if (pick === 'fused') chosen = all.slice().sort((p, q) => p.maxHarmonic - q.maxHarmonic)[0];
-    else if (pick === 'readable') { const minCons = Math.min(...all.map(r => r.scores.consonance)); chosen = all.map(r => ({ r, A: assess(r, minCons) })).sort((p, q) => p.A.score - q.A.score)[0].r; }
-    else if (pick.startsWith('fam:')) { const fid = pick.slice(4); chosen = all.find(r => r.family === fid) || all[0]; }
-    else chosen = all.slice().sort((p, q) => p.scores.consonance - q.scores.consonance)[0];
+    const pick = $('#livePick').value; const chosen = livePickFrom(all, pick);
     live.lastChord = parsed;
     // show it in the score without touching the chord list
     const a4 = opts.a4;
@@ -1655,20 +1999,30 @@ const Progression = (function () {
     const title = `[live ${parsed.spelled} — ${chosen.id}] root ${analysis.root.pc}, ${chosen.fundamental ? `harmonics ${chosen.fundamental.pc} ${chosen.fundamental.series}` : (chosen.maxHarmonic <= 9999 ? `series ${chosen.harmonics.join(':')}` : 'polychord')} · pedal to capture`;
     $('#scorePanel').hidden = false; $('#scoreTitle').textContent = title;
     release(); scoreEtHz = parsed.notes.map(n => E.midiHz(n.midi, a4)); scoreHz = chosen.notes.map(n => n.hz); $('#scAB').disabled = false;
-    $('#scoreSvg').innerHTML = Score.render(spec);
-    publishSelection(parsed, chosen, spec, title, scoreHz);
+    scoreFocusCol = 0; liveShowing = true; $('#linkCtl').hidden = true;
+    $('#scoreSvg').innerHTML = Score.renderSystem([{ spec, captions: ['live · ' + chosen.id] }], { labels: 'none', focus: -1, aria: spec.aria });
+    renderInspector({ chord: parsed, spec, hzs: scoreHz });
+    publishSelection(parsed, chosen, spec, title, scoreHz, null);
     liveStatus(`Live: ${parsed.spelled} → ${chosen.id} (${pick}). Pedal or Capture to keep it.`);
+  }
+  // The live-pick rule: which of a chord's readings to show at once.
+  function livePickFrom(all, pick) {
+    if (pick === 'fused') return all.slice().sort((p, q) => p.maxHarmonic - q.maxHarmonic)[0];
+    if (pick === 'readable') { const minCons = Math.min(...all.map(r => r.scores.consonance)); return all.map(r => ({ r, A: assess(r, minCons) })).sort((p, q) => p.A.score - q.A.score)[0].r; }
+    if (pick.startsWith('fam:')) { const fid = pick.slice(4); return all.find(r => r.family === fid) || all[0]; }
+    if (pick === 'open') { const a4 = settings().a4; return all.map(r => ({ r, k: openStringsOf(r.notes.map(n => n.hz), a4).key })).sort((p, q) => q.k - p.k || p.r.scores.consonance - q.r.scores.consonance)[0].r; }
+    return all.slice().sort((p, q) => p.scores.consonance - q.scores.consonance)[0];
   }
   function liveCapture() {
     if (!live.lastChord) { toast('Nothing held yet'); return; }
     const ta = $('#chords'); const line = live.lastChord.spelled + ' | live ' + new Date().toLocaleTimeString();
     ta.value = (ta.value.trim() ? ta.value.replace(/\s+$/, '') + '\n' : '') + line;
-    const idx = ta.value.trim().split('\n').length - 1;
-    state.focusIdx = idx; run();
-    // select the same live pick for the captured chord
-    const a = state.analyses[idx]; if (a) { const all = []; eachReading(a, r => all.push(r)); const pick = $('#livePick').value; let chosen = null;
-      if (pick === 'fused') chosen = all.slice().sort((p, q) => p.maxHarmonic - q.maxHarmonic)[0]; else if (pick.startsWith('fam:')) chosen = all.find(r => r.family === pick.slice(4)) || all[0]; else if (pick === 'readable') { const minCons = Math.min(...all.map(r => r.scores.consonance)); chosen = all.map(r => ({ r, A: assess(r, minCons) })).sort((p, q) => p.A.score - q.A.score)[0].r; } else chosen = all.slice().sort((p, q) => p.scores.consonance - q.scores.consonance)[0];
-      if (chosen) selectReading(idx, chosen.id, false); }
+    run();
+    // the captured chord is the last one parsed (blank lines are skipped, so count chords, not lines); give it the same live pick
+    const idx = state.chords.length - 1; const a = state.analyses[idx]; state.focusIdx = idx;
+    const all = []; if (a) eachReading(a, r => all.push(r));
+    const chosen = all.length ? livePickFrom(all, $('#livePick').value) : null;
+    if (chosen) selectReading(idx, chosen.id, false); else { save(); refresh(); }
     toast('Captured ' + live.lastChord.spelled);
   }
 
@@ -1679,37 +2033,130 @@ const Progression = (function () {
     if (saved && saved.length === n) return saved;
     return Array.from({ length: n }, (_, i) => n <= 4 ? INSTRUMENTS[i + (4 - n)] : (i < 4 ? INSTRUMENTS[i] : '—'));
   }
+  // ?player=N on the performer display: that player's note large (1 = the lowest note, counting up), the chord
+  // and the staff smaller beside it. Without it, the full display.
+  const perfPlayer = (() => { const m = /[?&]player=(\d+)/.exec(location.search || ''); const n = m ? parseInt(m[1], 10) : 0; return n >= 1 && n <= 99 ? n : 0; })();
   function renderPerf(p) {
-    if (!p) return;
+    if (!p || !Array.isArray(p.notes)) return;
+    const tet = p.reading === '12-TET';
     $('#perfChord').textContent = `${p.chord}${p.label ? '  (' + p.label + ')' : ''}`;
-    $('#perfReading').textContent = p.reading;
-    const spec = { mode: p.reading === '12-TET' ? 'et' : 'tuned', notes: p.notes.map(n => ({ letter: n.letter, acc: n.acc, octave: n.octave, arrows: n.arrows, label: { ratio: n.ratio, name: n.heji, cents: n.cents, hz: n.hz } })) };
-    const svg = Score.render(spec); $('#perfSvg').innerHTML = svg;
-    const el = $('#perfSvg svg'); if (el) { const w = parseFloat(el.getAttribute('width')), h = parseFloat(el.getAttribute('height')); const k = Math.min(1.8, 1300 / w); el.setAttribute('width', (w * k).toFixed(0)); el.setAttribute('height', (h * k).toFixed(0)); }
-    const assign = perfAssign(p.notes.length);
-    let h = '<thead><tr><th>player</th><th>note</th><th>HEJI</th><th>ratio</th><th>¢ from 12-TET</th><th>Hz</th></tr></thead><tbody>';
+    $('#perfReading').textContent = `${p.reading}${p.count > 1 ? ` · chord ${p.index + 1} of ${p.count}` : ''}${p.ref ? ' · ' + p.ref : ''}`;
+    // the composer's instrument assignment travels in the payload; older senders leave it to this browser's own
+    const assign = Array.isArray(p.assign) && p.assign.length === p.notes.length ? p.assign : perfAssign(p.notes.length);
+    // this player's note: the N-th from the bottom by pitch (the list is normally typed bottom-up already)
+    const byPitch = p.notes.map((n, i) => i).sort((a, b) => (+p.notes[a].hz) - (+p.notes[b].hz));
+    const me = perfPlayer && byPitch.length >= perfPlayer ? byPitch[perfPlayer - 1] : -1;
+    // the whole progression as a strip of staff stretches with a ratio beside each note, the current chord tinted;
+    // older senders (or a live chord) give one chord, drawn the same way
+    const spec = { mode: tet ? 'et' : 'tuned', notes: p.notes.map(n => ({ letter: n.letter, acc: n.acc, octave: n.octave, arrows: n.arrows, label: { ratio: n.ratio, name: n.heji, cents: n.cents, hz: n.hz } })) };
+    const pr = p.progression && p.progression.columns && p.progression.columns.length ? p.progression : { columns: [{ spec, captions: [] }], ties: [], focus: -1 };
+    const box = $('#perfSvg');
+    box.innerHTML = Score.renderSystem(pr.columns, { labels: 'ratio', segmented: true, focus: pr.focus, ties: pr.ties || [], aria: `${pr.columns.length} chords` });
+    const el = $('#perfSvg svg'); let k = 1;
+    if (el) {
+      const w = parseFloat(el.getAttribute('width')), h = parseFloat(el.getAttribute('height'));
+      // a player's strip is the smaller, secondary view: fit the width it has when it can, never below 1×
+      k = perfPlayer ? Math.max(1, Math.min(1.4, (box.clientWidth - 18) / w)) : Math.max(1.25, Math.min(1.8, 1300 / w));
+      el.setAttribute('width', (w * k).toFixed(0)); el.setAttribute('height', (h * k).toFixed(0));
+    }
+    const fc = $('#perfSvg .focuscol'); if (fc) { const x = parseFloat(fc.getAttribute('x')) * k, w = parseFloat(fc.getAttribute('width')) * k; box.scrollLeft = Math.max(0, x + w / 2 - box.clientWidth / 2); }
+    if (me >= 0) { const col = pr.focus >= 0 ? pr.focus : 0; const nh = box.querySelector(`.note[data-ci="${col}"][data-i="${me}"]`); if (nh) nh.classList.add('mine'); }
+    let h = `<thead><tr><th>player</th><th>note</th><th>HEJI</th><th>ratio</th><th>${perfPlayer ? '¢' : '¢ from 12-TET'}</th><th>Hz</th></tr></thead><tbody>`;
     [...p.notes].reverse().forEach((n, ri) => {
       const i = p.notes.length - 1 - ri;
-      h += `<tr><td class="inst"><select data-i="${i}">${['—'].concat(INSTRUMENTS).map(x => `<option${assign[i] === x ? ' selected' : ''}>${x}</option>`).join('')}</select></td><td>${esc(n.name)}</td><td class="heji">${esc(n.heji)}</td><td class="ratio">${esc(n.ratio || '')}</td><td class="c" style="${cellStyle(n.cents)}">${p.reading === '12-TET' ? '0' : fmtC1(n.cents)}</td><td class="hz">${(+n.hz).toFixed(2)}</td></tr>`;
+      // the instrument selects are the composer's; a player's view shows the assignment as text
+      const who = perfPlayer ? esc(assign[i] || '—') : `<select data-i="${i}" aria-label="Instrument for ${esc(n.name)}">${['—'].concat(INSTRUMENTS).map(x => `<option${assign[i] === x ? ' selected' : ''}>${x}</option>`).join('')}</select>`;
+      h += `<tr${i === me ? ' class="mine"' : ''}><td class="inst">${who}</td><td>${esc(n.name)}</td><td class="heji">${esc(n.heji)}</td><td class="ratio">${esc(n.ratio || '')}</td><td class="c" style="${cellStyle(n.cents)}">${tet ? '0' : fmtC1(n.cents)}</td><td class="hz">${(+n.hz).toFixed(2)}</td></tr>`;
     });
     $('#perfTable').innerHTML = h + '</tbody>';
-    $('#perfTable').onchange = ev => { const s = ev.target.closest('select'); if (!s) return; const cur = perfAssign(p.notes.length); cur[+s.dataset.i] = s.value; try { localStorage.setItem('jiify.assign.' + p.notes.length, JSON.stringify(cur)); } catch (e) { /* ignore */ } };
+    $('#perfTable').onchange = ev => { const s = ev.target.closest('select'); if (!s) return; const cur = assign.slice(); cur[+s.dataset.i] = s.value; try { localStorage.setItem('jiify.assign.' + p.notes.length, JSON.stringify(cur)); } catch (e) { /* ignore */ } };
     $('#perfNote').textContent = `${new Date(p.ts).toLocaleTimeString()} · ${p.title || ''}`;
+    if (perfPlayer) renderPerfMe(p, spec, assign, me);
   }
-  let perfOn = false;
+  // The player's own note, readable from a music stand: instrument, the note on a staff with its real HEJI signs,
+  // then name, HEJI in words, ratio, cents and Hz as large text.
+  function renderPerfMe(p, spec, assign, me) {
+    const box = $('#perfMe'); box.hidden = false;
+    if (me < 0) { box.innerHTML = `<div class="me-who">player ${perfPlayer}</div><p class="me-none">No note for player ${perfPlayer}: this chord has ${p.notes.length} note${p.notes.length === 1 ? '' : 's'}.</p>`; return; }
+    const n = p.notes[me], tet = p.reading === '12-TET';
+    const inst = assign[me] && assign[me] !== '—' ? assign[me] + ' · ' : '';
+    const staff = Score.renderSystem([{ spec: { mode: spec.mode, notes: [spec.notes[me]] }, captions: [] }], { labels: 'none', focus: -1, aria: `${n.heji}, ${n.ratio || '12-TET'}` });
+    box.innerHTML = `<div class="me-who">${esc(inst)}player ${perfPlayer}</div>` +
+      `<div class="me-main"><div class="me-staff paper">${staff}</div><div class="me-text">` +
+      `<div class="me-name">${esc(n.name)}</div><div class="me-heji">${esc(n.heji)}</div>` +
+      `<div class="me-ratio${n.ratio ? '' : ' me-tet'}">${esc(n.ratio || (tet ? '12-TET' : ''))}</div>` +
+      `<div><span class="me-cents" style="${cellStyle(n.cents)}">${tet ? '0' : fmtC1(n.cents)}¢</span></div>` +
+      `<div class="me-hz">${(+n.hz).toFixed(2)} Hz</div></div></div>`;
+  }
+  let perfOn = false, perfRaw = null;
+  // One selection as JSON text, from any transport (storage, relay, Max); the same one twice is drawn once.
+  function perfShow(raw) {
+    if (!raw || raw === perfRaw) return;
+    let p = null; try { p = JSON.parse(raw); } catch (e) { return; }
+    perfRaw = raw; renderPerf(p);
+  }
   function perfBoot() {
     if (perfOn) return; perfOn = true;
-    document.querySelectorAll('body > *:not(#perf):not(.toast):not(.srcopy)').forEach(el => { el.hidden = true; });
-    $('#perf').hidden = false; document.title = 'JI-ify — performers';
-    let p = null; try { p = JSON.parse(localStorage.getItem('jiify.live') || 'null'); } catch (e) { p = null; }
-    if (p) renderPerf(p);
-    window.addEventListener('storage', ev => { if (ev.key === 'jiify.live' && ev.newValue) { try { renderPerf(JSON.parse(ev.newValue)); } catch (e) { /* ignore */ } } });
+    document.querySelectorAll('body > *:not(#perf):not(.toast):not(.srcopy):not(.palette)').forEach(el => { el.hidden = true; });
+    $('#perf').hidden = false; document.title = perfPlayer ? `JI-ify — player ${perfPlayer}` : 'JI-ify — performers';
+    // a player's view: nothing to operate, so the colour button goes too (the page still follows the iPad's light/dark setting)
+    if (perfPlayer) { $('#perf').classList.add('player'); $('#palette').hidden = true; $('#perfNote').textContent = 'Waiting for a selection from the composer.'; }
+    let raw = null; try { raw = localStorage.getItem('jiify.live'); } catch (e) { raw = null; }
+    perfShow(raw);
+    window.addEventListener('storage', ev => { if (ev.key === 'jiify.live' && ev.newValue) perfShow(ev.newValue); });
     // Inside Max: the helper relays the main window's selection as `show <json>`; the storage event also
     // works when both jweb objects share one browser profile, so either path updates the display.
-    bindMax({ show: (...parts) => { try { const s = parts.join(' '); renderPerf(typeof s === 'string' ? JSON.parse(s) : s); } catch (e) { /* ignore */ } } });
+    bindMax({ show: (...parts) => { try { perfShow(fromMaxJson(parts)); } catch (e) { /* ignore */ } } });
+    // Served by the relay (server.js): follow it over the network; this is the path that reaches an iPad.
+    if (location.protocol === 'http:' && typeof EventSource === 'function') perfNet();
+    let rz = null; window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { if (perfRaw) { try { renderPerf(JSON.parse(perfRaw)); } catch (e) { /* ignore */ } } }, 150); });
+  }
+  // The relay's event stream. Every selection and every heartbeat (15 s apart) counts as a sign of life; after
+  // 20 s without one the display says so and dims, because what it shows may no longer be what is selected.
+  // EventSource reconnects by itself after an error; the watchdog only steps in where it cannot: a stream it has
+  // closed for good, a connection attempt that hangs, or one that looks open but is silent (an iPad back from
+  // sleep, a Wi-Fi drop the socket never noticed).
+  function perfNet() {
+    const STALE_MS = 20000; const conn = $('#perfConn'), root = $('#perf');
+    const net = { es: null, seen: Date.now(), opened: 0, stale: false, opens: 0, reopens: 0 };
+    window.jiifyNet = net;   // for inspection from the console and the browser check
+    const alive = () => { net.seen = Date.now(); if (net.stale) { net.stale = false; conn.hidden = true; root.classList.remove('stale'); } };
+    const open = () => {
+      if (net.es) { try { net.es.close(); } catch (e) { /* ignore */ } }
+      net.opened = Date.now();
+      const es = net.es = new EventSource('/events');
+      es.onopen = () => { net.opens++; };
+      es.onmessage = ev => { alive(); perfShow(ev.data); };
+      es.addEventListener('hb', alive);
+    };
+    const check = () => {
+      const now = Date.now(); if (now - net.seen <= STALE_MS) return;
+      if (!net.stale) { net.stale = true; conn.hidden = false; root.classList.add('stale'); }
+      const connecting = net.es && net.es.readyState === 0;
+      if (now - net.opened > (connecting ? 15000 : 5000)) { net.reopens++; open(); }
+    };
+    open(); setInterval(check, 1000);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) check(); });
+    window.addEventListener('pageshow', check);
   }
   $('#scPlay').addEventListener('click', scorePlay); $('#scAB').addEventListener('click', scoreAB); $('#scArp').addEventListener('click', scoreArp); $('#scHold').addEventListener('click', scoreHold);
-  $('#scoreSvg').addEventListener('click', ev => { const el = ev.target.closest('[data-i]'); if (el) scoreSolo(parseInt(el.dataset.i, 10)); });
+  // click a column to focus that chord; a notehead (or inspector row) of the focused chord to hear it alone
+  $('#scoreSvg').addEventListener('click', ev => {
+    const el = ev.target.closest('[data-ci]'); if (!el) return;
+    const col = parseInt(el.dataset.ci, 10);
+    if (!liveShowing && col !== scoreFocusCol && col < state.chords.length) { state.focusIdx = col; save(); refresh(); return; }
+    if (el.dataset.i != null) scoreSolo(parseInt(el.dataset.i, 10));
+  });
+  $('#scoreInspector').addEventListener('click', ev => { const el = ev.target.closest('[data-i]'); if (el) scoreSolo(parseInt(el.dataset.i, 10)); });
+  // keyboard: space plays the focused chord, ← → move the focus; never while typing in a field
+  document.addEventListener('keydown', ev => {
+    if (ev.metaKey || ev.ctrlKey || ev.altKey || ['INPUT', 'TEXTAREA', 'SELECT'].includes(ev.target.tagName) || ev.target.isContentEditable) return;
+    if (ev.key === ' ' || ev.code === 'Space') { if ($('#scorePanel').hidden || !scoreHz.length) return; ev.preventDefault(); if (ev.repeat) return; scorePlay(); return; }
+    if (ev.key !== 'ArrowLeft' && ev.key !== 'ArrowRight') return;
+    if (state.chords.length < 2 || liveShowing) return;
+    const next = Math.max(0, Math.min(state.chords.length - 1, state.focusIdx + (ev.key === 'ArrowRight' ? 1 : -1)));
+    if (next !== state.focusIdx) { state.focusIdx = next; save(); refresh(); } ev.preventDefault();
+  });
 
 
   // ---------- playability ----------
@@ -1749,8 +2196,9 @@ const Progression = (function () {
     const d = document.createElement('div'); d.className = 'card pcard'; d.dataset.id = r.id;
     let html = `<div class="card-head"><span class="id">${idx === 0 ? 'Recommended' : 'Alternative'} · ${esc(r.id)}</span><span class="lvl ${A.level}">${LEVEL_TEXT[A.level]}</span>${x.marks && x.marks.length ? `<span class="pick">${x.marks.join(' · ')}</span>` : ''}</div>`;
     html += `<p class="hint" style="margin:0 0 6px">${esc(assessLine(r, A))}</p>`;
-    html += `<div class="scroll"><table><thead><tr><th>note</th><th>ratio</th><th>HEJI</th><th class="num">¢</th><th class="num">Hz</th></tr></thead><tbody>`;
-    r.notes.forEach(n => { html += `<tr><td>${esc(n.typed)}</td><td class="ratio">${n.ratio}</td><td class="heji${n.respelled ? ' resp' : ''}">${esc(n.heji.label)}${n.respelled ? ' *' : ''}</td><td class="num"><span class="pill" style="${cellStyle(n.cents)}">${fmtC1(n.cents)}</span></td><td class="num">${n.hz.toFixed(2)}</td></tr>`; });
+    const osp = openStringsOf(r.notes.map(n => n.hz), settings().a4);
+    html += `<div class="scroll"><table><thead><tr><th>note</th><th>ratio</th><th>HEJI</th><th class="num">¢</th><th class="num">Hz</th><th title="a simple ratio to one of the player's open strings, within 3¢">open string</th></tr></thead><tbody>`;
+    r.notes.forEach((n, i) => { html += `<tr><td>${esc(n.typed)}</td><td class="ratio">${n.ratio}</td><td class="heji${n.respelled ? ' resp' : ''}">${esc(n.heji.label)}${n.respelled ? ' *' : ''}</td><td class="num"><span class="pill" style="${cellStyle(n.cents)}">${fmtC1(n.cents)}</span></td><td class="num">${n.hz.toFixed(2)}</td>${openCell(osp.hints[i])}</tr>`; });
     html += '</tbody></table></div>';
     html += `<div class="route">Tune: ${routeText(r)}</div>`;
     html += `<div class="actions"><button class="btn small showscore" data-id="${esc(r.id)}" title="Show this tuning on the staff">♪ Score</button><button class="btn small play" data-id="${esc(r.id)}">▶ Play</button><button class="btn small ab" data-id="${esc(r.id)}">12-TET → JI</button><button class="btn small copy" data-id="${esc(r.id)}">Copy table</button></div>`;
@@ -1771,17 +2219,17 @@ const Progression = (function () {
     const sel = document.createElement('select'); sel.setAttribute('aria-label', 'Root');
     roots.forEach(r => { const o = document.createElement('option'); o.value = r.token; o.textContent = `root ${r.pc} (${r.score})`; sel.appendChild(o); });
     const custom = !roots.some(r => r.token === a.root.pc.replace('♯', '#').replace('♭', 'b')) && !roots.some(r => r.pc === a.root.pc);
-    if (custom) { const o = document.createElement('option'); o.value = state.roots[chord.text]; o.textContent = `root ${a.root.pc} (absent)`; sel.appendChild(o); sel.value = o.value; }
+    if (custom) { const o = document.createElement('option'); o.value = state.roots[rootKey(ci)]; o.textContent = `root ${a.root.pc} (absent)`; sel.appendChild(o); sel.value = o.value; }
     else sel.value = roots.find(r => r.pc === a.root.pc).token;
-    sel.addEventListener('change', () => { state.roots[chord.text] = sel.value; run(); });
+    sel.addEventListener('change', () => { state.roots[rootKey(ci)] = sel.value; run(); });
     const other = document.createElement('input'); other.placeholder = 'other…'; other.setAttribute('aria-label', 'Other root pitch class'); other.title = 'Type a pitch class such as G or Eb and press Enter to read the chord over an absent root';
-    other.addEventListener('keydown', ev => { if (ev.key === 'Enter') { const pc = E.parsePitchClass(other.value); if (pc) { state.roots[chord.text] = other.value.trim(); run(); } else toast('Root not understood'); } });
+    other.addEventListener('keydown', ev => { if (ev.key === 'Enter') { const pc = E.parsePitchClass(other.value); if (pc) { state.roots[rootKey(ci)] = other.value.trim(); run(); } else toast('Root not understood'); } });
     rc.appendChild(sel); rc.appendChild(other);
     head.appendChild(rc); sec.appendChild(head);
 
     // why this root: the derivation, candidate by candidate
     const chosenRoot = roots.find(r => r.pc === a.root.pc) || roots.absent.find(r => r.pc === a.root.pc) || null;
-    const auto = !state.roots[chord.text] || state.roots[chord.text] === roots[0].token;
+    const auto = !state.roots[rootKey(ci)] || state.roots[rootKey(ci)] === roots[0].token;
     const why = document.createElement('details'); why.className = 'why';
     const supStr = r => r.support.map(s => s.interval === 'bass' ? 'bass' : `${s.pc} ${s.interval}`).join(', ');
     let summary = `Root ${esc(a.root.pc)}${auto ? ' (derived)' : ' (your choice)'}`;
@@ -1793,7 +2241,7 @@ const Progression = (function () {
     let rows = roots.map(r => `<tr class="pick-root" data-token="${esc(r.token)}"><td>${esc(r.pc)}${r.pc === a.root.pc ? ' ◀' : ''}</td><td class="num">${r.score}</td><td>${esc(supStr(r)) || '—'}</td><td class="series">${r.fit ? r.fit.series : '—'}</td><td class="num">${r.fit ? r.fit.maxH : '—'}</td></tr>`).join('');
     rows += roots.absent.map(r => `<tr class="pick-root" data-token="${esc(r.token)}"><td>${esc(r.pc)}${r.pc === a.root.pc ? ' ◀' : ''} <span class="hint">absent</span></td><td class="num">—</td><td>—</td><td class="series">${r.fit.series}</td><td class="num">${r.fit.maxH}</td></tr>`).join('');
     why.innerHTML = `<summary>${summary}</summary><div class="scroll"><table class="roots"><thead><tr><th>candidate</th><th class="num">support</th><th>supported by</th><th>best single series</th><th class="num">max harmonic</th></tr></thead><tbody>${rows}</tbody></table></div><p class="hint">Support: Parncutt's root-support weights (unison 10, fifth 5, major third 3, minor seventh 2, major second 1; bass +1.5). Best single series: the lowest harmonic-series fit whose fundamental is that pitch class. Click a row to read the chord over that root; type any other pitch class in the box above.</p>`;
-    why.addEventListener('click', ev => { const tr = ev.target.closest('tr.pick-root'); if (tr) { state.roots[chord.text] = tr.dataset.token; run(); } });
+    why.addEventListener('click', ev => { const tr = ev.target.closest('tr.pick-root'); if (tr) { state.roots[rootKey(ci)] = tr.dataset.token; run(); } });
     sec.appendChild(why);
 
     // collect readings
@@ -1801,8 +2249,9 @@ const Progression = (function () {
     if (!all.length) { sec.insertAdjacentHTML('beforeend', '<p class="hint">No reading within tolerance; widen it or change the root.</p>'); return sec; }
     const routeMax = r => Math.max(...r.route.map(s => s.complexity));
     const signs = r => r.notes.reduce((n, x) => n + x.heji.arrows.reduce((m, ar) => m + Math.abs(ar.count), 0), 0);
-    const marks = { 'simplest dyads': Math.min(...all.map(r => r.scores.consonance)), 'most fused': Math.min(...all.map(r => r.maxHarmonic)), 'easiest route': Math.min(...all.map(routeMax)), 'least retuning': Math.min(...all.map(r => r.scores.sumDev)), 'fewest signs': Math.min(...all.map(signs)) };
-    const picksOf = r => { const p = []; if (r.scores.consonance === marks['simplest dyads']) p.push('simplest dyads'); if (r.maxHarmonic === marks['most fused']) p.push('most fused'); if (routeMax(r) === marks['easiest route']) p.push('easiest route'); if (r.scores.sumDev === marks['least retuning']) p.push('least retuning'); if (signs(r) === marks['fewest signs']) p.push('fewest signs'); return p; };
+    const openKey = r => { if (r._openKey === undefined) r._openKey = openStringsOf(r.notes.map(n => n.hz), opts.a4).key; return r._openKey; };
+    const marks = { 'simplest dyads': Math.min(...all.map(r => r.scores.consonance)), 'most fused': Math.min(...all.map(r => r.maxHarmonic)), 'easiest route': Math.min(...all.map(routeMax)), 'least retuning': Math.min(...all.map(r => r.scores.sumDev)), 'fewest signs': Math.min(...all.map(signs)), 'open strings': Math.max(...all.map(openKey)) };
+    const picksOf = r => { const p = []; if (r.scores.consonance === marks['simplest dyads']) p.push('simplest dyads'); if (r.maxHarmonic === marks['most fused']) p.push('most fused'); if (routeMax(r) === marks['easiest route']) p.push('easiest route'); if (r.scores.sumDev === marks['least retuning']) p.push('least retuning'); if (signs(r) === marks['fewest signs']) p.push('fewest signs'); if (marks['open strings'] > 0 && openKey(r) === marks['open strings']) p.push('open strings'); return p; };
 
     if (state.view === 'playable') {
       // Recommended = the purest reading (lowest dyad complexity) among those that are not hard to read or
@@ -1876,9 +2325,10 @@ const Progression = (function () {
     let html = `<div class="card-head"><span class="id">${esc(r.id)}</span>${picks.length ? `<span class="pick">${picks.join(' · ')}</span>` : ''}</div>`;
     html += `<p class="hint" style="margin:0">${fundLine(r)}${note ? ' ' + esc(note) : ''}</p>`;
     html += `<div class="badges"><span class="badge">limit ${r.scores.limit}</span>${showH ? `<span class="badge">max harmonic ${r.maxHarmonic}</span>` : ''}<span class="badge">complexity ${r.scores.consonance.toFixed(1)}</span><span class="badge">Σ|¢| ${r.scores.sumDev.toFixed(0)}</span><span class="badge">max |¢| ${r.scores.maxDev.toFixed(0)}</span>${r.scores.respelled ? `<span class="badge warn">${r.scores.respelled} respelled</span>` : ''}${r.scores.compound ? `<span class="badge warn" title="A note needing two or more comma signs is a ratio with several primes above 3: exact, but rarely what a chord means">${r.scores.compound} with compound signs</span>` : ''}</div>`;
-    html += `<div class="scroll"><table><thead><tr><th>note</th><th>ratio</th>${showH ? '<th class="num">harm.</th>' : ''}<th>HEJI</th><th class="num">¢</th><th class="num">Hz</th></tr></thead><tbody>`;
-    r.notes.forEach(n => {
-      html += `<tr><td>${esc(n.typed)}</td><td class="ratio">${n.ratio}</td>${showH ? `<td class="num">${n.harmonic}</td>` : ''}<td class="heji${n.respelled ? ' resp' : ''}" title="${n.respelled ? 'spelled differently from your input' : 'matches your spelling'}">${esc(n.heji.label)}${n.respelled ? ' *' : ''}</td><td class="num"><span class="pill" style="${cellStyle(n.cents)}">${fmtC1(n.cents)}</span></td><td class="num">${n.hz.toFixed(2)}</td></tr>`;
+    const osc = openStringsOf(r.notes.map(n => n.hz), opts.a4);
+    html += `<div class="scroll"><table><thead><tr><th>note</th><th>ratio</th>${showH ? '<th class="num">harm.</th>' : ''}<th>HEJI</th><th class="num">¢</th><th class="num">Hz</th><th title="a simple ratio to one of the player's open strings, within 3¢">open string</th></tr></thead><tbody>`;
+    r.notes.forEach((n, i) => {
+      html += `<tr><td>${esc(n.typed)}</td><td class="ratio">${n.ratio}</td>${showH ? `<td class="num">${n.harmonic}</td>` : ''}<td class="heji${n.respelled ? ' resp' : ''}" title="${n.respelled ? 'spelled differently from your input' : 'matches your spelling'}">${esc(n.heji.label)}${n.respelled ? ' *' : ''}</td><td class="num"><span class="pill" style="${cellStyle(n.cents)}">${fmtC1(n.cents)}</span></td><td class="num">${n.hz.toFixed(2)}</td>${openCell(osc.hints[i])}</tr>`;
     });
     html += '</tbody></table></div>';
     html += `<div class="route">Route: ${routeText(r)}</div>`;
@@ -1894,17 +2344,82 @@ const Progression = (function () {
     $('#legend').innerHTML = `<thead><tr><th>sign</th><th>comma</th><th class="num">size</th></tr></thead><tbody>${rows}</tbody>`;
   }
 
+  // ---------- colours: the palette button bottom right; a preset, or your own background / text / accent ----------
+  // A choice is written as inline custom properties on <html>, which beat both theme rules in the stylesheet; the
+  // in-between shades (surfaces, lines, muted text) are mixed from the two colours you pick. data-theme follows the
+  // background's lightness so the semantic colours (flat/sharp/warn/ok) and form controls match.
+  const PALETTES = [
+    { id: 'system', name: 'System' },
+    { id: 'moss', name: 'Moss', bg: '#edf2e2', ink: '#1b2417', accent: '#3a7a29' },
+    { id: 'night', name: 'Night', bg: '#0f160f', ink: '#e3eed4', accent: '#9fd45f' },
+    { id: 'paper', name: 'Paper', bg: '#f7f1e3', ink: '#2b2420', accent: '#9a5b1c' },
+    { id: 'slate', name: 'Slate', bg: '#1b2130', ink: '#e1e6f0', accent: '#8ab8ff' },
+    { id: 'ink', name: 'Ink', bg: '#ffffff', ink: '#111111', accent: '#1f1f1f' },
+  ];
+  const PAL_VARS = ['--bg', '--surface', '--surface-2', '--ink', '--muted', '--line', '--accent', '--accent-ink', '--accent-soft'];
+  const hexRgb = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+  const rgbHex = c => '#' + c.map(v => Math.round(Math.max(0, Math.min(255, v))).toString(16).padStart(2, '0')).join('');
+  const mix = (a, b, t) => { const B = hexRgb(b); return rgbHex(hexRgb(a).map((v, i) => v + (B[i] - v) * t)); };
+  const lum = h => { const [r, g, b] = hexRgb(h).map(v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; };
+  function applyPalette(p) {
+    const root = document.documentElement;
+    if (!p || !p.bg) { PAL_VARS.forEach(v => root.style.removeProperty(v)); root.style.removeProperty('color-scheme'); root.removeAttribute('data-theme'); return; }
+    const dark = lum(p.bg) < 0.3; const set = (k, v) => root.style.setProperty(k, v);
+    set('--bg', p.bg); set('--ink', p.ink);
+    set('--surface', mix(p.bg, p.ink, dark ? 0.05 : 0.035)); set('--surface-2', mix(p.bg, p.ink, dark ? 0.11 : 0.08));
+    set('--line', mix(p.bg, p.ink, 0.22)); set('--muted', mix(p.ink, p.bg, 0.38));
+    set('--accent', p.accent); set('--accent-ink', lum(p.accent) < 0.4 ? '#ffffff' : '#111111'); set('--accent-soft', mix(p.bg, p.accent, 0.25));
+    set('color-scheme', dark ? 'dark' : 'light'); root.setAttribute('data-theme', dark ? 'dark' : 'light');
+  }
+  function paletteInit() {
+    const PK = 'jiify.palette';
+    let cur = null; try { cur = JSON.parse(localStorage.getItem(PK) || 'null'); } catch (e) { cur = null; }
+    if (cur && !/^#[0-9a-f]{6}$/i.test(cur.bg || '')) cur = null;
+    const btn = $('#paletteBtn'), menu = $('#paletteMenu'), themes = $('#paletteThemes');
+    const inputs = { bg: $('#paletteBg'), ink: $('#paletteInk'), accent: $('#paletteAccent') };
+    const stock = () => { const cs = getComputedStyle(document.documentElement); return { bg: cs.getPropertyValue('--bg').trim(), ink: cs.getPropertyValue('--ink').trim(), accent: cs.getPropertyValue('--accent').trim() }; };
+    const store = () => { try { if (cur) localStorage.setItem(PK, JSON.stringify(cur)); else localStorage.removeItem(PK); } catch (e) { /* ignore */ } };
+    // swatches are built once; render() only moves the highlight and refreshes the inputs (rebuilding them under a
+    // click would detach the clicked button, and the outside-click check below would then close the menu)
+    PALETTES.forEach(p => {
+      const b = document.createElement('button'); b.type = 'button'; b.className = 'swatch'; b.dataset.id = p.id; b.title = p.name;
+      const face = p.bg ? `background:${p.bg};color:${p.ink}` : 'background:linear-gradient(90deg,#edf2e2 50%,#0f160f 50%);color:#8a9a80';
+      b.innerHTML = `<i style="${face}">Aa</i>${esc(p.name)}`;
+      b.addEventListener('click', () => { cur = p.bg ? { id: p.id, bg: p.bg, ink: p.ink, accent: p.accent } : null; applyPalette(cur); store(); render(); });
+      themes.appendChild(b);
+    });
+    function render() {
+      const on = cur ? cur.id : 'system';
+      themes.querySelectorAll('.swatch').forEach(el => el.classList.toggle('on', el.dataset.id === on));
+      const s = cur || stock(); Object.keys(inputs).forEach(k => { if (/^#[0-9a-f]{6}$/i.test(s[k])) inputs[k].value = s[k]; });
+    }
+    Object.keys(inputs).forEach(k => inputs[k].addEventListener('input', () => {
+      const base = cur || stock(); cur = { id: 'custom', bg: base.bg, ink: base.ink, accent: base.accent, [k]: inputs[k].value };
+      applyPalette(cur); store(); themes.querySelectorAll('.swatch').forEach(el => el.classList.remove('on'));   // custom: no preset lit
+    }));
+    const open = v => { menu.hidden = !v; btn.setAttribute('aria-expanded', String(v)); if (v) render(); };
+    btn.addEventListener('click', () => open(menu.hidden));
+    document.addEventListener('click', ev => { if (!menu.hidden && !ev.target.closest('#palette')) open(false); });
+    document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && !menu.hidden) { open(false); btn.focus(); } });
+    $('#paletteReset').addEventListener('click', () => { cur = null; applyPalette(null); store(); render(); });
+    applyPalette(cur);
+  }
+
   // ---------- boot ----------
+  paletteInit();
   if (location.hash === '#perf' || window.JIIFY_PERF) { perfBoot(); return; }
   famChecks(); legend(); load();
   $('#midiConnect').addEventListener('click', midiConnect);
   $('#liveCapture').addEventListener('click', liveCapture);
   $('#copyLog').addEventListener('click', () => copyText(logCsv()));
+  window.addEventListener('storage', ev => { if (ev.key && ev.key.indexOf('jiify.assign.') === 0) assignChanged(); });
+  if (RELAY) setInterval(relayKeepAlive, 10000);
   // Messages a Max patch can send into [jweb] (see max/README-max.md). `mode perf` turns this instance into
   // the performer display, so a second jweb can load the same file without a URL hash.
   const maxInlets = {
     mode: v => { if (String(v) === 'perf') perfBoot(); },
     chords: (...parts) => { $('#chords').value = parts.join(' ').replace(/\s*;\s*/g, '\n'); run(); },
+    addchord: (...parts) => { const ta = $('#chords'); ta.value = (ta.value.trim() ? ta.value.replace(/\s+$/, '') + '\n' : '') + parts.join(' '); run(); if (state.focusIdx !== state.chords.length - 1) { state.focusIdx = state.chords.length - 1; save(); refresh(); } },
     midi: (...notes) => liveNotes(notes.map(Number).filter(n => !isNaN(n))),
     capture: () => liveCapture(),
     select: (...parts) => { const id = parts.join(' '); if (state.chords.length) selectReading(state.focusIdx, id, false); },
@@ -1913,36 +2428,34 @@ const Progression = (function () {
     assign: (...names) => { const n = names.length; try { localStorage.setItem('jiify.assign.' + n, JSON.stringify(names.map(String))); } catch (e) { /* ignore */ } renderScore(); },
     republish: () => renderScore(),
   };
-  if (bindMax(maxInlets)) liveStatus('Running inside Max: send midi <notes…>, capture, chords <text;text>, select <reading>, focus <n>, pick <rule>, mode perf.');
-  else setTimeout(() => { if (maxBridge()) liveStatus('Running inside Max: send midi <notes…>, capture, chords <text;text>, select <reading>, focus <n>, pick <rule>, mode perf.'); }, 2500);
+  const inMax = 'Running inside Max: send midi <notes…>, capture, chords <text \\; text>, addchord <notes>, select <reading>, focus <n>, pick <rule>, mode perf.';
+  if (bindMax(maxInlets)) liveStatus(inMax);
+  else setTimeout(() => { if (maxBridge()) liveStatus(inMax); }, 2500);
   $('#run').addEventListener('click', () => { $('#results').innerHTML = '<p class="hint">Analyzing…</p>'; setTimeout(run, 10); });
   $('#chords').addEventListener('keydown', ev => { if ((ev.ctrlKey || ev.metaKey) && ev.key === 'Enter') { ev.preventDefault(); run(); } });
   ['#a4', '#anchor', '#tol', '#per', '#spelling', '#maxprime', '#maxharm', '#families'].forEach(s => $(s).addEventListener('change', () => run()));
   $('#scVol').addEventListener('change', save);
   $('#scFold').addEventListener('click', () => { const svg = $('#scoreSvg'); svg.hidden = !svg.hidden; $('#scFold').textContent = svg.hidden ? '▾ staff' : '▴ staff'; try { localStorage.setItem('jiify.fold', svg.hidden ? '1' : '0'); } catch (e) { /* ignore */ } });
   try { if (localStorage.getItem('jiify.fold') === '1') { $('#scoreSvg').hidden = true; $('#scFold').textContent = '▾ staff'; } } catch (e) { /* ignore */ }
-  $('#pgApply').addEventListener('change', () => renderScore());
+  $('#scSpell').value = state.spellRef;
+  $('#scSpell').addEventListener('change', () => { state.spellRef = SPELL_REFS.includes($('#scSpell').value) ? $('#scSpell').value : 'prog'; save(); renderScore(); });
   $('#pgPlay').addEventListener('click', progPlay); $('#pgStartEnd').addEventListener('click', progStartEnd);
   $('#pgSuggest').addEventListener('click', () => progSuggest(false)); $('#pgSuggestDrift').addEventListener('click', () => progSuggest(true));
   $('#pgCopy').addEventListener('click', () => copyText(progText()));
-  $('#progTable').addEventListener('change', ev => {
-    const el = ev.target; const ci = parseInt(el.dataset.ci, 10);
-    if (el.classList.contains('pgsel')) { state.sel[state.chords[ci].text] = el.value; save(); refresh(); }
-    else if (el.classList.contains('pglink')) {
-      const v = el.value; const key = linkKey(ci);
-      if (v === 'auto') delete state.links[key];
-      else if (v === 'reset') state.links[key] = { type: 'reset' };
-      else if (v.startsWith('common|')) { const [, name, name2] = v.split('|'); state.links[key] = { type: 'common', name, name2 }; }
-      else if (v.startsWith('ratio|')) { const r = v.slice(6); state.links[key] = { type: 'ratio', ratio: r || (state.links[key] && state.links[key].ratio) || '' }; }
-      save(); refresh();
-      if (v === 'ratio|') { const inp = $(`#progTable input.pgratio[data-ci="${ci}"]`); if (inp) inp.focus(); }
-    } else if (el.classList.contains('pgratio')) {
-      const key = linkKey(ci); const v = el.value.trim();
-      if (!Progression.parseRatio(v)) { toast('Ratio not understood (e.g. 3/2)'); return; }
-      state.links[key] = { type: 'ratio', ratio: v }; save(); refresh();
-    }
+  $('#scLink').addEventListener('change', () => {
+    const ci = state.focusIdx, key = linkKey(ci), v = $('#scLink').value;
+    if (v === 'auto') delete state.links[key];
+    else if (v === 'reset') state.links[key] = { type: 'reset' };
+    else if (v.startsWith('common|')) { const [, name, name2] = v.split('|'); state.links[key] = { type: 'common', name, name2 }; }
+    else if (v.startsWith('ratio|')) { const r = v.slice(6); state.links[key] = { type: 'ratio', ratio: r || (state.links[key] && state.links[key].ratio) || '' }; }
+    save(); refresh();
+    if (v === 'ratio|') $('#scRatio').focus();
   });
-  $('#progTable').addEventListener('click', ev => { const el = ev.target.closest('.chordname'); if (el) { state.focusIdx = parseInt(el.dataset.ci, 10); save(); refresh(); } });
+  $('#scRatio').addEventListener('change', () => {
+    const v = $('#scRatio').value.trim();
+    if (!Progression.parseRatio(v)) { toast('Ratio not understood (e.g. 3/2)'); return; }
+    state.links[linkKey(state.focusIdx)] = { type: 'ratio', ratio: v }; save(); refresh();
+  });
   $('#copyCsv').addEventListener('click', () => copyText(allCsv()));
   $('#copyMd').addEventListener('click', () => copyText(allMarkdown()));
   run();
