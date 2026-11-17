@@ -272,12 +272,16 @@ details.help summary { cursor: pointer; font-weight: 600; }
   <section class="panel">
     <h2>Chords</h2>
     <label for="chords">One chord per line, bottom to top, C4 = middle C. A label after <code>|</code> is kept.</label>
-    <textarea id="chords" spellcheck="false">B2 D#3 A3 D4 F4 | B7(#9,b5)
-F2 Bb2 D3 Ab3 Db4 G4 | Bb13(#9)/F</textarea>
+    <textarea id="chords" spellcheck="false">C3 G3 E4 | C
+A2 E3 C4 | Am
+D3 A3 F4 | Dm
+G2 D3 B3 | G
+C3 G3 E4 | C</textarea>
     <div class="actions">
       <button class="btn primary" id="run">Analyze</button>
       <button class="btn" id="copyCsv" title="Every row of every reading of every chord, for Max or a spreadsheet">Copy CSV</button>
       <button class="btn" id="copyMd" title="All readings of all chords as text tables">Copy all as text</button>
+      <label class="vol" for="examples" title="Replaces the chord list with a progression that drifts when its common tones are held">examples <select id="examples"></select></label>
     </div>
     <div class="hint">Ctrl/⌘+Enter also analyzes. Spelling matters: D♯ and E♭ get different ratios. With several chords, pick the one to show with the chips in the score.</div>
     <div id="errors"></div>
@@ -383,7 +387,7 @@ F2 Bb2 D3 Ab3 Db4 G4 | Bb13(#9)/F</textarea>
   <button class="palette-btn" id="paletteBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="paletteMenu" title="Colours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.4-3.4 2 2 0 0 1 1.4-3.4H18a3 3 0 0 0 3-3A9 9 0 0 0 12 3z"/><circle cx="7.5" cy="12" r="1.2" fill="currentColor"/><circle cx="10" cy="7.5" r="1.2" fill="currentColor"/><circle cx="15" cy="7.5" r="1.2" fill="currentColor"/><circle cx="9" cy="16.5" r="1.2" fill="currentColor"/></svg></button>
 </div>
 <footer class="colophon">
-  <p>JI-ify, version 14.</p>
+  <p>JI-ify, version 15.</p>
   <p>The accidentals belong to the Helmholtz-Ellis JI Pitch Notation, devised by Marc Sabat and Wolfgang von Schweinitz. Music glyphs come from a subset of the Bravura font by Steinberg; the text is set in IBM Plex. Both fonts are used under the SIL Open Font License. <a href="../licenses/">Credits and licenses</a></p>
 </footer>
 
@@ -1332,7 +1336,7 @@ const Progression = (function () {
   }
   function load() {
     try {
-      const d = JSON.parse(localStorage.getItem(STORE) || 'null'); if (!d) return;
+      const d = JSON.parse(localStorage.getItem(STORE) || 'null'); if (!d) return false;
       if (d.text) $('#chords').value = d.text;
       if (d.s) { // a field missing from an older save keeps the page default
         const set = (sel, val) => { if (val != null) $(sel).value = val; };
@@ -1346,7 +1350,8 @@ const Progression = (function () {
       if (Array.isArray(d.lastTexts)) state.lastTexts = d.lastTexts; if (Array.isArray(d.lastPairs)) state.lastPairs = d.lastPairs;
       if (d.view === 'all' || d.view === 'playable') state.view = d.view;
       if (SPELL_REFS.includes(d.spellRef)) state.spellRef = d.spellRef;
-    } catch (e) { /* ignore */ }
+      return true;
+    } catch (e) { return false; }
   }
 
   // ---------- formatting ----------
@@ -1637,14 +1642,53 @@ const Progression = (function () {
     const first = state.prog.steps[0].notes.map(nt => nt.hz); const k = Math.pow(2, state.prog.net.cents / 1200);
     playHz(first, t, 2.0); playHz(first.map(f => f * k), t + 2.3, 2.4);
   }
-  function progSuggest(avoidDrift) {
+  function progSuggest(avoidDrift, quiet) {
     if (!state.prog) return;
     const cands = state.analyses.map(a => { const out = []; eachReading(a, r => out.push(r)); return out; });
     if (cands.some(c => !c.length)) { toast('A chord has no readings to choose from'); return; }
     const links = state.chords.map((c, i) => i ? (state.links[linkKey(i)] || null) : null);
     const best = Progression.suggest(state.chords, cands, state.analyses.map(x => x.rootMidi), links, progOpts(), avoidDrift);
     best.picks.forEach((p, i) => { setSel(i, cands[i][p].id); });
-    save(); refresh(); toast(avoidDrift ? 'Readings chosen to hold common tones and limit drift' : 'Readings chosen to hold common tones');
+    save(); refresh(); if (!quiet) toast(avoidDrift ? 'Readings chosen to hold common tones and limit drift' : 'Readings chosen to hold common tones');
+  }
+
+  // ---------- examples ----------
+  // Progressions that do not come back to where they began when every common tone is held. Each is spelled the
+  // way it actually travels (the major-third cycle from C ends on B sharp, not C): an enharmonic respelling
+  // has no common tone across it, the link becomes a root motion that closes the circle, and the comma the
+  // example is there to show disappears. `hold` picks the readings that hold the common tones on loading;
+  // without it the chords stay at 12-TET.
+  const EXAMPLES = [
+    { name: 'Comma pump: I–vi–ii–V–I', shows: 'syntonic comma', hold: true,
+      text: 'C3 G3 E4 | C\nA2 E3 C4 | Am\nD3 A3 F4 | Dm\nG2 D3 B3 | G\nC3 G3 E4 | C' },
+    { name: 'Pump with dominant sevenths: C–A7–D7–G7–C', shows: 'syntonic comma', hold: true,
+      text: 'C3 G3 E4 | C\nA2 G3 C#4 E4 | A7\nD3 F#3 A3 C4 | D7\nG2 F3 B3 D4 | G7\nC3 G3 E4 | C' },
+    { name: 'Giant Steps cycle: B–D7–G–B♭7–E♭–G♭7–C♭', shows: 'lesser diesis', hold: true,
+      text: 'B2 F#3 D#4 | B\nD3 F#3 A3 C4 | D7\nG2 D3 B3 | G\nBb2 D3 F3 Ab3 | Bb7\nEb3 Bb3 G4 | Eb\nGb2 Bb2 Db3 Fb3 | Gb7\nCb3 Gb3 Eb4 | Cb' },
+    { name: 'Major thirds: C–E–G♯–B♯', shows: 'lesser diesis', hold: true,
+      text: 'C3 G3 E4 | C\nE3 G#3 B3 | E\nG#2 D#3 B#3 | G#\nB#2 F##3 D##4 | B#' },
+    { name: 'Minor thirds: C–A–F♯–D♯–B♯', shows: 'greater diesis', hold: true,
+      text: 'C3 G3 E4 | C\nA2 E3 C#4 | A\nF#2 C#3 A#3 | F#\nD#3 A#3 F##4 | D#\nB#2 F##3 D##4 | B#' },
+    { name: 'Circle of fifths: C up to B♯', shows: 'Pythagorean comma', hold: true,
+      text: 'C3 G3 E4 | C\nG2 D3 B3 | G\nD3 A3 F#4 | D\nA2 E3 C#4 | A\nE3 B3 G#4 | E\nB2 F#3 D#4 | B\nF#3 C#4 A#4 | F#\nC#3 G#3 E#4 | C#\nG#2 D#3 B#3 | G#\nD#3 A#3 F##4 | D#\nA#2 E#3 C##4 | A#\nE#3 B#3 G##4 | E#\nB#2 F##3 D##4 | B#' },
+    { name: 'Two chords: B7(♯9,♭5), B♭13(♯9)/F', shows: '', hold: false,
+      text: 'B2 D#3 A3 D4 F4 | B7(#9,b5)\nF2 Bb2 D3 Ab3 Db4 G4 | Bb13(#9)/F' },
+  ];
+  // Replaces the chord list. Choices made for the previous list (roots, readings, links) are dropped: they
+  // would otherwise be carried over to chords of the same text at the same position.
+  function loadExample(i, quiet) {
+    const ex = EXAMPLES[i]; if (!ex) return;
+    $('#chords').value = ex.text;
+    state.sel = {}; state.roots = {}; state.links = {}; state.lastTexts = null; state.lastPairs = null; state.focusIdx = 0; state.driftAck = null;
+    if (ex.hold) { state.spellRef = 'prog'; const sp = $('#scSpell'); if (sp) sp.value = 'prog'; }   // the drift only exists when the chords are linked
+    run();
+    if (ex.hold) progSuggest(false, true);
+    if (!quiet) toast('Example loaded: ' + ex.name.split(':')[0]);
+  }
+  function examplesInit() {
+    const sel = $('#examples'); if (!sel) return;
+    sel.innerHTML = '<option value="" selected>choose…</option>' + EXAMPLES.map((ex, i) => `<option value="${i}">${esc(ex.name)}${ex.shows ? ' (' + esc(ex.shows) + ')' : ''}</option>`).join('');
+    sel.addEventListener('change', () => { const i = parseInt(sel.value, 10); sel.value = ''; if (i >= 0) loadExample(i); });
   }
   // Let one held note slip: at some link, replace the common-tone hold by the simplest Pythagorean root motion.
   // Try every link; keep the one that brings the net drift under 1¢ with the smallest total break.
@@ -2408,7 +2452,7 @@ const Progression = (function () {
   // ---------- boot ----------
   paletteInit();
   if (location.hash === '#perf' || window.JIIFY_PERF) { perfBoot(); return; }
-  famChecks(); legend(); load();
+  famChecks(); legend(); const hadSave = load(); examplesInit();
   $('#midiConnect').addEventListener('click', midiConnect);
   $('#liveCapture').addEventListener('click', liveCapture);
   $('#copyLog').addEventListener('click', () => copyText(logCsv()));
@@ -2458,7 +2502,9 @@ const Progression = (function () {
   });
   $('#copyCsv').addEventListener('click', () => copyText(allCsv()));
   $('#copyMd').addEventListener('click', () => copyText(allMarkdown()));
-  run();
+  // A first visit opens on the first example with its readings chosen, so the score shows a drift at once;
+  // a returning visitor gets their own list back.
+  if (hadSave) run(); else loadExample(0, true);
 })();
 
 </script>

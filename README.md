@@ -5,7 +5,7 @@ This repository is the website. GitHub Pages serves every file in it exactly as 
 | Address | File | What it is |
 |---|---|---|
 | `/` | `index.html` | Front page |
-| `/ji-ify/` | `ji-ify/index.html` | JI-ify, version 14 |
+| `/ji-ify/` | `ji-ify/index.html` | JI-ify, version 15 |
 | `/ji-ify/#perf` | the same file | JI-ify's performer window |
 | `/licenses/` | `licenses/index.html` | Credits, with the two font licenses beside it |
 | any wrong address | `404.html` | "No page at this address" |
@@ -35,7 +35,7 @@ Download the repository and double-click `index.html`. The pages link to each ot
 
 - **A new tool or piece:** make a folder with its own `index.html`, then add an `<article class="entry">` to the front page (copy the JI-ify one).
 - **A new text page** (about, works, contact): copy `licenses/index.html` into a new folder and replace the text.
-- **A new version of JI-ify:** `ji-ify/index.html` is produced from a JI-ify build by a packaging script kept outside this repository, together with the browser checks that are run before publishing.
+- **A new version of JI-ify:** `ji-ify/index.html` is produced from a JI-ify build by a packaging script kept outside this repository (`package_site.py` in the JI-ify folder), together with the browser checks that are run before publishing.
 
 ## What came from elsewhere
 
