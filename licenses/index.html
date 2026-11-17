@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Credits and licenses, HAN</title>
+<meta name="description" content="Fonts and notation used on this site, and their licenses.">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/fonts.css">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<div class="page">
+  <div class="columns">
+
+    <header class="identity">
+      <p class="mark"><a href="../">HAN</a></p>
+    </header>
+
+    <main class="prose">
+      <h1>Credits and licenses</h1>
+
+      <h2>Notation</h2>
+      <p>The accidentals in JI-ify belong to the Helmholtz-Ellis JI Pitch Notation (HEJI), devised by Marc Sabat and Wolfgang von Schweinitz and revised in 2020 by Marc Sabat and Thomas Nicholson. Its legend is published by <a href="https://www.plainsound.org">Plainsound Music Edition</a>.</p>
+
+      <h2>Music glyphs</h2>
+      <p>Staves, clefs, noteheads and accidentals are drawn with JIify Notation, a subset of 61 glyphs taken from Bravura 1.482, the music font by Steinberg Media Technologies GmbH. Bravura is released under the SIL Open Font License 1.1, which asks that a modified version carry a different name; the subset is distributed under the same license. <a href="Bravura-OFL.txt">Copyright notice and license</a></p>
+
+      <h2>Text</h2>
+      <p>The site is set in IBM Plex Sans and IBM Plex Mono, © 2017 IBM Corp., used unmodified under the SIL Open Font License 1.1. <a href="IBM-Plex-OFL.txt">Copyright notice and license</a></p>
+    </main>
+
+  </div>
+
+  <footer class="foot">
+    <span>© 2026 HAN</span>
+    <a href="../">Front page</a>
+  </footer>
+</div>
+
+<script>
+// Local preview only. Opened straight from disk, a link to a folder has to name the
+// folder's index.html; on a web server the server adds it.
+if (location.protocol === 'file:') document.querySelectorAll('a[href$="/"]').forEach(function (a) {
+  var h = a.getAttribute('href'); if (!/^[a-z]+:/i.test(h)) a.setAttribute('href', h + 'index.html');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+/* HAN: shared styles for the site's own pages (front page, credits, 404).
+   Tools and pieces keep their own styles in their own folders, so this file stays small. */
+
+:root {
+  /* Colours. For now these are the greens chosen for JI-ify, so the site and the tool
+     read as one place. Change these five (and the dark set below) to re-skin every
+     page that uses this file. */
+  --bg: #edf2e2;
+  --ink: #1b2417;
+  --muted: #566651;
+  --line: #cdd9bd;
+  --accent: #3a7a29;
+
+  /* The white sheet that notation sits on, in both themes, as in JI-ify. */
+  --sheet: #ffffff;
+  --sheet-ink: #111111;
+  --sheet-line: #cbd6bf;
+
+  --font: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Type sizes are just intervals above the text size: 8:9, 1:1, 9:8, 3:2, 3:1. */
+  --size-small: 0.889rem;
+  --size-text: 1rem;
+  --size-lead: 1.125rem;
+  --size-title: 1.5rem;
+  --size-mark: 3rem;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f160f;
+    --ink: #e3eed4;
+    --muted: #9db191;
+    --line: #2d3c2b;
+    --accent: #9fd45f;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  font-size: 106.25%; /* 17px at the browser's default, and it follows the reader's own setting */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--size-text);
+  line-height: 1.5;
+}
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+a:hover { text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------- frame: who on the left, what on the right ---------- */
+
+.page {
+  max-width: 70rem;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  padding: clamp(1.5rem, 5vw, 4rem) clamp(1.25rem, 5vw, 3.5rem) 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.columns {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(11rem, 1fr) minmax(0, 3fr);
+  gap: 2rem clamp(2rem, 6vw, 5rem);
+  align-items: start;
+}
+
+.identity {
+  position: sticky;
+  top: clamp(1.5rem, 5vw, 4rem);
+}
+
+.mark {
+  margin: -0.17em 0 0; /* lifts the capitals to the top edge of whatever sits in the right column */
+  font-size: var(--size-mark);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+.mark a { color: inherit; text-decoration: none; }
+.mark a:hover { color: var(--accent); }
+
+.descriptor {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+  text-wrap: balance;
+}
+
+.nowrap { white-space: nowrap; }
+
+@media (max-width: 46rem) {
+  .columns { grid-template-columns: minmax(0, 1fr); }
+  .identity { position: static; }
+}
+
+/* ---------- an entry in the index ---------- */
+
+.entry + .entry { margin-top: 4rem; }
+
+.entry figure { margin: 0; }
+
+.sheet {
+  display: block;
+  overflow: hidden;
+  padding: 1.25rem 1.5rem;
+  background: var(--sheet);
+  color: var(--sheet-ink);
+  border: 1px solid var(--sheet-line);
+  border-radius: 6px;
+  text-decoration: none;
+  --flat: 37, 99, 235;
+}
+a.sheet:hover { border-color: var(--accent); }
+
+.crop { display: block; }
+.sheet svg {
+  display: block;
+  width: 100%;
+  max-width: 40rem;
+  height: auto;
+}
+/* JIifyNotation, the music font, comes from notation-font.css. */
+.sheet .smufl { font-family: JIifyNotation; font-size: 36px; fill: currentColor; }
+.sheet .lbl { font-family: var(--mono); font-size: 11px; fill: currentColor; font-variant-numeric: tabular-nums; }
+
+/* On a phone the figure is drawn larger and cut just before its last column (Hz),
+   so the notation and the cents stay readable. The drawing is 435 units wide and
+   the Hz column starts at 352: showing the first 345 units means drawing it at 435/345. */
+@media (max-width: 30rem) {
+  .sheet { padding: 1rem; }
+  .crop { overflow: hidden; }
+  .sheet svg { width: 126.09%; max-width: none; }
+}
+
+.entry figcaption {
+  margin-top: 0.6rem;
+  max-width: 62ch;
+  color: var(--muted);
+  font-size: var(--size-small);
+}
+
+.entry h2 {
+  margin: 1.75rem 0 0;
+  font-size: var(--size-title);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.entry p {
+  margin: 0.5rem 0 0;
+  max-width: 62ch;
+}
+
+.entry .open {
+  display: inline-block;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+/* ---------- plain text pages (credits, 404) ---------- */
+
+.prose { max-width: 62ch; }
+.prose h1 {
+  margin: 0.35rem 0 1rem;
+  font-size: var(--size-title);
+  font-weight: 600;
+  line-height: 1.2;
+}
+.prose h2 {
+  margin: 2rem 0 0;
+  font-size: var(--size-lead);
+  font-weight: 600;
+}
+.prose p { margin: 0.5rem 0 0; }
+
+/* ---------- foot ---------- */
+
+.foot {
+  margin-top: 4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  color: var(--muted);
+  font-size: var(--size-small);
+}
+.foot a { color: inherit; }
+.foot a:hover { color: var(--accent); }
