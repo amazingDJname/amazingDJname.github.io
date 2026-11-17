@@ -221,6 +221,19 @@ header.top .manual { font-size: 13px; margin-left: auto; white-space: nowrap; }
 /* the examples menu is as wide as its longest entry unless held back; on a phone that pushed the page sideways */
 label.vol[for="examples"] { max-width: 100%; }
 #examples { min-width: 0; max-width: min(100%, 300px); text-overflow: ellipsis; }
+/* Click keyboard under the chord box. Ivory and black in every theme (a dark page would otherwise swap them); a selected key takes the accent. */
+.kb { margin-top: 12px; }
+.kb-scroll { overflow-x: auto; min-width: 0; padding-bottom: 4px; }
+.kb-keys { position: relative; height: 92px; }
+.kb-keys button { position: absolute; top: 0; padding: 0 0 4px; display: flex; align-items: flex-end; justify-content: center; border: 1px solid #8a8a84; border-radius: 0 0 3px 3px; cursor: pointer; font-family: var(--mono); font-size: 9.5px; line-height: 1; touch-action: manipulation; }
+.kb-keys .w { height: 92px; background: #f6f5ef; color: #6b6b66; }
+.kb-keys .b { height: 56px; background: #1d1d1b; color: #f6f5ef; border-color: #1d1d1b; z-index: 1; font-size: 8.5px; }
+.kb-keys .w:hover { background: #e4e3da; }
+.kb-keys .b:hover { border-color: var(--accent); }
+.kb-keys button.on, .kb-keys button.on:hover { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+.kb-keys .b.on { box-shadow: 0 0 0 1px #1d1d1b; }
+.kb-out { margin-top: 6px; }
+#kbText { flex: 1 1 160px; min-width: 0; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); padding: 5px 8px; color: var(--ink); font-family: var(--mono); font-size: 13px; }
 .help { font-size: 13px; }
 .help ol { margin: 4px 0; padding-left: 20px; }
 .help ol li + li { margin-top: 3px; }
@@ -306,6 +319,16 @@ C3 G3 E4 | C</textarea>
     </div>
     <div class="hint">Ctrl/⌘+Enter also analyzes. Spelling matters: D♯ and E♭ get different ratios. With several chords, pick the one to show with the chips in the score.</div>
     <div id="errors"></div>
+    <div class="kb" id="kb">
+      <div class="kb-scroll" id="kbScroll"><div class="kb-keys" id="kbKeys" role="group" aria-label="Keyboard: click keys to pick notes"></div></div>
+      <div class="actions kb-out">
+        <input id="kbText" type="text" readonly placeholder="Click keys: the notes appear here" aria-label="Selected notes">
+        <button class="btn small" id="kbCopy" type="button" title="Copy the selected notes">Copy</button>
+        <button class="btn small" id="kbAdd" type="button" title="Append the selected notes to the chord list as a new line and analyze">Add to list</button>
+        <button class="btn small" id="kbClear" type="button" title="Deselect every key">Clear</button>
+        <button class="btn small" id="kbAcc" type="button" aria-pressed="false" title="How the next black key you click is spelled. Notes already selected keep their spelling.">black keys: ♯</button>
+      </div>
+    </div>
     <div class="live" id="livePanel">
       <div class="actions" style="margin-top:12px">
         <button class="btn small" id="midiConnect" title="Listen to a MIDI keyboard (works in Chrome on your own machine or inside Max's jweb, not in the claude.ai viewer)">MIDI in</button>
@@ -418,12 +441,12 @@ C3 G3 E4 | C</textarea>
   </div>
   <button class="palette-btn" id="paletteBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="paletteMenu" title="Colours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.4-3.4 2 2 0 0 1 1.4-3.4H18a3 3 0 0 0 3-3A9 9 0 0 0 12 3z"/><circle cx="7.5" cy="12" r="1.2" fill="currentColor"/><circle cx="10" cy="7.5" r="1.2" fill="currentColor"/><circle cx="15" cy="7.5" r="1.2" fill="currentColor"/><circle cx="9" cy="16.5" r="1.2" fill="currentColor"/></svg></button>
 </div>
-<template id="help-chords"><p>One chord per line, lowest note first: a letter, an accidental if any (<code>#</code>, <code>b</code>, <code>x</code>, <code>bb</code>) and an octave number, C4 being middle C. MIDI note numbers work too. Text after <code>|</code> is the chord's name on the staff. How a note is spelled decides how it is tuned: D♯ and E♭ get different ratios.</p><p><b>Analyze</b> reads the list. <b>examples</b> replaces it with a progression that drifts. The row below is for a MIDI keyboard, a second window for performers, and copying the results out. <a href="manual/#chords" target="_blank" rel="noopener">More in the manual</a></p></template>
+<template id="help-chords"><p>One chord per line, lowest note first: a letter, an accidental if any (<code>#</code>, <code>b</code>, <code>x</code>, <code>bb</code>) and an octave number, C4 being middle C. MIDI note numbers work too. Text after <code>|</code> is the chord's name on the staff. How a note is spelled decides how it is tuned: D♯ and E♭ get different ratios.</p><p><b>Analyze</b> reads the list. <b>examples</b> replaces it with a progression that drifts. The <b>keyboard</b> writes a chord for you: click keys, then <b>Add to list</b> or copy the line; <b>black keys</b> switches between sharps and flats for the keys you click next. The row below is for a MIDI keyboard, a second window for performers, and copying the results out. <a href="manual/#chords" target="_blank" rel="noopener">More in the manual</a></p></template>
 <template id="help-settings"><p>These decide which tunings are looked for. <b>Families</b> are the kinds of just intonation to try, named by the primes they use. <b>Tolerance</b> is how far a tuned note may sit from its piano pitch. <b>Hold at 12-TET</b> is the one note that stays at piano pitch. <b>Your spellings</b> says whether a reading may respell a note you typed. The defaults suit most chords; a change re-analyzes at once. <a href="manual/#settings" target="_blank" rel="noopener">More in the manual</a></p></template>
 <template id="help-score"><p>The staff shows every chord in the list, each in the tuning chosen for it. Click a chord to focus it; the chips under the staff switch its tuning and the table lists its notes. Accidentals with arrows are Helmholtz-Ellis signs: each arrow moves the note by one small interval (a comma). Click a notehead to hear that note alone.</p><p>With several chords, dashed lines join notes that are held from one chord to the next, and each caption gives the chord's distance from the piano's pitch. The sentence beside the title sums up the drift. <a href="manual/#score" target="_blank" rel="noopener">More in the manual</a></p></template>
 <template id="help-cards"><p>Each card is one <i>reading</i>: one way to tune this chord in just intonation. Per note: its ratio to the root, its Helmholtz-Ellis accidental in words, its distance from 12-TET in cents (blue = lower, amber = higher), its frequency. <b>Tune</b> is an order in which players can tune it, interval by interval. <b>easy</b>, <b>fine</b> and <b>hard</b> estimate the load on the players.</p><p><b>Shortlist</b> shows the recommended reading and two alternatives; <b>All readings</b> shows every family. The root is suggested; choose another, or type one, to read the chord differently. <a href="manual/#readings" target="_blank" rel="noopener">More in the manual</a></p></template>
 <footer class="colophon">
-  <p>JI-ify, version 16.</p>
+  <p>JI-ify, version 17.</p>
   <p>The accidentals belong to the Helmholtz-Ellis JI Pitch Notation, devised by Marc Sabat and Wolfgang von Schweinitz. Music glyphs come from a subset of the Bravura font by Steinberg; the text is set in IBM Plex. Both fonts are used under the SIL Open Font License. <a href="../licenses/">Credits and licenses</a></p>
 </footer>
 
@@ -1743,6 +1766,56 @@ const Progression = (function () {
     sel.innerHTML = '<option value="" selected>choose…</option>' + EXAMPLES.map((ex, i) => `<option value="${i}">${esc(ex.name)}${ex.shows ? ' (' + esc(ex.shows) + ')' : ''}</option>`).join('');
     sel.addEventListener('change', () => { const i = parseInt(sel.value, 10); sel.value = ''; if (i >= 0) loadExample(i); });
   }
+  // ---------- click keyboard ----------
+  // C2 to C6. A click toggles a key; the line under the keys is the selection in the chord box's own format,
+  // lowest note first. A black key takes the spelling (sharp or flat) that is switched on when it is clicked
+  // and keeps it, so one chord can mix the two.
+  function kbInit() {
+    const keys = $('#kbKeys'); if (!keys) return;
+    const LO = 36, HI = 84, W = 24, BW = 15;
+    const SHARP = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'], FLAT = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+    const sel = new Map();   // midi -> written name
+    let flats = false;
+    const nameOf = m => (flats ? FLAT : SHARP)[m % 12] + (Math.floor(m / 12) - 1);
+    const pretty = s => s.replace('#', '♯').replace(/([A-G])b/, '$1♭');
+    const text = () => [...sel.keys()].sort((a, b) => a - b).map(m => sel.get(m)).join(' ');
+    let x = 0; const btns = new Map();
+    for (let m = LO; m <= HI; m++) {
+      const black = SHARP[m % 12].length > 1;
+      const b = document.createElement('button'); b.type = 'button'; b.className = black ? 'b' : 'w'; b.dataset.midi = m;
+      b.style.left = (black ? x - BW / 2 : x) + 'px'; b.style.width = (black ? BW : W) + 'px';
+      if (!black) x += W;
+      keys.appendChild(b); btns.set(m, b);
+    }
+    keys.style.width = x + 'px';
+    function paint() {
+      btns.forEach((b, m) => {
+        const on = sel.has(m), name = on ? sel.get(m) : nameOf(m);
+        b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); b.setAttribute('aria-label', pretty(name)); b.title = pretty(name);
+        b.textContent = on ? pretty(name.replace(/-?\d+$/, '')) : (m % 12 === 0 ? name : '');
+      });
+      $('#kbText').value = text();
+      $('#kbAcc').textContent = 'black keys: ' + (flats ? '♭' : '♯'); $('#kbAcc').setAttribute('aria-pressed', String(flats));
+    }
+    keys.addEventListener('click', ev => {
+      const b = ev.target.closest('button'); if (!b) return; const m = +b.dataset.midi;
+      if (sel.has(m)) sel.delete(m);
+      else { sel.set(m, nameOf(m)); const ac = audio(); playHz([E.midiHz(m, settings().a4)], ac.currentTime + 0.02, 0.9); }
+      paint();
+    });
+    $('#kbAcc').addEventListener('click', () => { flats = !flats; paint(); });
+    $('#kbClear').addEventListener('click', () => { sel.clear(); paint(); });
+    $('#kbText').addEventListener('focus', () => $('#kbText').select());
+    $('#kbCopy').addEventListener('click', () => { if (sel.size) copyText(text()); else toast('No keys selected'); });
+    $('#kbAdd').addEventListener('click', () => {
+      if (!sel.size) { toast('No keys selected'); return; }
+      const ta = $('#chords'); ta.value = (ta.value.trim() ? ta.value.replace(/\s+$/, '') + '\n' : '') + text();
+      run(); if (state.focusIdx !== state.chords.length - 1) { state.focusIdx = state.chords.length - 1; save(); refresh(); }
+      toast('Added: ' + text());
+    });
+    paint();
+    const sc = $('#kbScroll'); sc.scrollLeft = Math.max(0, (7 * W * 2.5) - sc.clientWidth / 2);   // open around middle C
+  }
   // Let one held note slip: at some link, replace the common-tone hold by the simplest Pythagorean root motion.
   // Try every link; keep the one that brings the net drift under 1¢ with the smallest total break.
   function progSlip() {
@@ -2505,7 +2578,7 @@ const Progression = (function () {
   // ---------- boot ----------
   paletteInit();
   if (location.hash === '#perf' || window.JIIFY_PERF) { perfBoot(); return; }
-  famChecks(); legend(); const hadSave = load(); examplesInit(); helpInit();
+  famChecks(); legend(); const hadSave = load(); examplesInit(); helpInit(); kbInit();
   $('#midiConnect').addEventListener('click', midiConnect);
   $('#liveCapture').addEventListener('click', liveCapture);
   $('#copyLog').addEventListener('click', () => copyText(logCsv()));
