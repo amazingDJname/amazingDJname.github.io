@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JI-ify manual, HAN</title>
+<meta name="description" content="How to use JI-ify: entering chords, reading the tunings and the staff, linking chords into a progression, and what each setting does.">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../assets/fonts.css">
+<link rel="stylesheet" href="../../assets/notation-font.css">
+<link rel="stylesheet" href="../../assets/site.css">
+</head>
+<body>
+<div class="page">
+  <div class="columns">
+
+    <header class="identity">
+      <p class="mark"><a href="../../">HAN</a></p>
+      <nav class="toc" aria-label="Contents">
+        <a href="#start">A first look</a>
+        <a href="#chords">Entering chords</a>
+        <a href="#readings">Readings and cards</a>
+        <a href="#score">The score</a>
+        <a href="#progressions">Progressions</a>
+        <a href="#examples">The examples</a>
+        <a href="#settings">Settings</a>
+        <a href="#extras">Keyboard, performers, export</a>
+        <a href="#limits">Limits</a>
+        <a href="#terms">Terms</a>
+        <a href="#reading">Further reading</a>
+      </nav>
+    </header>
+
+    <main class="prose manual">
+      <h1>JI-ify manual</h1>
+      <p>JI-ify takes chords written the ordinary way, as note names, and shows how each could be tuned in just intonation. For every tuning it gives the ratios, the notation in Helmholtz-Ellis accidentals, the distance of each note from the piano in cents, and the frequencies, and it plays the result. Given several chords, it links them, holds the notes they share, and shows where the pitch ends up.</p>
+      <p>It does not choose a tuning for you. It lists the candidates, says what each costs the players, and lets you hear them.</p>
+      <p><a class="open" href="../">Open JI-ify</a></p>
+
+      <h2 id="start">A first look</h2>
+      <p>On a first visit the tool opens on five chords: C major, A minor, D minor, G major and C major again.</p>
+      <figure>
+        <div class="staff"><svg xmlns="http://www.w3.org/2000/svg" width="649" height="245" viewBox="0 37.5 649 245" role="img" aria-label="Five chords on a grand staff: C, A minor, D minor, G, C, with dashed lines joining the held notes"><style>.rat{font-family:var(--mono);font-size:11px;fill:currentColor;font-variant-numeric:tabular-nums;pointer-events:none}.smufl{font-family:JIifyNotation;font-size:36px;fill:currentColor;pointer-events:none}.lbl{font-family:var(--mono);font-size:11px;fill:currentColor;font-variant-numeric:tabular-nums;pointer-events:none}.hit{pointer-events:all;cursor:pointer}.colhit{pointer-events:all;cursor:pointer}.focuscol{fill:var(--accent-soft);opacity:.75}.cap{font-family:var(--font);font-size:10px;fill:var(--muted);pointer-events:none}.cap.b{fill:currentColor;font-weight:500}.tie{fill:none;stroke:currentColor;stroke-width:1.1;stroke-dasharray:3 3;opacity:.55}.tie.broken{stroke:var(--warn);opacity:.95}.tietext{font-family:var(--mono);font-size:9.5px;fill:var(--warn);pointer-events:none}.note:hover .nh,.note.sounding .nh,.lblrow:hover .lbl,.lblrow.sounding .lbl,.lblrow:hover .lbl tspan,.lblrow.sounding .lbl tspan{fill:var(--accent)}</style><rect class="focuscol" x="71.4" y="37.5" width="100.1" height="198.0" rx="4"></rect><rect class="colhit" data-ci="0" x="71.4" y="37.5" width="100.1" height="198.0" fill="transparent"></rect><rect class="colhit" data-ci="1" x="171.5" y="37.5" width="121.3" height="198.0" fill="transparent"></rect><rect class="colhit" data-ci="2" x="292.8" y="37.5" width="121.3" height="198.0" fill="transparent"></rect><rect class="colhit" data-ci="3" x="414.1" y="37.5" width="94.8" height="198.0" fill="transparent"></rect><rect class="colhit" data-ci="4" x="508.9" y="37.5" width="121.3" height="198.0" fill="transparent"></rect><line x1="30.0" y1="60.0" x2="630.2" y2="60.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="177.0" x2="630.2" y2="177.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="69.0" x2="630.2" y2="69.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="186.0" x2="630.2" y2="186.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="78.0" x2="630.2" y2="78.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="195.0" x2="630.2" y2="195.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="87.0" x2="630.2" y2="87.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="204.0" x2="630.2" y2="204.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="96.0" x2="630.2" y2="96.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="213.0" x2="630.2" y2="213.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="60.0" x2="30.0" y2="213.0" stroke="currentColor" stroke-width="1.2"></line><text class="smufl" x="8" y="213.0" font-size="153" transform="translate(8 0) scale(0.6 1) translate(-8 0)"></text><text class="smufl" x="36.0" y="87.0"></text><text class="smufl" x="36.0" y="186.0"></text><line class="bar" x1="171.5" y1="60.0" x2="171.5" y2="213.0" stroke="currentColor" stroke-width="1" opacity="0.5"></line><line class="bar" x1="292.8" y1="60.0" x2="292.8" y2="213.0" stroke="currentColor" stroke-width="1" opacity="0.5"></line><line class="bar" x1="414.1" y1="60.0" x2="414.1" y2="213.0" stroke="currentColor" stroke-width="1" opacity="0.5"></line><line class="bar" x1="508.9" y1="60.0" x2="508.9" y2="213.0" stroke="currentColor" stroke-width="1" opacity="0.5"></line><text class="smufl" x="108.4" y="96.0"></text><g class="note" data-i="0" data-ci="0"><text class="smufl nh" x="117.1" y="199.5" data-i="0" data-ci="0"></text><circle class="hit" cx="124.7" cy="199.5" r="7.6" fill="transparent"></circle></g><g class="note" data-i="1" data-ci="0"><text class="smufl nh" x="117.1" y="181.5" data-i="1" data-ci="0"></text><circle class="hit" cx="124.7" cy="181.5" r="7.6" fill="transparent"></circle></g><g class="note" data-i="2" data-ci="0"><text class="smufl nh" x="117.1" y="96.0" data-i="2" data-ci="0"></text><circle class="hit" cx="124.7" cy="96.0" r="7.6" fill="transparent"></circle></g><line x1="228.4" y1="105.0" x2="250.8" y2="105.0" stroke="currentColor" stroke-width="1.3"></line><text class="smufl" x="214.9" y="208.5"></text><text class="smufl" x="223.2" y="190.5"></text><g class="note" data-i="0" data-ci="1"><text class="smufl nh" x="232.0" y="208.5" data-i="0" data-ci="1"></text><circle class="hit" cx="239.6" cy="208.5" r="7.6" fill="transparent"></circle></g><g class="note" data-i="1" data-ci="1"><text class="smufl nh" x="232.0" y="190.5" data-i="1" data-ci="1"></text><circle class="hit" cx="239.6" cy="190.5" r="7.6" fill="transparent"></circle></g><g class="note" data-i="2" data-ci="1"><text class="smufl nh" x="232.0" y="105.0" data-i="2" data-ci="1"></text><circle class="hit" cx="239.6" cy="105.0" r="7.6" fill="transparent"></circle></g><text class="smufl" x="336.2" y="195.0"></text><text class="smufl" x="344.5" y="177.0"></text><g class="note" data-i="0" data-ci="2"><text class="smufl nh" x="353.3" y="195.0" data-i="0" data-ci="2"></text><circle class="hit" cx="360.9" cy="195.0" r="7.6" fill="transparent"></circle></g><g class="note" data-i="1" data-ci="2"><text class="smufl nh" x="353.3" y="177.0" data-i="1" data-ci="2"></text><circle class="hit" cx="360.9" cy="177.0" r="7.6" fill="transparent"></circle></g><g class="note" data-i="2" data-ci="2"><text class="smufl nh" x="353.3" y="91.5" data-i="2" data-ci="2"></text><circle class="hit" cx="360.9" cy="91.5" r="7.6" fill="transparent"></circle></g><text class="smufl" x="452.6" y="213.0"></text><text class="smufl" x="444.2" y="195.0"></text><text class="smufl" x="452.6" y="172.5"></text><g class="note" data-i="0" data-ci="3"><text class="smufl nh" x="461.4" y="213.0" data-i="0" data-ci="3"></text><circle class="hit" cx="469.0" cy="213.0" r="7.6" fill="transparent"></circle></g><g class="note" data-i="1" data-ci="3"><text class="smufl nh" x="461.4" y="195.0" data-i="1" data-ci="3"></text><circle class="hit" cx="469.0" cy="195.0" r="7.6" fill="transparent"></circle></g><g class="note" data-i="2" data-ci="3"><text class="smufl nh" x="461.4" y="172.5" data-i="2" data-ci="3"></text><circle class="hit" cx="469.0" cy="172.5" r="7.6" fill="transparent"></circle></g><text class="smufl" x="560.6" y="199.5"></text><text class="smufl" x="552.3" y="181.5"></text><text class="smufl" x="560.6" y="96.0"></text><g class="note" data-i="0" data-ci="4"><text class="smufl nh" x="569.4" y="199.5" data-i="0" data-ci="4"></text><circle class="hit" cx="577.0" cy="199.5" r="7.6" fill="transparent"></circle></g><g class="note" data-i="1" data-ci="4"><text class="smufl nh" x="569.4" y="181.5" data-i="1" data-ci="4"></text><circle class="hit" cx="577.0" cy="181.5" r="7.6" fill="transparent"></circle></g><g class="note" data-i="2" data-ci="4"><text class="smufl nh" x="569.4" y="96.0" data-i="2" data-ci="4"></text><circle class="hit" cx="577.0" cy="96.0" r="7.6" fill="transparent"></circle></g><path class="tie" d="M134.3 199.5 C163.0 210.3, 201.3 115.8, 230.0 105.0"></path><path class="tie" d="M134.3 96.0 C163.0 106.8, 201.3 201.3, 230.0 190.5"></path><path class="tie" d="M249.2 208.5 C279.8 219.3, 320.7 187.8, 351.3 177.0"></path><path class="tie" d="M370.5 195.0 C397.2 205.8, 432.7 205.8, 459.4 195.0"></path><path class="tie" d="M478.6 213.0 C505.2 223.8, 540.8 192.3, 567.4 181.5"></path><text class="cap b" x="121.5" y="236.4" text-anchor="middle">1. C</text><text class="cap" x="121.5" y="248.6" text-anchor="middle">overtone #1</text><text class="cap" x="121.5" y="260.7" text-anchor="middle">0.0¢ · anchor</text><text class="cap" x="121.5" y="272.9" text-anchor="middle">1/1 C3 = 130.8 Hz</text><text class="cap b" x="232.2" y="236.4" text-anchor="middle">2. Am</text><text class="cap" x="232.2" y="248.6" text-anchor="middle">5-limit #1</text><text class="cap" x="232.2" y="260.7" text-anchor="middle">−15.6¢ · hold C3 → C4</text><text class="cap b" x="353.5" y="236.4" text-anchor="middle">3. Dm</text><text class="cap" x="353.5" y="248.6" text-anchor="middle">5-limit #1</text><text class="cap" x="353.5" y="260.7" text-anchor="middle">−17.6¢ · hold A2 → A3</text><text class="cap b" x="461.5" y="236.4" text-anchor="middle">4. G</text><text class="cap" x="461.5" y="248.6" text-anchor="middle">overtone #1</text><text class="cap" x="461.5" y="260.7" text-anchor="middle">−19.6¢ · hold D3</text><text class="cap b" x="569.6" y="236.4" text-anchor="middle">5. C</text><text class="cap" x="569.6" y="248.6" text-anchor="middle">overtone #1</text><text class="cap" x="569.6" y="260.7" text-anchor="middle">−21.5¢ · hold G2 → G3</text></svg></div>
+        <figcaption>The opening example as the score draws it. Dashed lines join notes held from one chord to the next. The caption under each chord gives its distance from the piano's pitch.</figcaption>
+      </figure>
+      <ol>
+        <li>Press <b>▶ Play progression</b> under the staff. Each chord is purely tuned, and every note that two neighbouring chords share is held at exactly the same pitch.</li>
+        <li>Read the captions from left to right: 0.0¢, −15.6¢, −17.6¢, −19.6¢, −21.5¢. Each chord sits a little lower against the piano than the one before.</li>
+        <li>Press <b>Start vs end</b>. You hear the first C major chord, then the same chord where the progression has left it, 21.5 cents lower. That gap is the syntonic comma, and the sentence beside the word <i>Score</i> says so.</li>
+        <li>Click the second chord on the staff. The chips under the staff now list the tunings available for A minor; click another and listen to what changes.</li>
+        <li>Read the line under the staff. It states the drift and offers four ways to deal with it. They are explained under <a href="#progressions">Progressions</a>.</li>
+      </ol>
+      <p>Everything else in the tool is a closer look at one of these steps.</p>
+
+      <h2 id="chords">Entering chords</h2>
+      <p>Type one chord per line in the <b>Chords</b> box, then press <b>Analyze</b> (or Ctrl+Enter, ⌘+Enter on a Mac).</p>
+      <pre>C3 G3 E4 Bb4 | C7</pre>
+      <ul>
+        <li><b>Notes</b> are a letter, an accidental if there is one, and an octave number. C4 is middle C. Their order on the line does not matter.</li>
+        <li><b>Accidentals</b>: <code>#</code> sharp, <code>b</code> flat, <code>x</code> or <code>##</code> double sharp, <code>bb</code> double flat.</li>
+        <li><b>A name</b> for the chord can follow a <code>|</code>. It appears under the chord on the staff and changes nothing else.</li>
+        <li><b>MIDI note numbers</b> (60 = middle C) are accepted in place of note names; the tool then spells the notes itself.</li>
+        <li>A chord needs at least two notes.</li>
+      </ul>
+      <p><b>Spelling matters.</b> D♯ and E♭ are the same key on a piano but different notes in just intonation, and the tool reads them differently. Spell a chord the way you would write it in a score.</p>
+      <p>The <b>examples</b> menu replaces the list with a ready-made progression; see <a href="#examples">The examples</a>. The list, the settings and your choices are kept in the browser, so the page reopens as you left it.</p>
+
+      <h2 id="readings">Readings and cards</h2>
+      <p>A <i>reading</i> is one way of tuning a chord: a ratio for every note, measured from the root. Readings are grouped into <i>families</i>, according to which prime numbers their ratios use.</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Family</th><th>What it contains</th></tr></thead>
+        <tbody>
+          <tr><td>Overtone series</td><td>Every note is a harmonic of one fundamental. Ranked by how low the harmonics are.</td></tr>
+          <tr><td>5-limit</td><td>Primes 2, 3 and 5: pure fifths and pure thirds.</td></tr>
+          <tr><td>7-limit</td><td>Adds prime 7: the low seventh of the harmonic series, 7/4.</td></tr>
+          <tr><td>2·3·7</td><td>Fifths and sevenths without prime 5: septimal thirds (9/7, 7/6) in place of 5/4 and 6/5.</td></tr>
+          <tr><td>3-limit (Pythagorean)</td><td>Chains of pure fifths only. Close to the piano; useful as a comparison.</td></tr>
+          <tr><td>11- and 13-limit</td><td>Adds intervals near quarter tones (11) and third tones (13). Switched off until you tick it under Settings.</td></tr>
+        </tbody>
+      </table></div>
+      <p>Under the score, the focused chord has a row of cards, one per reading. The table on a card for C7, read as harmonics 2, 3, 5 and 7 of a low C, looks like this:</p>
+      <div class="tablewrap"><table class="num">
+        <thead><tr><th>note</th><th>ratio</th><th>HEJI</th><th>¢</th><th>Hz</th></tr></thead>
+        <tbody>
+          <tr><td>C3</td><td>1/1</td><td>C3</td><td>0.0</td><td>130.81</td></tr>
+          <tr><td>G3</td><td>3/2</td><td>G3</td><td>+2.0</td><td>196.22</td></tr>
+          <tr><td>E4</td><td>5/2</td><td>E4 ↓5</td><td>−13.7</td><td>327.03</td></tr>
+          <tr><td>B♭4</td><td>7/2</td><td>B♭4 ↓7</td><td>−31.2</td><td>457.84</td></tr>
+        </tbody>
+      </table></div>
+      <ul>
+        <li><b>ratio</b>: the note's frequency divided by the root's.</li>
+        <li><b>HEJI</b>: the accidental in words. ↓5 is one arrow down for prime 5, ↓7 the sign for prime 7. The staff shows the same thing as notation.</li>
+        <li><b>¢</b>: how far the note is from its piano pitch, in cents (hundredths of a semitone). Minus is lower, on a blue ground; plus is higher, on amber.</li>
+        <li><b>Hz</b>: the frequency.</li>
+        <li><b>open string</b>, when filled: the note stands in a simple ratio to an open string of the instrument playing it, so it can be tuned against that string. The tool assumes a string quartet; who plays which note is set in the <a href="#extras">performer window</a>.</li>
+      </ul>
+      <p>Around the table:</p>
+      <ul>
+        <li>The line under the title names the family and the two hardest things about the reading: the hardest interval to tune and the note farthest from the piano.</li>
+        <li><b>Tune</b> is an order in which the players can build the chord, one interval at a time.</li>
+        <li><b>easy</b>, <b>fine</b> and <b>hard</b> estimate the load on the players, in notation and in tuning. They are a judgement to weigh. Nothing is hidden because of them.</li>
+        <li>The words beside that mark are what this reading is best at among the chord's readings: <i>simplest dyads</i> (every pair of notes forms a simple interval), <i>most fused</i> (the notes are low harmonics of one fundamental), <i>easiest route</i>, <i>least retuning</i>, <i>fewest signs</i>, <i>open strings</i>.</li>
+        <li><b>♪ Score</b> puts the reading on the staff. <b>▶ Play</b> plays it. <b>12-TET → JI</b> plays the piano's version, then this one. <b>Copy table</b> copies the rows as text.</li>
+      </ul>
+      <p><b>Shortlist</b> shows the recommended reading and two alternatives. <b>All readings</b> shows every family in full.</p>
+      <p><b>The root.</b> Ratios are measured from a root, and the tool suggests one. The menu beside the chord's name offers the other candidates with their scores; the box next to it takes any pitch class (type it and press Enter), including one that is not in the chord. A different root gives different readings of the same notes.</p>
+
+      <h2 id="score">The score</h2>
+      <p>The staff shows every chord in the list as a column of whole notes, each in the tuning chosen for it. A chord starts at 12-TET, the piano's tuning, until you choose a reading.</p>
+      <figure>
+        <div class="staff"><svg xmlns="http://www.w3.org/2000/svg" width="190" height="233" viewBox="0 37.5 190 233" role="img" aria-label="C7 on a grand staff with Helmholtz-Ellis accidentals and a label beside each note"><style>.rat{font-family:var(--mono);font-size:11px;fill:currentColor;font-variant-numeric:tabular-nums;pointer-events:none}.smufl{font-family:JIifyNotation;font-size:36px;fill:currentColor;pointer-events:none}.lbl{font-family:var(--mono);font-size:11px;fill:currentColor;font-variant-numeric:tabular-nums;pointer-events:none}.hit{pointer-events:all;cursor:pointer}.colhit{pointer-events:all;cursor:pointer}.focuscol{fill:var(--accent-soft);opacity:.75}.cap{font-family:var(--font);font-size:10px;fill:var(--muted);pointer-events:none}.cap.b{fill:currentColor;font-weight:500}.tie{fill:none;stroke:currentColor;stroke-width:1.1;stroke-dasharray:3 3;opacity:.55}.tie.broken{stroke:var(--warn);opacity:.95}.tietext{font-family:var(--mono);font-size:9.5px;fill:var(--warn);pointer-events:none}.note:hover .nh,.note.sounding .nh,.lblrow:hover .lbl,.lblrow.sounding .lbl,.lblrow:hover .lbl tspan,.lblrow.sounding .lbl tspan{fill:var(--accent)}</style><rect class="colhit" data-ci="0" x="71.4" y="37.5" width="100.1" height="198.0" fill="transparent"></rect><line x1="30.0" y1="60.0" x2="171.5" y2="60.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="177.0" x2="171.5" y2="177.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="69.0" x2="171.5" y2="69.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="186.0" x2="171.5" y2="186.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="78.0" x2="171.5" y2="78.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="195.0" x2="171.5" y2="195.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="87.0" x2="171.5" y2="87.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="204.0" x2="171.5" y2="204.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="96.0" x2="171.5" y2="96.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="213.0" x2="171.5" y2="213.0" stroke="currentColor" stroke-width="1" opacity="0.9"></line><line x1="30.0" y1="60.0" x2="30.0" y2="213.0" stroke="currentColor" stroke-width="1.2"></line><text class="smufl" x="8" y="213.0" font-size="153" transform="translate(8 0) scale(0.6 1) translate(-8 0)"></text><text class="smufl" x="36.0" y="87.0"></text><text class="smufl" x="36.0" y="186.0"></text><text class="smufl" x="99.5" y="96.0"></text><text class="smufl" x="107.9" y="78.0"></text><text class="smufl" x="115.1" y="78.0"></text><g class="note" data-i="0" data-ci="0"><text class="smufl nh" x="126.0" y="199.5" data-i="0" data-ci="0"></text><circle class="hit" cx="133.6" cy="199.5" r="7.6" fill="transparent"></circle></g><g class="note" data-i="1" data-ci="0"><text class="smufl nh" x="126.0" y="181.5" data-i="1" data-ci="0"></text><circle class="hit" cx="133.6" cy="181.5" r="7.6" fill="transparent"></circle></g><g class="note" data-i="2" data-ci="0"><text class="smufl nh" x="126.0" y="96.0" data-i="2" data-ci="0"></text><circle class="hit" cx="133.6" cy="96.0" r="7.6" fill="transparent"></circle></g><g class="note" data-i="3" data-ci="0"><text class="smufl nh" x="126.0" y="78.0" data-i="3" data-ci="0"></text><circle class="hit" cx="133.6" cy="78.0" r="7.6" fill="transparent"></circle></g><text class="cap b" x="121.5" y="236.4" text-anchor="middle">1. C7</text><text class="cap" x="121.5" y="248.6" text-anchor="middle">overtone #1</text><text class="cap" x="121.5" y="260.7" text-anchor="middle">1/1 C3 = 130.8 Hz</text></svg></div>
+        <figcaption>C7 as harmonics 2, 3, 5 and 7 of a low C. The E carries one arrow down (prime 5) and the B♭ the sign for prime 7. Beside each note: ratio, name, cents, frequency.</figcaption>
+      </figure>
+      <ul>
+        <li><b>Click a chord</b> to focus it, or use the ← and → keys. The focused chord is shaded.</li>
+        <li><b>The chips</b> under the staff list the focused chord's tunings. Click one to choose it.</li>
+        <li><b>The table</b> under the chips lists the focused chord's notes, top note first.</li>
+        <li><b>Click a notehead</b>, or a row of the table, to hear that note alone.</li>
+        <li><b>▶ Play</b> (or the space bar) plays the focused chord. <b>12-TET → JI</b> plays it as on the piano, then tuned. <b>Arpeggio</b> plays the notes from the bottom, then together. <b>Hold</b> sustains the chord until you release it.</li>
+        <li><b>▴ staff</b> hides the staff and keeps the controls.</li>
+      </ul>
+      <p><b>The accidentals.</b> The notation is the Helmholtz-Ellis JI Pitch Notation, HEJI. A note's letter and its ordinary sharp or flat place it in a chain of pure fifths. Each extra sign raises or lowers it by one small interval, a comma, belonging to one prime number: arrows on the accidental for prime 5, a separate sign for 7, others for 11, 13 and beyond. The tool's own legend is in <i>Help and reference</i> at the foot of its page; the full legend is published at <a href="https://heji.plainsound.org">heji.plainsound.org</a>.</p>
+      <p><b>Spell from</b> decides what the signs are measured from, and with it what you hear.</p>
+      <ul>
+        <li><i>absolute</i>: the chords are linked. The first chord's root is the reference for everything after it, and whatever a chord has drifted shows in its signs.</li>
+        <li><i>relative, as typed</i>: each chord stands alone with its root at piano pitch, as its card sounds.</li>
+        <li><i>relative, fewest signs</i>: the same, written from whichever note of the chord needs the fewest signs.</li>
+      </ul>
+
+      <h2 id="progressions">Progressions</h2>
+      <p>With two or more chords in the list, and <i>spell from</i> set to <i>absolute</i>, the tool links each chord to the one before it.</p>
+      <ul>
+        <li><b>A common tone is held.</b> If two neighbouring chords share a note, it keeps exactly the same frequency, and the second chord is placed around it. When they share several, the tool holds the one that disturbs the others least and reports any that had to move.</li>
+        <li><b>With no common tone, the root moves</b> by the simplest just interval close to the written one.</li>
+        <li><b>A chord left at 12-TET is fixed</b> at piano pitch and starts the chain again.</li>
+      </ul>
+      <p>The caption under each chord reads, for example, <code>−15.6¢ · hold C3 → C4</code>: this chord's root is 15.6 cents below its piano pitch, and it was placed by holding the C. The distance is the <i>drift</i>.</p>
+      <p><b>Changing a link.</b> Focus any chord but the first and use <b>link from previous</b> under the staff: <i>auto</i>, hold a particular common tone, move the root by a stated ratio, or <i>reset</i>, which puts this chord's root back at piano pitch.</p>
+      <p><b>The summary</b> beside the word <i>Score</i> gives the outcome. When the progression ends on the root it began on, the drift is given as an exact ratio, with its name if it is a known comma.</p>
+      <p><b>The line under the staff</b> appears when the drift is 5 cents or more, with four choices:</p>
+      <ul>
+        <li><b>Accept</b>: let it drift. The signs on the staff carry it.</li>
+        <li><b>Slip a note by a comma</b>: at one link, the held note is allowed to move so that the progression closes. The tool picks the link where this costs least.</li>
+        <li><b>Reset at the last chord</b>: the last chord goes back to piano pitch.</li>
+        <li><b>Pick readings that don't drift</b>: search again for readings, this time counting drift against them.</li>
+      </ul>
+      <p><b>Suggest readings (hold common tones)</b> searches the readings of every chord for the combination that breaks the fewest held notes. <b>Suggest (hold, avoid drift)</b> does the same and also keeps the roots near the piano. <b>Copy progression</b> copies every chord, link, drift and note as text.</p>
+      <p><b>Enharmonic spelling.</b> Common tones are matched by their written names. B♭ in one chord and A♯ in the next are not held, and the link falls back to a root motion. This is why the cycle examples end on C♭ or B♯ and not on the note they began on: written that way, every common tone is held and the drift is visible.</p>
+
+      <h2 id="examples">The examples</h2>
+      <p>Each example is a progression that does not come back to where it started when every common tone is held. Loading one replaces the chord list and chooses the readings.</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Example</th><th>Chords</th><th>Drift</th></tr></thead>
+        <tbody>
+          <tr><td>Comma pump</td><td>C, Am, Dm, G, C</td><td>−21.5¢, syntonic comma (80/81)</td></tr>
+          <tr><td>Pump with dominant sevenths</td><td>C, A7, D7, G7, C</td><td>−21.5¢, syntonic comma</td></tr>
+          <tr><td>Giant Steps cycle</td><td>B, D7, G, B♭7, E♭, G♭7, C♭</td><td>+41.1¢, lesser diesis (128/125)</td></tr>
+          <tr><td>Major thirds</td><td>C, E, G♯, B♯</td><td>−41.1¢, lesser diesis</td></tr>
+          <tr><td>Minor thirds</td><td>C, A, F♯, D♯, B♯</td><td>−62.6¢, greater diesis (625/648)</td></tr>
+          <tr><td>Circle of fifths</td><td>C upward by fifths to B♯, thirteen chords</td><td>+23.5¢, Pythagorean comma</td></tr>
+          <tr><td>Two chords</td><td>B7(♯9,♭5), B♭13(♯9)/F</td><td>Loaded at 12-TET, for trying readings by hand</td></tr>
+        </tbody>
+      </table></div>
+      <p>The figures are for the default settings. With other settings the search may choose other readings.</p>
+
+      <h2 id="settings">Settings</h2>
+      <p>A change takes effect at once.</p>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Setting</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td>A4 (Hz)</td><td>The reference pitch, 400 to 480. Every frequency follows it.</td></tr>
+          <tr><td>Hold at 12-TET</td><td>The one note of a chord that stays at piano pitch: the root or the bass. The cents of all other notes are counted from there.</td></tr>
+          <tr><td>Tolerance (±¢)</td><td>How far a tuned note may sit from its piano pitch and still count as that note. 50 is a quarter tone. Lower it to keep readings close to the piano; raise it to admit more distant ones.</td></tr>
+          <tr><td>Readings per family</td><td>How many readings to keep from each family, 1 to 5.</td></tr>
+          <tr><td>Your spellings</td><td><i>prefer</i>: readings that would respell one of your notes are kept but ranked lower. <i>strict</i>: they are dropped. <i>ignore</i>: spelling is not considered.</td></tr>
+          <tr><td>Overtone fits up to prime, and up to harmonic</td><td>How high in the harmonic series the overtone family may look.</td></tr>
+          <tr><td>Families</td><td>Which families to search.</td></tr>
+        </tbody>
+      </table></div>
+
+      <h2 id="extras">Keyboard, performers, export</h2>
+      <ul>
+        <li><b>MIDI in</b> connects a MIDI keyboard, in a browser that supports Web MIDI, such as Chrome. A chord held on the keyboard is read and tuned at once by the <b>live pick</b> rule (purest, most fused, easiest to read, a particular family, or open strings). <b>Capture</b>, or the sustain pedal, adds the held chord to the list.</li>
+        <li><b>Performer window ↗</b> opens a second window that shows only the focused chord, large, with each note's name, accidental, ratio, cents and frequency. It follows the main window as long as both are open in the same browser on the same computer. The instrument for each note is chosen there.</li>
+        <li><b>Copy CSV</b> copies every row of every reading of every chord, for a spreadsheet or another program. <b>Copy all as text</b> copies the same as text tables. <b>Copy session log</b> copies every selection made, with its time.</li>
+        <li>The round button at the bottom right changes the colours. The staff stays on white.</li>
+      </ul>
+
+      <h2 id="limits">Limits</h2>
+      <ul>
+        <li>The accidentals are worked out from the definitions of the commas. Check them against the published HEJI legend before engraving a score.</li>
+        <li>Playback is a plain synthetic tone with no vibrato. It is a tuning reference, not a rendering of instruments.</li>
+        <li>The easy, fine and hard marks, and the recommendation, come from a fixed scoring rule. The rule is written out in <i>Help and reference</i> on the tool's page.</li>
+        <li>Nothing is sent anywhere. The chord list and settings are stored in your browser only; another browser or device starts fresh.</li>
+      </ul>
+
+      <h2 id="terms">Terms</h2>
+      <dl>
+        <dt>12-TET</dt><dd>Twelve-tone equal temperament, the tuning of the piano. The tool measures everything against it.</dd>
+        <dt>Cent, ¢</dt><dd>A hundredth of a tempered semitone. <a href="https://en.wikipedia.org/wiki/Cent_(music)">Cent</a></dd>
+        <dt>Ratio</dt><dd>An interval as a fraction of frequencies: 3/2 is a pure fifth, 5/4 a pure major third. 1/1 is the note everything else is measured from.</dd>
+        <dt>Limit</dt><dd>The largest prime number allowed in the ratios. 5-limit uses 2, 3 and 5. <a href="https://en.wikipedia.org/wiki/Limit_(music)">Limit</a></dd>
+        <dt>Comma</dt><dd>A small interval, the difference between two ways of reaching nearly the same note. The syntonic comma, 81/80, is 21.5 cents.</dd>
+        <dt>Drift</dt><dd>How far a chord in a progression has moved from its piano pitch through pure intervals and held notes. <a href="https://en.wikipedia.org/wiki/Comma_pump">Comma pump</a></dd>
+        <dt>HEJI</dt><dd>The Helmholtz-Ellis JI Pitch Notation, by Marc Sabat and Wolfgang von Schweinitz, revised in 2020 by Marc Sabat and Thomas Nicholson.</dd>
+        <dt>Reading</dt><dd>This tool's word for one tuning of a chord.</dd>
+      </dl>
+
+      <h2 id="reading">Further reading</h2>
+      <ul>
+        <li><a href="https://www.kylegann.com/tuning.html">Just Intonation Explained</a>, Kyle Gann. A short introduction for musicians.</li>
+        <li><a href="https://en.wikipedia.org/wiki/Just_intonation">Just intonation</a>, Wikipedia.</li>
+        <li><a href="https://heji.plainsound.org">HEJI</a>, Plainsound Music Edition. The notation's legend, fonts and documents.</li>
+        <li><a href="https://hejicalc.plainsound.org/">Harmonic Space Calculator</a>, Plainsound. Ratios to HEJI notation, one interval at a time.</li>
+        <li><a href="https://www.plainsound.org">Plainsound Music Edition</a>. Scores and writings on just intonation.</li>
+        <li><a href="https://en.xen.wiki/w/Just_intonation">Just intonation</a>, Xenharmonic Wiki. Reference pages on intervals, commas and limits.</li>
+        <li><a href="https://www.huygens-fokker.org/docs/intervals.html">List of intervals</a>, Huygens-Fokker Foundation. Names for several hundred ratios.</li>
+      </ul>
+    </main>
+
+  </div>
+
+  <footer class="foot">
+    <span>© 2026 HAN</span>
+    <a href="../">JI-ify</a>
+    <a href="../../licenses/">Credits and licenses</a>
+    <a href="../../">Front page</a>
+  </footer>
+</div>
+
+<script>
+// Local preview only. Opened straight from disk, a link to a folder has to name the
+// folder's index.html; on a web server the server adds it.
+if (location.protocol === 'file:') document.querySelectorAll('a[href$="/"]').forEach(function (a) {
+  var h = a.getAttribute('href'); if (!/^[a-z]+:/i.test(h)) a.setAttribute('href', h + 'index.html');
+});
+</script>
+</body>
+</html>

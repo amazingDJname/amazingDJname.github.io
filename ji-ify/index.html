@@ -208,7 +208,22 @@ td.num, th.num { text-align: right; }
 details.dyads { margin-top: 8px; font-size: 12.5px; }
 details.dyads summary { cursor: pointer; color: var(--muted); }
 .cell { position: relative; }
+/* First-visit introduction, the "?" beside each panel title and the note it opens. */
+.intro { max-width: 1240px; margin: 0 auto 16px; padding: 10px 12px; display: flex; gap: 12px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: var(--radius); font-size: 13.5px; line-height: 1.55; }
+.intro[hidden] { display: none; }
+.intro p { flex: 1; margin: 0; }
+.intro a, .helpbox a, .help a, header.top .manual { color: var(--accent); text-underline-offset: 2px; }
+header.top .manual { font-size: 13px; margin-left: auto; white-space: nowrap; }
+.helpbtn { width: 18px; height: 18px; padding: 0; margin-left: 6px; vertical-align: 2px; border: 1px solid var(--line); border-radius: 50%; background: var(--surface-2); color: var(--muted); font-size: 11px; font-weight: 600; line-height: 1; cursor: pointer; }
+.helpbtn:hover, .helpbtn[aria-expanded="true"] { color: var(--accent); border-color: var(--accent); }
+.helpbox { flex: 1 1 100%; margin: 0 0 10px; padding: 8px 10px; background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius); font-size: 13px; line-height: 1.5; font-weight: 400; }
+.helpbox p + p { margin-top: 6px; }
+/* the examples menu is as wide as its longest entry unless held back; on a phone that pushed the page sideways */
+label.vol[for="examples"] { max-width: 100%; }
+#examples { min-width: 0; max-width: min(100%, 300px); text-overflow: ellipsis; }
 .help { font-size: 13px; }
+.help ol { margin: 4px 0; padding-left: 20px; }
+.help ol li + li { margin-top: 3px; }
 .help h3 { margin: 10px 0 4px; }
 .help p, .help li { color: var(--ink); }
 .help ul { margin: 4px 0; padding-left: 18px; }
@@ -266,11 +281,17 @@ details.help summary { cursor: pointer; font-weight: 600; }
 <header class="top">
   <h1>JI-ify</h1>
   <p class="tag">Chords in 12-TET spelling → every just-intonation reading, with HEJI, cents, Hz, tuning routes and playback.</p>
+  <a class="manual" href="manual/" target="_blank" rel="noopener">Manual ↗</a>
 </header>
+
+<section class="intro" id="intro" hidden aria-label="Introduction">
+  <p><b>New here?</b> Type chords as note names, one per line. JI-ify lists the ways each chord can be tuned in just intonation, writes the tuning you pick on the staff with Helmholtz-Ellis accidentals, and plays it. With several chords it holds the notes they share and shows how far the pitch drifts. The example below is loaded to try: press <b>▶ Play progression</b>, then <b>Start vs end</b>. The <b>?</b> beside each title explains that panel; the <a href="manual/" target="_blank" rel="noopener">manual</a> explains the rest.</p>
+  <button class="btn small" id="introHide" type="button">Hide</button>
+</section>
 
 <div class="top-row">
   <section class="panel">
-    <h2>Chords</h2>
+    <h2>Chords <button class="helpbtn" type="button" data-help="chords" aria-expanded="false" aria-label="About the chord box" title="About the chord box">?</button></h2>
     <label for="chords">One chord per line, bottom to top, C4 = middle C. A label after <code>|</code> is kept.</label>
     <textarea id="chords" spellcheck="false">C3 G3 E4 | C
 A2 E3 C4 | Am
@@ -299,7 +320,7 @@ C3 G3 E4 | C</textarea>
   </section>
 
   <section class="panel">
-    <h2>Settings</h2>
+    <h2>Settings <button class="helpbtn" type="button" data-help="settings" aria-expanded="false" aria-label="About the settings" title="About the settings">?</button></h2>
     <div class="grid3">
       <div class="field"><label for="a4">A4 (Hz)</label><input id="a4" type="number" min="400" max="480" step="0.1" value="440"></div>
       <div class="field"><label for="anchor">Hold at 12-TET</label><select id="anchor"><option value="root">the root</option><option value="bass">the bass</option></select></div>
@@ -316,7 +337,7 @@ C3 G3 E4 | C</textarea>
 
 <section class="panel score" id="scorePanel" hidden>
   <div class="score-head">
-    <h2>Score</h2>
+    <h2>Score <button class="helpbtn" type="button" data-help="score" aria-expanded="false" aria-label="About the score" title="About the score">?</button></h2>
     <p class="hint" id="progSummary"></p>
     <div class="actions score-tools" id="progTools" hidden>
       <button class="btn small" id="pgSuggest" title="Search the readings of every chord for the path with the fewest common-tone breaks">Suggest readings (hold common tones)</button>
@@ -349,28 +370,39 @@ C3 G3 E4 | C</textarea>
 <main class="results" id="results"></main>
 
 <section class="panel help">
-  <details class="help">
-    <summary>How to read the results</summary>
-    <h3>Ways a chord can be "in tune", and the marks</h3>
+  <details class="help" id="helpBlock">
+    <summary>Help and reference</summary>
+    <p>The <a href="manual/" target="_blank" rel="noopener">manual</a> walks through the tool from the beginning. This block is the short version, then the reference.</p>
+    <h3>Start here</h3>
+    <ol>
+      <li>Type one chord per line, lowest note first, as note names with octave numbers (C4 = middle C), and press <b>Analyze</b>. Or pick one of the <b>examples</b>.</li>
+      <li>The cards under the score list the ways the chord can be tuned (its <i>readings</i>), the recommended one first. Each row gives a note's ratio to the root, its accidental in words, its distance from 12-TET in cents, and its frequency.</li>
+      <li><b>♪ Score</b> on a card, or a chip under the staff, puts that reading on the staff. <b>▶ Play</b> plays it; <b>12-TET → JI</b> plays the piano's version first, then the tuned one.</li>
+      <li>With two or more chords the staff shows them all; click one to focus it. Notes shared by neighbouring chords are held at the same pitch, and the caption under each chord says how far it now sits from the piano.</li>
+      <li>If the progression ends away from where it began, the line under the staff says by how much and offers ways to deal with it.</li>
+    </ol>
+    <h3>The cards: ways a chord can be "in tune", and the marks</h3>
     <p><b>most fused</b>: all notes are low harmonics of one fundamental, so the chord sounds as one spectrum; measured by the largest harmonic number. <b>simplest dyads</b>: every pair of notes forms a simple, tunable interval, whether or not they share a fundamental (the "complexity" figure, lower is simpler). <b>easiest route</b>: the hardest interval anyone has to tune along the tuning route is the easiest among the readings. <b>least retuning</b>: smallest total movement from 12-TET. <b>fewest signs</b>: fewest HEJI comma signs to engrave. <b>open strings</b>: the most notes that stand in a simple ratio (odd part up to 15, within 3¢) to an open string of their player, violin G3 D4 A4 E5, viola C3 G3 D4 A4, cello C2 G2 D3 A3, tuned in pure fifths from the page's A4; ties go to the simpler ratios. The per-note column <i>open string</i> names the string and the ratio (5/4 × A4), so the note can be tuned as a double stop or by resonance. The overtone family is ranked by fusion; every other family by complexity. A mark is relative to the chord's own readings.</p>
     <h3>Shortlist view</h3>
     <p>The recommended reading is the purest one (lowest dyad complexity); the alternatives are the most fused acceptable reading and the best of another family. Each card's difficulty score, used to order ties and to rank when nothing qualifies: 1.5 × the most comma signs on any one note + 0.5 × signs per note + 1.3 × the hardest interval anyone must tune (Tenney height of the interval as sounded, 7/4 = 4.95, 16/9 = 7.17, 19/16 = 12.1; a note within 6¢ of 12-TET counts as 3, since it is simply played as on the piano) + 2 per respelled note + the largest move from the piano in cents ÷ 20 + 2 if a prime above 7 is used (+3 above 13) + 3 × the reading's complexity above the chord's best, as a fraction. The chips are a notation-and-tuning load estimate for the players to judge, never a filter: <b>easy</b> = at most one sign per note, hardest interval ≤ 6.3, nothing moves more than 35¢, your spelling kept, 7-limit; <b>fine</b> = two signs somewhere, or an interval up to 9, or up to 45¢, or 11/13; <b>hard</b> beyond that.</p>
-    <h3>Live MIDI, performer window, Max</h3>
-    <p>MIDI in listens to a keyboard (Chrome on your own machine, or inside Max's jweb); the chord you hold is read and tuned at once by the live-pick rule, and the sustain pedal (CC 64) captures it to the list. The performer window shows only the selected chord, large, and follows the main window through this browser's storage; inside Max it can be driven directly with a <code>show</code> message. For iPads, run <code>node server.js</code> in the repository: it serves this page and the performer display on the local network and prints one address per player (<code>/perf?player=1</code> … <code>4</code>, 1 = the lowest note); see the README. When the page runs inside <code>jweb</code>, every selection is sent out as <code>selection &lt;json&gt;</code> and <code>hz …</code>, and the page accepts <code>chords</code>, <code>midi</code>, <code>capture</code>, <code>select</code>, <code>focus</code> and <code>show</code> messages; see max/README-max.md in the repository.</p>
-    <h3>Complexity</h3>
-    <p>For each interval, the exponents of its primes above 2 times log2 of the prime, with primes above 7 weighted more (×1.6 for 11 and 13, up to ×2.3 for 31). Summed over all pairs, counting pairs with the root twice and with the bass one and a half times. Tuning routes and the "hardest to tune" figures use the same height counting the 2s as well, so an interval's actual width matters.</p>
+    <h3>The staff: HEJI signs and what they are measured from</h3>
+    <p>Letter = Pythagorean pitch; each sign is one comma, up or down, for one prime. Derived from the comma definitions, so confirm glyphs against the Plainsound legend before engraving.</p>
+    <p>Signs are measured from a 1/1. In the linked view that is the segment's first root, so signs the whole chord shares say where this chord's root fell (a root a 7·23 ratio away puts ↓7 ↑23 on every note). A chord that follows a 12-TET chord, or a reset, is its own 1/1: a tempered neighbour offers no ratio to measure from, so a link change there moves the chord (cents, Hz) without changing its signs; the column's caption states the reference it is measured from (1/1 A2 = 109.0 Hz). <b>Spell from</b> under the staff chooses what plays as well as what is written. <i>Absolute</i>: the chords are linked, chord 1's root is the one 1/1, drift is carried from chord to chord and every comma a link adds shows as signs. <i>Relative</i>: each chord stands on its own with its root at the piano's pitch, exactly as its card sounds, spelled from that root (<i>as typed</i>) or from whichever chord note reads cheapest (<i>fewest signs</i>: signs, then re-lettered notes); links, drift and the verdict do not apply, and a common tone that differs between two neighbouring chords shows its slip on the tie. Cents and Hz do not change, only the declared reference, which the title then states (spelled as typed, B♭2 = 118.33 Hz as 1/1).</p>
+    <table class="legend" id="legend"></table>
+    <h3>Progression (two or more chords)</h3>
+    <p>Chords are linked in the order typed; with two or more chords the score becomes the progression, and the focused chord's link is set right under the staff. A common tone (same written note, or the same pitch class an octave away) is held at the same frequency; when several are shared, the one whose hold breaks the others least is chosen, and the breaks are reported with the comma they amount to. With no common tone the root moves by the simplest just ratio within tolerance of the tempered motion, spelled as you spelled the roots (C→F♯ gives 10/7, C→G♭ gives 7/5). Each root's position against 12-TET is tracked as an exact ratio, so the net drift of a progression that returns to its first root comes out as a named comma (the I–vi–ii–V–I pump in 5-limit returns 80/81, a syntonic comma flat). A chord left at 12-TET is fixed; a reset link re-anchors the next root at its tempered pitch. <b>Suggest</b> searches the readings of every chord (beam width 40) for the path minimising Σ|breaks| + 8·(each reading's complexity above its chord's best, as a fraction); the drift-avoiding variant adds 0.5¢ of cost per cent of root drift at every chord.</p>
+    <h3>Reference</h3>
+    <p>How the figures above are worked out, and the parts that need more than a browser.</p>
     <h3>Root</h3>
     <p>Suggested by Parncutt's root-support weights: a chord tone a unison, fifth, major third, minor seventh or major second above the candidate supports it by 10, 5, 3, 2, 1; the bass gets 1.5 extra. Type any pitch class to try an absent root.</p>
     <h3>Cents and Hz</h3>
     <p>Deviations from 12-TET with the chosen note held at its tempered pitch. To anchor elsewhere, add one constant to every value.</p>
-    <h3>Progression (two or more chords)</h3>
-    <p>Chords are linked in the order typed; with two or more chords the score becomes the progression, and the focused chord's link is set right under the staff. A common tone (same written note, or the same pitch class an octave away) is held at the same frequency; when several are shared, the one whose hold breaks the others least is chosen, and the breaks are reported with the comma they amount to. With no common tone the root moves by the simplest just ratio within tolerance of the tempered motion, spelled as you spelled the roots (C→F♯ gives 10/7, C→G♭ gives 7/5). Each root's position against 12-TET is tracked as an exact ratio, so the net drift of a progression that returns to its first root comes out as a named comma (the I–vi–ii–V–I pump in 5-limit returns 80/81, a syntonic comma flat). A chord left at 12-TET is fixed; a reset link re-anchors the next root at its tempered pitch. <b>Suggest</b> searches the readings of every chord (beam width 40) for the path minimising Σ|breaks| + 8·(each reading's complexity above its chord's best, as a fraction); the drift-avoiding variant adds 0.5¢ of cost per cent of root drift at every chord.</p>
+    <h3>Complexity</h3>
+    <p>For each interval, the exponents of its primes above 2 times log2 of the prime, with primes above 7 weighted more (×1.6 for 11 and 13, up to ×2.3 for 31). Summed over all pairs, counting pairs with the root twice and with the bass one and a half times. Tuning routes and the "hardest to tune" figures use the same height counting the 2s as well, so an interval's actual width matters.</p>
     <h3>Playback</h3>
     <p>An additive tone (24 harmonics, 1/n amplitudes with a gentle high-frequency roll-off, no vibrato). The level is scaled by the number of voices (n<sup>−0.75</sup>) with a mild tilt that lifts high notes and tames low ones, and a limiter at −3 dBFS guards the output, so a full chord does not clip. Single notes are therefore a little louder than the chord, per voice.</p>
-    <h3>HEJI</h3>
-    <p>Letter = Pythagorean pitch; each sign is one comma, up or down, for one prime. Derived from the comma definitions, so confirm glyphs against the Plainsound legend before engraving.</p>
-    <p>Signs are measured from a 1/1. In the linked view that is the segment's first root, so signs the whole chord shares say where this chord's root fell (a root a 7·23 ratio away puts ↓7 ↑23 on every note). A chord that follows a 12-TET chord, or a reset, is its own 1/1: a tempered neighbour offers no ratio to measure from, so a link change there moves the chord (cents, Hz) without changing its signs; the column's caption states the reference it is measured from (1/1 A2 = 109.0 Hz). <b>Spell from</b> under the staff chooses what plays as well as what is written. <i>Absolute</i>: the chords are linked, chord 1's root is the one 1/1, drift is carried from chord to chord and every comma a link adds shows as signs. <i>Relative</i>: each chord stands on its own with its root at the piano's pitch, exactly as its card sounds, spelled from that root (<i>as typed</i>) or from whichever chord note reads cheapest (<i>fewest signs</i>: signs, then re-lettered notes); links, drift and the verdict do not apply, and a common tone that differs between two neighbouring chords shows its slip on the tie. Cents and Hz do not change, only the declared reference, which the title then states (spelled as typed, B♭2 = 118.33 Hz as 1/1).</p>
-    <table class="legend" id="legend"></table>
+    <h3>Live MIDI, performer window, Max</h3>
+    <p>MIDI in listens to a keyboard (Chrome on your own machine, or inside Max's jweb); the chord you hold is read and tuned at once by the live-pick rule, and the sustain pedal (CC 64) captures it to the list. The performer window shows only the selected chord, large, and follows the main window through this browser's storage; inside Max it can be driven directly with a <code>show</code> message. For iPads, run <code>node server.js</code> in the repository: it serves this page and the performer display on the local network and prints one address per player (<code>/perf?player=1</code> … <code>4</code>, 1 = the lowest note); see the README. When the page runs inside <code>jweb</code>, every selection is sent out as <code>selection &lt;json&gt;</code> and <code>hz …</code>, and the page accepts <code>chords</code>, <code>midi</code>, <code>capture</code>, <code>select</code>, <code>focus</code> and <code>show</code> messages; see max/README-max.md in the repository.</p>
   </details>
 </section>
 <div class="palette" id="palette">
@@ -386,8 +418,12 @@ C3 G3 E4 | C</textarea>
   </div>
   <button class="palette-btn" id="paletteBtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="paletteMenu" title="Colours"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.4-3.4 2 2 0 0 1 1.4-3.4H18a3 3 0 0 0 3-3A9 9 0 0 0 12 3z"/><circle cx="7.5" cy="12" r="1.2" fill="currentColor"/><circle cx="10" cy="7.5" r="1.2" fill="currentColor"/><circle cx="15" cy="7.5" r="1.2" fill="currentColor"/><circle cx="9" cy="16.5" r="1.2" fill="currentColor"/></svg></button>
 </div>
+<template id="help-chords"><p>One chord per line, lowest note first: a letter, an accidental if any (<code>#</code>, <code>b</code>, <code>x</code>, <code>bb</code>) and an octave number, C4 being middle C. MIDI note numbers work too. Text after <code>|</code> is the chord's name on the staff. How a note is spelled decides how it is tuned: D♯ and E♭ get different ratios.</p><p><b>Analyze</b> reads the list. <b>examples</b> replaces it with a progression that drifts. The row below is for a MIDI keyboard, a second window for performers, and copying the results out. <a href="manual/#chords" target="_blank" rel="noopener">More in the manual</a></p></template>
+<template id="help-settings"><p>These decide which tunings are looked for. <b>Families</b> are the kinds of just intonation to try, named by the primes they use. <b>Tolerance</b> is how far a tuned note may sit from its piano pitch. <b>Hold at 12-TET</b> is the one note that stays at piano pitch. <b>Your spellings</b> says whether a reading may respell a note you typed. The defaults suit most chords; a change re-analyzes at once. <a href="manual/#settings" target="_blank" rel="noopener">More in the manual</a></p></template>
+<template id="help-score"><p>The staff shows every chord in the list, each in the tuning chosen for it. Click a chord to focus it; the chips under the staff switch its tuning and the table lists its notes. Accidentals with arrows are Helmholtz-Ellis signs: each arrow moves the note by one small interval (a comma). Click a notehead to hear that note alone.</p><p>With several chords, dashed lines join notes that are held from one chord to the next, and each caption gives the chord's distance from the piano's pitch. The sentence beside the title sums up the drift. <a href="manual/#score" target="_blank" rel="noopener">More in the manual</a></p></template>
+<template id="help-cards"><p>Each card is one <i>reading</i>: one way to tune this chord in just intonation. Per note: its ratio to the root, its Helmholtz-Ellis accidental in words, its distance from 12-TET in cents (blue = lower, amber = higher), its frequency. <b>Tune</b> is an order in which players can tune it, interval by interval. <b>easy</b>, <b>fine</b> and <b>hard</b> estimate the load on the players.</p><p><b>Shortlist</b> shows the recommended reading and two alternatives; <b>All readings</b> shows every family. The root is suggested; choose another, or type one, to read the chord differently. <a href="manual/#readings" target="_blank" rel="noopener">More in the manual</a></p></template>
 <footer class="colophon">
-  <p>JI-ify, version 15.</p>
+  <p>JI-ify, version 16.</p>
   <p>The accidentals belong to the Helmholtz-Ellis JI Pitch Notation, devised by Marc Sabat and Wolfgang von Schweinitz. Music glyphs come from a subset of the Bravura font by Steinberg; the text is set in IBM Plex. Both fonts are used under the SIL Open Font License. <a href="../licenses/">Credits and licenses</a></p>
 </footer>
 
@@ -1685,6 +1721,23 @@ const Progression = (function () {
     if (ex.hold) progSuggest(false, true);
     if (!quiet) toast('Example loaded: ' + ex.name.split(':')[0]);
   }
+  // ---------- help ----------
+  // A "?" opens a short note under its panel's title; the text is a <template id="help-NAME"> in the page.
+  function helpInit() {
+    document.addEventListener('click', ev => {
+      const b = ev.target.closest('.helpbtn'); if (!b) return;
+      const host = b.closest('.score-head, .chord-head') || b.closest('h2'); const open = host.nextElementSibling;
+      if (open && open.classList.contains('helpbox')) { open.remove(); b.setAttribute('aria-expanded', 'false'); return; }
+      const tpl = document.getElementById('help-' + b.dataset.help); if (!tpl) return;
+      const box = document.createElement('div'); box.className = 'helpbox'; box.appendChild(tpl.content.cloneNode(true));
+      host.after(box); b.setAttribute('aria-expanded', 'true');
+    });
+    // the introduction stays until it is hidden once in this browser
+    const intro = $('#intro'); if (!intro) return;
+    let seen = false; try { seen = localStorage.getItem('jiify.intro') === '1'; } catch (e) { /* storage unavailable: show it */ }
+    intro.hidden = seen;
+    $('#introHide').addEventListener('click', () => { intro.hidden = true; try { localStorage.setItem('jiify.intro', '1'); } catch (e) { /* ignore */ } });
+  }
   function examplesInit() {
     const sel = $('#examples'); if (!sel) return;
     sel.innerHTML = '<option value="" selected>choose…</option>' + EXAMPLES.map((ex, i) => `<option value="${i}">${esc(ex.name)}${ex.shows ? ' (' + esc(ex.shows) + ')' : ''}</option>`).join('');
@@ -2254,7 +2307,7 @@ const Progression = (function () {
     const noteNames = chord.notes.map(n => n.name);
     // header + root control
     const head = document.createElement('div'); head.className = 'chord-head';
-    head.innerHTML = `<h2>${esc(chord.inferred ? chord.spelled : chord.text)}${chord.label ? ` <span class="label">${esc(chord.label)}</span>` : ''}</h2>`;
+    head.innerHTML = `<h2>${esc(chord.inferred ? chord.spelled : chord.text)}${chord.label ? ` <span class="label">${esc(chord.label)}</span>` : ''} <button class="helpbtn" type="button" data-help="cards" aria-expanded="false" aria-label="About the cards" title="About the cards">?</button></h2>`;
     if (chord.inferred) head.insertAdjacentHTML('beforeend', `<span class="hint" title="Numbers were spelled as chord tones over the derived root. Type note names to override.">spelled from MIDI ${esc(chord.text)}</span>`);
     const vt = document.createElement('div'); vt.className = 'chips viewtoggle';
     [['playable', 'Shortlist'], ['all', 'All readings']].forEach(([v, lab]) => { const b = document.createElement('button'); b.className = 'chip' + (state.view === v ? ' on' : ''); b.textContent = lab; b.addEventListener('click', () => { state.view = v; save(); renderResults(ci); }); vt.appendChild(b); });
@@ -2452,7 +2505,7 @@ const Progression = (function () {
   // ---------- boot ----------
   paletteInit();
   if (location.hash === '#perf' || window.JIIFY_PERF) { perfBoot(); return; }
-  famChecks(); legend(); const hadSave = load(); examplesInit();
+  famChecks(); legend(); const hadSave = load(); examplesInit(); helpInit();
   $('#midiConnect').addEventListener('click', midiConnect);
   $('#liveCapture').addEventListener('click', liveCapture);
   $('#copyLog').addEventListener('click', () => copyText(logCsv()));

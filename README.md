@@ -5,8 +5,9 @@ This repository is the website. GitHub Pages serves every file in it exactly as 
 | Address | File | What it is |
 |---|---|---|
 | `/` | `index.html` | Front page |
-| `/ji-ify/` | `ji-ify/index.html` | JI-ify, version 15 |
+| `/ji-ify/` | `ji-ify/index.html` | JI-ify, version 16 |
 | `/ji-ify/#perf` | the same file | JI-ify's performer window |
+| `/ji-ify/manual/` | `ji-ify/manual/index.html` | The JI-ify manual, written by hand; its two staff figures are drawings copied out of JI-ify |
 | `/licenses/` | `licenses/index.html` | Credits, with the two font licenses beside it |
 | any wrong address | `404.html` | "No page at this address" |
 
