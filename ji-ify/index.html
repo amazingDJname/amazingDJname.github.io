@@ -59,10 +59,6 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
 .checks3 { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 section.help { max-width: 1240px; margin: 22px auto 0; }
-.lvl { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; border-radius: 999px; padding: 1px 8px; }
-.lvl.easy { color: var(--ok); background: var(--ok-soft); }
-.lvl.fine { color: var(--muted); background: var(--surface-2); }
-.lvl.hard { color: var(--warn); background: var(--warn-soft); }
 .pcards { grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); }
 .pcard:first-child { border-color: var(--accent); }
 .viewtoggle { margin-left: auto; }
@@ -405,9 +401,9 @@ C3 G3 E4 | C</textarea>
       <li>If the progression ends away from where it began, the line under the staff says by how much and offers ways to deal with it.</li>
     </ol>
     <h3>The cards: ways a chord can be "in tune", and the marks</h3>
-    <p><b>most fused</b>: all notes are low harmonics of one fundamental, so the chord sounds as one spectrum; measured by the largest harmonic number. <b>simplest dyads</b>: every pair of notes forms a simple, tunable interval, whether or not they share a fundamental (the "complexity" figure, lower is simpler). <b>easiest route</b>: the hardest interval anyone has to tune along the tuning route is the easiest among the readings. <b>least retuning</b>: smallest total movement from 12-TET. <b>fewest signs</b>: fewest HEJI comma signs to engrave. <b>open strings</b>: the most notes that stand in a simple ratio (odd part up to 15, within 3¢) to an open string of their player, violin G3 D4 A4 E5, viola C3 G3 D4 A4, cello C2 G2 D3 A3, tuned in pure fifths from the page's A4; ties go to the simpler ratios. The per-note column <i>open string</i> names the string and the ratio (5/4 × A4), so the note can be tuned as a double stop or by resonance. The overtone family is ranked by fusion; every other family by complexity. A mark is relative to the chord's own readings.</p>
+    <p><b>most fused</b>: all notes are low harmonics of one fundamental, so the chord sounds as one spectrum; measured by the largest harmonic number. <b>simplest dyads</b>: every pair of notes forms a simple, tunable interval, whether or not they share a fundamental (the "complexity" figure, lower is simpler). <b>simplest route</b>: the most complex interval on the tuning route is simpler than in the other readings. <b>least retuning</b>: smallest total movement from 12-TET. <b>fewest signs</b>: fewest HEJI comma signs to engrave. <b>open strings</b>: the most notes that stand in a simple ratio (odd part up to 15, within 3¢) to an open string of their player, violin G3 D4 A4 E5, viola C3 G3 D4 A4, cello C2 G2 D3 A3, tuned in pure fifths from the page's A4; ties go to the simpler ratios. The per-note column <i>open string</i> names the string and the ratio (5/4 × A4), so the note can be tuned as a double stop or by resonance. The overtone family is ranked by fusion; every other family by complexity. A mark is relative to the chord's own readings.</p>
     <h3>Shortlist view</h3>
-    <p>The recommended reading is the purest one (lowest dyad complexity); the alternatives are the most fused acceptable reading and the best of another family. Each card's difficulty score, used to order ties and to rank when nothing qualifies: 1.5 × the most comma signs on any one note + 0.5 × signs per note + 1.3 × the hardest interval anyone must tune (Tenney height of the interval as sounded, 7/4 = 4.95, 16/9 = 7.17, 19/16 = 12.1; a note within 6¢ of 12-TET counts as 3, since it is simply played as on the piano) + 2 per respelled note + the largest move from the piano in cents ÷ 20 + 2 if a prime above 7 is used (+3 above 13) + 3 × the reading's complexity above the chord's best, as a fraction. The chips are a notation-and-tuning load estimate for the players to judge, never a filter: <b>easy</b> = at most one sign per note, hardest interval ≤ 6.3, nothing moves more than 35¢, your spelling kept, 7-limit; <b>fine</b> = two signs somewhere, or an interval up to 9, or up to 45¢, or 11/13; <b>hard</b> beyond that.</p>
+    <p>The recommended reading is the purest one (lowest dyad complexity); the alternatives are the most fused reading and the best of another family. Equally pure readings are ordered by fewest comma signs. The cards state facts (signs per note, the most complex interval on the route, the note farthest from the piano, primes, respellings) and do not grade a reading as easy or hard: that is for the players. One weighted sum of those facts remains, as the live pick <b>easiest to read</b> for MIDI input: 1.5 × the most comma signs on any one note + 0.5 × signs per note + 1.3 × the most complex interval on the route (Tenney height of the interval as sounded, 7/4 = 4.95, 16/9 = 7.17, 19/16 = 12.1; a note within 6¢ of 12-TET counts as 3, since it is simply played as on the piano) + 2 per respelled note + the largest move from the piano in cents ÷ 20 + 2 if a prime above 7 is used (+3 above 13) + 3 × the reading's complexity above the chord's best, as a fraction; lowest wins.</p>
     <h3>The staff: HEJI signs and what they are measured from</h3>
     <p>Letter = Pythagorean pitch; each sign is one comma, up or down, for one prime. Derived from the comma definitions, so confirm glyphs against the Plainsound legend before engraving.</p>
     <p>Signs are measured from a 1/1. In the linked view that is the segment's first root, so signs the whole chord shares say where this chord's root fell (a root a 7·23 ratio away puts ↓7 ↑23 on every note). A chord that follows a 12-TET chord, or a reset, is its own 1/1: a tempered neighbour offers no ratio to measure from, so a link change there moves the chord (cents, Hz) without changing its signs; the column's caption states the reference it is measured from (1/1 A2 = 109.0 Hz). <b>Spell from</b> under the staff chooses what plays as well as what is written. <i>Absolute</i>: the chords are linked, chord 1's root is the one 1/1, drift is carried from chord to chord and every comma a link adds shows as signs. <i>Relative</i>: each chord stands on its own with its root at the piano's pitch, exactly as its card sounds, spelled from that root (<i>as typed</i>) or from whichever chord note reads cheapest (<i>fewest signs</i>: signs, then re-lettered notes); links, drift and the verdict do not apply, and a common tone that differs between two neighbouring chords shows its slip on the tie. Cents and Hz do not change, only the declared reference, which the title then states (spelled as typed, B♭2 = 118.33 Hz as 1/1).</p>
@@ -421,7 +417,7 @@ C3 G3 E4 | C</textarea>
     <h3>Cents and Hz</h3>
     <p>Deviations from 12-TET with the chosen note held at its tempered pitch. To anchor elsewhere, add one constant to every value.</p>
     <h3>Complexity</h3>
-    <p>For each interval, the exponents of its primes above 2 times log2 of the prime, with primes above 7 weighted more (×1.6 for 11 and 13, up to ×2.3 for 31). Summed over all pairs, counting pairs with the root twice and with the bass one and a half times. Tuning routes and the "hardest to tune" figures use the same height counting the 2s as well, so an interval's actual width matters.</p>
+    <p>For each interval, the exponents of its primes above 2 times log2 of the prime, with primes above 7 weighted more (×1.6 for 11 and 13, up to ×2.3 for 31). Summed over all pairs, counting pairs with the root twice and with the bass one and a half times. Tuning routes and the "most complex interval" figures use the same height counting the 2s as well, so an interval's actual width matters.</p>
     <h3>Playback</h3>
     <p>An additive tone (24 harmonics, 1/n amplitudes with a gentle high-frequency roll-off, no vibrato). The level is scaled by the number of voices (n<sup>−0.75</sup>) with a mild tilt that lifts high notes and tames low ones, and a limiter at −3 dBFS guards the output, so a full chord does not clip. Single notes are therefore a little louder than the chord, per voice.</p>
     <h3>Live MIDI, performer window, Max</h3>
@@ -444,9 +440,9 @@ C3 G3 E4 | C</textarea>
 <template id="help-chords"><p>One chord per line, lowest note first: a letter, an accidental if any (<code>#</code>, <code>b</code>, <code>x</code>, <code>bb</code>) and an octave number, C4 being middle C. MIDI note numbers work too. Text after <code>|</code> is the chord's name on the staff. How a note is spelled decides how it is tuned: D♯ and E♭ get different ratios.</p><p><b>Analyze</b> reads the list. <b>examples</b> replaces it with a progression that drifts. The <b>keyboard</b> writes a chord for you: click keys, then <b>Add to list</b> or copy the line; <b>black keys</b> switches between sharps and flats for the keys you click next. The row below is for a MIDI keyboard, a second window for performers, and copying the results out. <a href="manual/#chords" target="_blank" rel="noopener">More in the manual</a></p></template>
 <template id="help-settings"><p>These decide which tunings are looked for. <b>Families</b> are the kinds of just intonation to try, named by the primes they use. <b>Tolerance</b> is how far a tuned note may sit from its piano pitch. <b>Hold at 12-TET</b> is the one note that stays at piano pitch. <b>Your spellings</b> says whether a reading may respell a note you typed. The defaults suit most chords; a change re-analyzes at once. <a href="manual/#settings" target="_blank" rel="noopener">More in the manual</a></p></template>
 <template id="help-score"><p>The staff shows every chord in the list, each in the tuning chosen for it. Click a chord to focus it; the chips under the staff switch its tuning and the table lists its notes. Accidentals with arrows are Helmholtz-Ellis signs: each arrow moves the note by one small interval (a comma). Click a notehead to hear that note alone.</p><p>With several chords, dashed lines join notes that are held from one chord to the next, and each caption gives the chord's distance from the piano's pitch. The sentence beside the title sums up the drift. <a href="manual/#score" target="_blank" rel="noopener">More in the manual</a></p></template>
-<template id="help-cards"><p>Each card is one <i>reading</i>: one way to tune this chord in just intonation. Per note: its ratio to the root, its Helmholtz-Ellis accidental in words, its distance from 12-TET in cents (blue = lower, amber = higher), its frequency. <b>Tune</b> is an order in which players can tune it, interval by interval. <b>easy</b>, <b>fine</b> and <b>hard</b> estimate the load on the players.</p><p><b>Shortlist</b> shows the recommended reading and two alternatives; <b>All readings</b> shows every family. The root is suggested; choose another, or type one, to read the chord differently. <a href="manual/#readings" target="_blank" rel="noopener">More in the manual</a></p></template>
+<template id="help-cards"><p>Each card is one <i>reading</i>: one way to tune this chord in just intonation. Per note: its ratio to the root, its Helmholtz-Ellis accidental in words, its distance from 12-TET in cents (blue = lower, amber = higher), its frequency. <b>Tune</b> is an order in which players can tune it, interval by interval.</p><p><b>Shortlist</b> shows the recommended reading and two alternatives; <b>All readings</b> shows every family. The root is suggested; choose another, or type one, to read the chord differently. <a href="manual/#readings" target="_blank" rel="noopener">More in the manual</a></p></template>
 <footer class="colophon">
-  <p>JI-ify, version 17.</p>
+  <p>JI-ify, version 18.</p>
   <p>The accidentals belong to the Helmholtz-Ellis JI Pitch Notation, devised by Marc Sabat and Wolfgang von Schweinitz. Music glyphs come from a subset of the Bravura font by Steinberg; the text is set in IBM Plex. Both fonts are used under the SIL Open Font License. <a href="../licenses/">Credits and licenses</a></p>
 </footer>
 
@@ -2329,10 +2325,11 @@ const Progression = (function () {
   });
 
 
-  // ---------- playability ----------
-  // What makes a reading hard for a quartet: comma signs stacked on one note, a route whose hardest interval is
-  // not a simple one, a note far from what the piano played, a spelling that contradicts the typed one, primes
-  // above 7. The score orders readings by these; the level is a coarse verdict.
+  // ---------- facts about a reading ----------
+  // Comma signs per note, the most complex interval on the tuning route, the note farthest from 12-TET, respelled
+  // notes, the highest prime. The card states these and passes no verdict: there used to be an easy/fine/hard
+  // chip, removed in v18 (players who tune by ratio are not slowed by distance from the piano, and the page
+  // cannot know who reads it). The weighted score survives only as the live pick "easiest to read".
   function assess(r, minCons) {
     const n = r.notes.length;
     const signsPer = r.notes.map(x => x.heji.arrows.reduce((s, ar) => s + Math.abs(ar.count), 0));
@@ -2345,26 +2342,22 @@ const Progression = (function () {
     const worst = r.notes.reduce((w, x) => Math.abs(x.cents) > Math.abs(w.cents) ? x : w, r.notes[0]);
     // a high prime only matters for the player when the note it sits on is actually away from 12-TET
     const limit = Math.max(2, ...r.notes.map(x => Math.abs(x.cents) > 6 ? x.limit : 2));
-    let level = 'easy';
-    if (maxSigns >= 3 || limit > 13 || hardC > 9 || Math.abs(worst.cents) > 45) level = 'hard';
-    else if (maxSigns === 2 || limit > 7 || hardC > 6.3 || Math.abs(worst.cents) > 35 || r.scores.respelled > 0) level = 'fine';
     const score = 1.5 * maxSigns + 0.5 * totalSigns / n + 1.3 * hardC + 2 * r.scores.respelled + Math.abs(worst.cents) / 20 + (limit > 7 ? 2 : 0) + (limit > 13 ? 3 : 0) + 3 * (r.scores.consonance - minCons) / minCons;
-    return { level, score, maxSigns, totalSigns, worstSignNote, hard, worst, limit };
+    return { score, maxSigns, totalSigns, worstSignNote, hard, worst, limit };
   }
   function assessLine(r, A) {
     const parts = [E.FAMILIES[r.family].short];
     parts.push(A.maxSigns === 0 ? 'no comma signs' : A.maxSigns === 1 ? 'at most one sign per note' : `${A.maxSigns} signs on ${A.worstSignNote.typed}`);
-    if (A.hard) parts.push(A.hard.difficulty <= 3 && Math.abs(r.notes[A.hard.noteIdx].cents) <= 6 ? 'every note is either a simple interval away or within 6¢ of the piano' : `hardest to tune: ${A.hard.note} ${A.hard.cents >= 0 ? A.hard.reduced + ' above' : invRatio(A.hard.ratio) + ' below'} ${A.hard.from}`);
+    if (A.hard) parts.push(A.hard.difficulty <= 3 && Math.abs(r.notes[A.hard.noteIdx].cents) <= 6 ? 'every note is either a simple interval away or within 6¢ of the piano' : `most complex interval on the route: ${A.hard.note} ${A.hard.cents >= 0 ? A.hard.reduced + ' above' : invRatio(A.hard.ratio) + ' below'} ${A.hard.from}`);
     parts.push(`farthest from the piano: ${A.worst.typed} ${fmtC1(A.worst.cents)}¢`);
     if (A.limit > 7) parts.push(`uses prime ${A.limit}`);
     if (r.scores.respelled) parts.push(`${r.scores.respelled} note${r.scores.respelled > 1 ? 's' : ''} respelled`);
     return parts.join(' · ');
   }
-  const LEVEL_TEXT = { easy: 'easy', fine: 'fine', hard: 'hard' };
   function playCard(x, idx, chord, a) {
     const r = x.r, A = x.A;
     const d = document.createElement('div'); d.className = 'card pcard'; d.dataset.id = r.id;
-    let html = `<div class="card-head"><span class="id">${idx === 0 ? 'Recommended' : 'Alternative'} · ${esc(r.id)}</span><span class="lvl ${A.level}">${LEVEL_TEXT[A.level]}</span>${x.marks && x.marks.length ? `<span class="pick">${x.marks.join(' · ')}</span>` : ''}</div>`;
+    let html = `<div class="card-head"><span class="id">${idx === 0 ? 'Recommended' : 'Alternative'} · ${esc(r.id)}</span>${x.marks && x.marks.length ? `<span class="pick">${x.marks.join(' · ')}</span>` : ''}</div>`;
     html += `<p class="hint" style="margin:0 0 6px">${esc(assessLine(r, A))}</p>`;
     const osp = openStringsOf(r.notes.map(n => n.hz), settings().a4);
     html += `<div class="scroll"><table><thead><tr><th>note</th><th>ratio</th><th>HEJI</th><th class="num">¢</th><th class="num">Hz</th><th title="a simple ratio to one of the player's open strings, within 3¢">open string</th></tr></thead><tbody>`;
@@ -2420,16 +2413,15 @@ const Progression = (function () {
     const routeMax = r => Math.max(...r.route.map(s => s.complexity));
     const signs = r => r.notes.reduce((n, x) => n + x.heji.arrows.reduce((m, ar) => m + Math.abs(ar.count), 0), 0);
     const openKey = r => { if (r._openKey === undefined) r._openKey = openStringsOf(r.notes.map(n => n.hz), opts.a4).key; return r._openKey; };
-    const marks = { 'simplest dyads': Math.min(...all.map(r => r.scores.consonance)), 'most fused': Math.min(...all.map(r => r.maxHarmonic)), 'easiest route': Math.min(...all.map(routeMax)), 'least retuning': Math.min(...all.map(r => r.scores.sumDev)), 'fewest signs': Math.min(...all.map(signs)), 'open strings': Math.max(...all.map(openKey)) };
-    const picksOf = r => { const p = []; if (r.scores.consonance === marks['simplest dyads']) p.push('simplest dyads'); if (r.maxHarmonic === marks['most fused']) p.push('most fused'); if (routeMax(r) === marks['easiest route']) p.push('easiest route'); if (r.scores.sumDev === marks['least retuning']) p.push('least retuning'); if (signs(r) === marks['fewest signs']) p.push('fewest signs'); if (marks['open strings'] > 0 && openKey(r) === marks['open strings']) p.push('open strings'); return p; };
+    const marks = { 'simplest dyads': Math.min(...all.map(r => r.scores.consonance)), 'most fused': Math.min(...all.map(r => r.maxHarmonic)), 'simplest route': Math.min(...all.map(routeMax)), 'least retuning': Math.min(...all.map(r => r.scores.sumDev)), 'fewest signs': Math.min(...all.map(signs)), 'open strings': Math.max(...all.map(openKey)) };
+    const picksOf = r => { const p = []; if (r.scores.consonance === marks['simplest dyads']) p.push('simplest dyads'); if (r.maxHarmonic === marks['most fused']) p.push('most fused'); if (routeMax(r) === marks['simplest route']) p.push('simplest route'); if (r.scores.sumDev === marks['least retuning']) p.push('least retuning'); if (signs(r) === marks['fewest signs']) p.push('fewest signs'); if (marks['open strings'] > 0 && openKey(r) === marks['open strings']) p.push('open strings'); return p; };
 
     if (state.view === 'playable') {
-      // Recommended = the purest reading (lowest dyad complexity) among those that are not hard to read or
-      // play; then the most fused acceptable reading, then the best of another family, for colour.
+      // Recommended = the purest reading (lowest dyad complexity), ties to the fewest comma signs; then the
+      // most fused reading, then the best of another family, for colour.
       const minCons = marks['simplest dyads'];
       const assessed = all.map(r => ({ r, A: assess(r, minCons), marks: picksOf(r) }));
-      // Sound first: nothing is filtered by the load estimate; the chips only describe it.
-      const pool = assessed.slice().sort((p, q) => p.r.scores.consonance - q.r.scores.consonance || p.A.score - q.A.score);
+      const pool = assessed.slice().sort((p, q) => p.r.scores.consonance - q.r.scores.consonance || signs(p.r) - signs(q.r));
       const picks = [pool[0]];
       const fused = pool.slice().sort((p, q) => p.r.maxHarmonic - q.r.maxHarmonic)[0];
       if (fused && fused !== picks[0] && fused.r.maxHarmonic < picks[0].r.maxHarmonic) picks.push(fused);
@@ -2438,14 +2430,14 @@ const Progression = (function () {
       const wrap = document.createElement('div'); wrap.className = 'cards pcards';
       picks.forEach((x, i) => wrap.appendChild(playCard(x, i, chord, a)));
       sec.appendChild(wrap);
-      sec.insertAdjacentHTML('beforeend', `<p class="hint" style="margin-top:10px">Recommended = the purest reading (simplest dyads); the alternatives are the most fused one and another family, for colour. The easy/fine/hard chips estimate notation and tuning load for the players to judge; they hide nothing. ${assessed.length - picks.length} more under <b>All readings</b>.</p>`);
+      sec.insertAdjacentHTML('beforeend', `<p class="hint" style="margin-top:10px">Recommended = the purest reading (simplest dyads); the alternatives are the most fused one and another family, for colour. ${assessed.length - picks.length} more under <b>All readings</b>.</p>`);
       attachChordEvents(sec, ci, chord, a, opts, all);
       return sec;
     }
 
     // matrix
     const anchorName = opts.anchor === 'bass' ? noteNames[0] : (a.rootInChord ? a.root.pc : noteNames[0] + ' (root absent)');
-    let m = `<div class="scroll"><table class="matrix"><thead><tr><th>reading</th><th>basis</th>${noteNames.map(n => `<th class="num">${esc(n)}</th>`).join('')}<th class="num">limit</th><th class="num">max harm.</th><th class="num">complexity</th><th class="num" title="hardest interval on the tuning route">route max</th><th class="num">Σ|¢|</th><th>marks</th><th></th></tr></thead><tbody>`;
+    let m = `<div class="scroll"><table class="matrix"><thead><tr><th>reading</th><th>basis</th>${noteNames.map(n => `<th class="num">${esc(n)}</th>`).join('')}<th class="num">limit</th><th class="num">max harm.</th><th class="num">complexity</th><th class="num" title="most complex interval on the tuning route">route max</th><th class="num">Σ|¢|</th><th>marks</th><th></th></tr></thead><tbody>`;
     all.forEach(r => {
       m += `<tr class="row" data-card="${esc(r.id)}"><td>${esc(r.id)}</td><td class="fam">${r.fundamental ? 'on ' + esc(r.fundamental.pc) + ' ' + esc(r.fundamental.series) : esc(E.FAMILIES[r.family].short)}</td>`;
       r.notes.forEach(n => { m += `<td class="cell" style="${cellStyle(n.cents)}" title="${esc(n.heji.label)} · ${n.ratio}">${fmtC(n.cents)}</td>`; });
